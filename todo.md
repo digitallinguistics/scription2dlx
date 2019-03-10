@@ -5,6 +5,7 @@
 - [ ] setup Jasmine
 - [ ] write tests (following spec)
 - [ ] setup Travis CI
+- [ ] restrict branches
 - [ ] setup auto-deployment to npm based on releases
 - [ ] setup JSDoc
 - [ ] setup GitHub pages
