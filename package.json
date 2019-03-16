@@ -31,5 +31,8 @@
   },
   "engines": {
     "node": "11.x"
+  },
+  "devDependencies": {
+    "jasmine": "^3.3.1"
   }
 }
