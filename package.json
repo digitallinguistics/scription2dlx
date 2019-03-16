@@ -21,7 +21,7 @@
     "url": "https://danielhieber.com"
   },
   "main": "scription2dlx.js",
-  "module": "dist/index.js",
+  "module": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
