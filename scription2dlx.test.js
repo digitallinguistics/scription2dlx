@@ -1,0 +1,1 @@
+describe(`scription2dlx`, () => {});

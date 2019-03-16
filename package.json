@@ -31,5 +31,12 @@
   },
   "engines": {
     "node": "11.x"
+  },
+  "scripts": {
+    "test": "jasmine --config=jasmine.json"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.2",
+    "jasmine": "^3.3.1"
   }
 }

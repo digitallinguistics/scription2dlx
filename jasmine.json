@@ -1,0 +1,5 @@
+{
+  "random":                       true,
+  "spec_files":                   ["*.test.js"],
+  "stopSpecOnExpectationFailure": true
+}
