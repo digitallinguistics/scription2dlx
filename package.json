@@ -1,0 +1,35 @@
+{
+  "name": "@digitallinguistics/scription2dlx",
+  "version": "0.1.0",
+  "description": "A JavaScript library for converting linguistic texts in scription format to the DLx JSON format",
+  "keywords": [
+    "linguistics",
+    "DLx",
+    "Digital Linguistics",
+    "language",
+    "digital humanities",
+    "documentary linguistics",
+    "language documentation",
+    "scription"
+  ],
+  "homepage": "https://github.com/digitallinguistics/scription2dlx",
+  "bugs": "https://github.com/digitallinguistics/scription2dlx/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Daniel W. Hieber",
+    "email": "dwhieb@gmail.com",
+    "url": "https://danielhieber.com"
+  },
+  "main": "scription2dlx.js",
+  "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitallinguistics/scription2dlx.git"
+  },
+  "config": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "11.x"
+  }
+}
