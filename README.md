@@ -26,11 +26,7 @@ Install the library in your project from the command line: `npm i @digitallingui
 **Option 2:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
 
 ```html
-<!-- If your targeted browsers do not support ES modules -->
 <script src=node_modules/@digitallinguistics/scription2dlx/scription2dlx.js></script>
-
-<!-- If your targeted browsers support ES modules -->
-<script src=node_modules/@digitallinguistics/scription2dlx/dist/index.js type=module></script>
 ```
 
 Both options will make a global `scription2dlx` function available in the browser.
