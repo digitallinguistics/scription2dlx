@@ -17,13 +17,19 @@ Install the library in your project from the command line: `npm i @digitallingui
 
 ### Browser
 
-**Option 1:** Download the `scription2dlx.js` file from the [releases page][releases] and include it in a script tag in your HTML:
+**Option 1:** Include the `scription2dlx` library as a script in your HTML from the DLx CDN:
+
+```html
+<script src=https://cdn.digitallinguistics.io/scripts/scription2dlx-0.1.0.js></script>
+```
+
+**Option 2:** Download the `scription2dlx.js` file from the [releases page][releases] and include it in a script tag in your HTML:
 
 ```html
 <script src=scription2dlx.js></script>
 ```
 
-**Option 2:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
+**Option 3:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
 
 ```html
 <script src=node_modules/@digitallinguistics/scription2dlx/scription2dlx.js></script>
