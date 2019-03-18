@@ -1,4 +1,4 @@
-# [scription2dlx][GitHub]
+# scription2dlx
 
 [![npm (scoped)](https://img.shields.io/npm/v/@digitallinguistics/scription2dlx.svg)][GitHub]
 [![npm](https://img.shields.io/npm/dt/@digitallinguistics/scription2dlx.svg)][npm]
