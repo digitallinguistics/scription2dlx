@@ -34,9 +34,11 @@
   },
   "scripts": {
     "build": "webpack",
-    "test": "jasmine --config=jasmine.json"
+    "test": "jasmine --config=jasmine.json",
+    "upload": "node build/upload.js"
   },
   "devDependencies": {
+    "@azure/storage-blob": "^10.3.0",
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
