@@ -63,6 +63,6 @@ console.log(text.title); // "How the world began"
 [license]:   https://github.com/digitallinguistics/scription2dlx/blob/master/LICENSE.md
 [npm]:       https://www.npmjs.com/package/@digitallinguistics/scription2dlx
 [releases]:  https://github.com/digitallinguistics/scription2dlx/releases
-[scription]: https://developer.digitallinguistics.io/scription
+[scription]: https://scription.digitallinguistics.io
 [Text]:      https://spec.digitallinguistics.io/schemas/Text.html
 [Travis CI]: https://travis-ci.org/digitallinguistics/scription2dlx
