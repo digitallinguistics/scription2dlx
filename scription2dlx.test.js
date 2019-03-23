@@ -4,7 +4,7 @@
 
 const convert = require(`./scription2dlx`);
 
-xdescribe(`scription2dlx`, () => {
+describe(`scription2dlx`, () => {
 
   describe(`text`, () => {
 
@@ -20,7 +20,7 @@ xdescribe(`scription2dlx`, () => {
 
   });
 
-  describe(`metadata header`, () => {
+  xdescribe(`metadata header`, () => {
 
     it(`must be in YAML (or JSON) format`, () => {
 
@@ -112,7 +112,7 @@ xdescribe(`scription2dlx`, () => {
 
   });
 
-  describe(`interlinear schema`, () => {
+  xdescribe(`interlinear schema`, () => {
 
     it(`3-line utterances default to morphemes + glosses + translation`, () => {
 
@@ -265,7 +265,7 @@ xdescribe(`scription2dlx`, () => {
 
   });
 
-  describe(`utterances`, () => {
+  xdescribe(`utterances`, () => {
 
     it(`are separated by empty lines`, () => {
 
@@ -379,7 +379,7 @@ xdescribe(`scription2dlx`, () => {
 
   });
 
-  describe(`lines`, () => {
+  xdescribe(`lines`, () => {
 
     it(`are stripped of leading / trailing whitespace`, () => {
 
@@ -394,7 +394,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`speaker`, () => {
+    xdescribe(`speaker`, () => {
 
       it(`must be a valid abbreviation`, () => {
 
@@ -412,7 +412,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`transcript`, () => {
+    xdescribe(`transcript`, () => {
 
       it(`may be in multiple formats`, () => {
 
@@ -435,7 +435,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`phomemic transcription`, () => {
+    xdescribe(`phomemic transcription`, () => {
 
       it(`should remove phonemic slashes`, () => {
 
@@ -473,7 +473,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`phonetic transcription`, () => {
+    xdescribe(`phonetic transcription`, () => {
 
       it(`may only contain IPA characters`, () => {
 
@@ -519,7 +519,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`morphemes`, () => {
+    xdescribe(`morphemes`, () => {
 
       it(`may be in multiple orthographies`);
 
@@ -535,7 +535,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`glosses`, () => {
+    xdescribe(`glosses`, () => {
 
       it(`may be in multiple languages`);
 
@@ -565,7 +565,7 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`literal translation`, () => {
+    xdescribe(`literal translation`, () => {
 
       it(`removes brackets`, () => {
 
@@ -580,13 +580,13 @@ xdescribe(`scription2dlx`, () => {
 
     });
 
-    describe(`free translation`, () => {
+    xdescribe(`free translation`, () => {
 
       it(`may be in multiple languages`);
 
     });
 
-    describe(`note`, () => {
+    xdescribe(`note`, () => {
 
       it(`may have source, language, and text`, () => {
 

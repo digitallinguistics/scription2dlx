@@ -57,6 +57,10 @@ const text = scription2dlx(data);
 console.log(text.title); // "How the world began"
 ```
 
+## Using as a Dependency
+
+If you would like to use `scription2dlx` as a dependency in your library, it is recommended that you use the files in the `/src` folder. The source code for the `scription2dlx` library is written using ES modules and the latest JavaScript syntax and features. You will need to bundle and/or transpile the code accordingly.
+
 [DaFoDiL]:   https://spec.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx
