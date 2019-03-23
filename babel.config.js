@@ -13,6 +13,7 @@ module.exports = {
             `maintained node versions`,
           ],
         },
+        useBuiltIns: `entry`,
       },
     ],
   ],
