@@ -379,4 +379,304 @@ describe(`scription2dlx`, () => {
 
   });
 
+  describe(`lines`, () => {
+
+    it(`are stripped of leading / trailing whitespace`, () => {
+
+      const text = `
+      \\txn      wetkš hus na·nča·kamankš wetk hi hokmiʔi
+      \\tln He left his brothers.\u0020\u0020\u0020
+      `;
+
+      const { utterances: [utterance] } = convert(text);
+
+      expect(utterance.translation.endsWith(` `)).toBe(true);
+
+    });
+
+    describe(`speaker`, () => {
+
+      it(`must be a valid abbreviation`, () => {
+
+        const text = `
+        \\sp  Benjamin Paul
+        \\txn wetkš hus na·nča·kamankš wetk hi hokmiʔi
+        \\tln He left his brothers.
+        `;
+
+        const test = () => convert(text);
+
+        expect(test).not.toThrow();
+
+      });
+
+    });
+
+    describe(`transcript`, () => {
+
+      it(`may be in multiple formats`, () => {
+
+        const SwadeshTranscript = `wetkšˊ husˊ na·nča·kamankšˊ wetkˊ hi hokmiʔiˊ`;
+        const DFTTranscript     = `wetkš↗ hus↗ na·nča·kamankš↗ wetkˊ hi hokmiʔiˊ↗`;
+
+        const text = `
+        \\trs-swad ${SwadeshTranscript}.
+        \\trs-dft  ${DFTTranscript}
+        \\tln      He left his brothers.
+        `;
+
+        const { utterances: [utterance] } = convert(text);
+        const { transcript }              = utterance;
+
+        expect(transcript.swad).toBe(SwadeshTranscript);
+        expect(transcript.dft).toBe(DFTTranscript);
+
+      });
+
+    });
+
+    describe(`phomemic transcription`, () => {
+
+      it(`should remove phonemic slashes`, () => {
+
+        const transcription = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`;
+
+        const text = `
+        /${transcription}/
+        He left his brothers.
+        `;
+
+        const { utterances: [utterance] } = convert(text);
+
+        expect(utterance.transcription).toBe(transcription);
+
+      });
+
+      it(`may have multiple orthographies`, () => {
+
+        const SwadeshTranscription = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`;
+        const APATranscription     = `wetkš hus naːnčaːkamankš wetk hi hokmiʔi`;
+
+        const text = `
+        \\txn-swad ${SwadeshTranscription}
+        \\txn-apa  ${APATranscription}
+        \\tln      He left his brothers.
+        `;
+
+        const { utterances: [utterance] } = convert(text);
+        const { transcription } = utterance;
+
+        expect(transcription.swad).toBe(SwadeshTranscription);
+        expect(transcription.apa).toBe(APATranscription);
+
+      });
+
+    });
+
+    describe(`phonetic transcription`, () => {
+
+      it(`may only contain IPA characters`, () => {
+
+        const text = `
+        wetkš hus na·nča·kamankš wetk hi hokmiʔi
+        He left his brothers.
+        `;
+
+        const test = () => convert(text);
+
+        expect(test).toThrow();
+
+      });
+
+      it(`should remove phonetic brackets`, () => {
+
+        const transcription = `wetkʃ hus naːnt͡ʃaːkamankʃ wetk hi hokmiʔi`;
+
+        const text = `
+        \\phon [${transcription}]
+        \\tln He left his brothers.
+        `;
+
+        const { utterances: [utterance] } = convert(text);
+
+        expect(utterance.phonetic).toBe(transcription);
+
+      });
+
+      it(`may not appear in multiple orthographies`, () => {
+
+        const text = `
+        \\phon-ipa  wetkʃ hus naːnt͡ʃaːkamankʃ wetk hi hokmiʔi
+        \\phon-swad wetkʃ hus naːnt͡ʃaːkamankʃ wetk hi hokmiʔi
+        \\tln He left his brothers.
+        `;
+
+        const test = () => convert(text);
+
+        expect(test).toThrow();
+
+      });
+
+    });
+
+    describe(`morphemes`, () => {
+
+      it(`may be in multiple orthographies`, () => {
+
+
+      });
+
+      it(`may separate words by one or more white spaces or tabs`, () => {
+
+
+      });
+
+      it(`must have the same number of words as the glosses line`, () => {
+
+
+      });
+
+      it(`must have the same number of morphemes in each word as the glosses line`, () => {
+
+
+      });
+
+      it(`may not contain non-breaking hyphens`, () => {
+
+
+      });
+
+      it(`must be present if the glosses line is present`);
+
+    });
+
+    describe(`glosses`, () => {
+
+      it(`may be in multiple languages`, () => {
+
+
+      });
+
+      it(`may separate words with one or more white spaces or tabs`, () => {
+
+
+      });
+
+      it(`may be omitted when the morphemes line is present`, () => {
+
+
+      });
+
+      it(`treats morphemes as grammatical when written in CAPS`, () => {
+
+        const text = `
+        \\m  ni-na-ku-pend-a
+        \\gl 1SG.SUBJ-PRES-2SG.OBJ-love-IND
+        `;
+
+        const { utterances: [utterance] } = convert(text);
+        const { words: [word] } = utterance;
+        const { morphemes: [, morpheme] } = word;
+
+        expect(morpheme.gloss).toBe(`PRES`);
+
+      });
+
+      it(`should not contain non-breaking hyphens`, () => {
+
+
+      });
+
+    });
+
+    describe(`literal translation`, () => {
+
+      it(`removes brackets`, () => {
+
+        const text = `
+        \\txn ninakupenda
+        \\lit [I love you]
+        `;
+
+      });
+
+      it(`may be in multiple languages`, () => {
+
+
+      });
+
+    });
+
+    describe(`free translation`, () => {
+
+      it(`may be in multiple languages`, () => {
+
+
+      });
+
+    });
+
+    describe(`note`, () => {
+
+      it(`may have source, language, and text`, () => {
+
+        const text = `
+        \\n DWH-eng: Is this utterance past or present tense?
+        `;
+
+      });
+
+      it(`may have a source and text`, () => {
+
+        const text = `
+        \\n DWH: Is this utterance past or present tense?
+        `;
+
+      });
+
+      it(`may have only text`, () => {});
+
+      it(`may not have only a language and text`, () => {
+
+        const text = `
+        \\n -eng: Is this utterance past or present tense?
+        `;
+
+      });
+
+      it(`must only use ASCII letters and numbers for the source`, () => {
+
+
+      });
+
+      it(`must only use ASCII letters and numbers for the language/orthography`, () => {
+
+
+      });
+
+      it(`assumes the language of the note is English if not specified`, () => {
+
+
+      });
+
+      it(`removes white space before the colon`, () => {
+
+        const text = `
+        \\n DWH-eng : This is a note.
+        `;
+
+      });
+
+      it(`may have multiple white spaces or tabs after the colon`, () => {
+
+        const text = `
+        \\n DWH:\t \tThis is a note.
+        `;
+
+      });
+
+    });
+
+  });
+
 });
