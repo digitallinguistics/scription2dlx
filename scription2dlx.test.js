@@ -4,7 +4,7 @@
 
 const convert = require(`./scription2dlx`);
 
-describe(`scription2dlx`, () => {
+xdescribe(`scription2dlx`, () => {
 
   describe(`text`, () => {
 
@@ -521,30 +521,15 @@ describe(`scription2dlx`, () => {
 
     describe(`morphemes`, () => {
 
-      it(`may be in multiple orthographies`, () => {
+      it(`may be in multiple orthographies`);
 
+      it(`may separate words by one or more white spaces or tabs`);
 
-      });
+      it(`must have the same number of words as the glosses line`);
 
-      it(`may separate words by one or more white spaces or tabs`, () => {
+      it(`must have the same number of morphemes in each word as the glosses line`);
 
-
-      });
-
-      it(`must have the same number of words as the glosses line`, () => {
-
-
-      });
-
-      it(`must have the same number of morphemes in each word as the glosses line`, () => {
-
-
-      });
-
-      it(`may not contain non-breaking hyphens`, () => {
-
-
-      });
+      it(`may not contain non-breaking hyphens`);
 
       it(`must be present if the glosses line is present`);
 
@@ -552,20 +537,11 @@ describe(`scription2dlx`, () => {
 
     describe(`glosses`, () => {
 
-      it(`may be in multiple languages`, () => {
+      it(`may be in multiple languages`);
 
+      it(`may separate words with one or more white spaces or tabs`);
 
-      });
-
-      it(`may separate words with one or more white spaces or tabs`, () => {
-
-
-      });
-
-      it(`may be omitted when the morphemes line is present`, () => {
-
-
-      });
+      it(`may be omitted when the morphemes line is present`);
 
       it(`treats morphemes as grammatical when written in CAPS`, () => {
 
@@ -600,19 +576,13 @@ describe(`scription2dlx`, () => {
 
       });
 
-      it(`may be in multiple languages`, () => {
-
-
-      });
+      it(`may be in multiple languages`);
 
     });
 
     describe(`free translation`, () => {
 
-      it(`may be in multiple languages`, () => {
-
-
-      });
+      it(`may be in multiple languages`);
 
     });
 
@@ -634,7 +604,7 @@ describe(`scription2dlx`, () => {
 
       });
 
-      it(`may have only text`, () => {});
+      it(`may have only text`);
 
       it(`may not have only a language and text`, () => {
 
@@ -644,20 +614,11 @@ describe(`scription2dlx`, () => {
 
       });
 
-      it(`must only use ASCII letters and numbers for the source`, () => {
+      it(`must only use ASCII letters and numbers for the source`);
 
+      it(`must only use ASCII letters and numbers for the language/orthography`);
 
-      });
-
-      it(`must only use ASCII letters and numbers for the language/orthography`, () => {
-
-
-      });
-
-      it(`assumes the language of the note is English if not specified`, () => {
-
-
-      });
+      it(`assumes the language of the note is English if not specified`);
 
       it(`removes white space before the colon`, () => {
 
