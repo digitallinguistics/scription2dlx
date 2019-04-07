@@ -34,7 +34,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "test": "jasmine --config=jasmine.json",
+    "test": "jasmine --config=test/jasmine.json",
     "upload": "node build/upload.js"
   },
   "devDependencies": {

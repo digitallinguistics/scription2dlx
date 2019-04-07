@@ -1,0 +1,8 @@
+{
+  "events": {
+    "restart": "npm run build && npm test"
+  },
+  "ignore": [
+    "scription2dlx.js"
+  ]
+}
