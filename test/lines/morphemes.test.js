@@ -18,4 +18,6 @@ describe(`morphemes`, () => {
 
   it(`must be present if the glosses line is present`);
 
+  it(`may group multiple words with [square brackets]`);
+
 });

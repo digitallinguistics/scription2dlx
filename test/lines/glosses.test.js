@@ -29,4 +29,6 @@ describe(`glosses`, () => {
 
   it(`should not contain non-breaking hyphens`);
 
+  it(`may group multiple words with [square brackets]`);
+
 });
