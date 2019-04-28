@@ -1,7 +1,3 @@
-import getMatches from './getMatches.js';
-
-const headerRegExp = /(---.+---)/su;
-
 /**
  * The top-level script for this library. Converts a Scription-format text to Daffodil format.
  * @param  {String} scription The text of the Scription file to parse
@@ -9,6 +5,6 @@ const headerRegExp = /(---.+---)/su;
  */
 export default function scription2dlx(scription) {
 
-  return text;
+  return scription;
 
 }
