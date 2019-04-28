@@ -4,9 +4,9 @@
 
 const convert = require(`../../scription2dlx`);
 
-describe(`lines`, () => {
+describe(`line`, () => {
 
-  it(`are stripped of leading / trailing whitespace`, () => {
+  it(`is stripped of leading / trailing whitespace`, () => {
 
     const text = `
     \\txn      wetkš hus na·nča·kamankš wetk hi hokmiʔi

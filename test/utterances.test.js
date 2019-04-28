@@ -6,6 +6,20 @@ const convert = require(`../scription2dlx`);
 
 describe(`utterances`, () => {
 
+  it(`may be blank`, () => {
+
+    const text = `
+    ---
+    title: How the world began
+    ---
+    `;
+
+    const { utterances } = convert(text);
+
+    expect(utterances.length).toBe(0);
+
+  });
+
   it(`are separated by one or more empty lines`, () => {
 
     const text = `
@@ -15,7 +29,7 @@ describe(`utterances`, () => {
 
     wetkš hus na·nča·kamankš wetk hi hokmiʔi
     He left his brothers.
-
+    \t
     kun ču·gš ču·gš še·nink hup hi ničwiʔi
     He went and went till he came to the edge of a pond.
 
@@ -26,7 +40,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).toBe(2);
+    expect(utterances.length).toBe(3);
 
   });
 

@@ -10,9 +10,9 @@ describe(`text`, () => {
 
     const text = ``;
 
-    const test = () => convert(text);
+    const result = convert(text);
 
-    expect(test).not.toThrow();
+    expect(JSON.stringify(result)).toBe(`{}`);
 
   });
 
