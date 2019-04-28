@@ -68,19 +68,6 @@ describe(`utterance`, () => {
 
   });
 
-  it(`must have backslash codes for all lines if there is a backslash code on any line`, () => {
-
-    const text = `
-    \\trs Waxdungu qasi,
-    one day a man
-    `;
-
-    const test = () => convert(text);
-
-    expect(test).toThrow();
-
-  });
-
   it(`may have multiple note lines`, () => {
 
     const text = `

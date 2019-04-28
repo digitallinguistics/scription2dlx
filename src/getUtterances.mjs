@@ -1,3 +1,6 @@
+import getSchema       from './getSchema.mjs';
+import UtteranceParser from './UtteranceParser.mjs';
+
 /**
  * Creates a regular expression to match one or more empty lines
  * @return {RegExp}
@@ -18,12 +21,11 @@ function getUtterancesString(text) {
 
   try {
 
-    const utterancesRegExp  = /(?:---)?(?<utterances>[^(---)]+)$/gsu;
-    const result            = utterancesRegExp.exec(text);
+    const parts = text
+    .split(/---/gsu)
+    .map(part => part.trim());
 
-    if (!result) return null;
-
-    return result.groups.utterances.trim();
+    return parts.pop();
 
   } catch (e) {
 
@@ -48,8 +50,9 @@ export default function getUtterances(scription) {
 
     if (!utterancesString) return [];
 
-    // TODO
-    const parseUtterance = item => item;
+    const utterancesStrings = utterancesString.split(blankLinesRegExp);
+    const schema            = getSchema(utterancesStrings[0]);
+    const parseUtterance    = new UtteranceParser(schema);
 
     return utterancesString
     .split(blankLinesRegExp)
