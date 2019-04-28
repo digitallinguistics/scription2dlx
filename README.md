@@ -61,6 +61,11 @@ console.log(text.title); // "How the world began"
 
 If you would like to use `scription2dlx` as a dependency in your library, it is recommended that you use the files in the `/src` folder. The source code for the `scription2dlx` library is written using ES modules and the latest JavaScript syntax and features. You will need to bundle and/or transpile the code accordingly.
 
+## Notes
+
+* The `scription2dlx` library does **not** perform validation on the text data. You should use another validator like [AJV][AJV] to validate your data against the DLx DaFoDiL format.
+
+[AJV]:       https://www.npmjs.com/package/ajv
 [DaFoDiL]:   https://spec.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx
