@@ -1,5 +1,6 @@
-const backslashRegExp = /^\\(?<code>(?:\w|-)+)/u;
-const newlineRegExp   = /\r?\n/gsu;
+const backslashRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
+const codeRegExp      = /^[-A-Za-z0-9]+$/u;
+const newlineRegExp   = /\r?\n/gu;
 
 /**
  * Extracts the backslash code for a line, without the leading slash. Returns null if none is found.
@@ -26,10 +27,21 @@ function hasBackslashCodes(codes) {
 }
 
 /**
+ * Checks whether a backslash code is valid
+ * @param  {String}  code The backslash code to check, without a leading slash
+ * @return {Boolean}
+ */
+function isValidCode(code) {
+  return codeRegExp.test(code);
+}
+
+/**
  * Valides an array of backslash codes, without leading slashes
  * @param  {Array} codes The array of backslash codes to validate
  */
 function validateBackslashCodes(codes) {
+
+  // Check that if any line has a backslash code, all lines do
 
   const someLinesHaveCodes = hasBackslashCodes(codes);
   const allLinesHaveCodes  = codes.every(code => typeof code === `string`);
@@ -37,6 +49,29 @@ function validateBackslashCodes(codes) {
   if (someLinesHaveCodes && !allLinesHaveCodes) {
     throw new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
   }
+
+  // Check that there are no duplicate codes
+
+  const codeCounts = codes.reduce((counts, code) => {
+    if (code === null) return counts;
+    const currentCount = counts.get(code) || 0;
+    counts.set(code, currentCount + 1);
+    return counts;
+  }, new Map);
+
+  codeCounts.forEach((count, code) => {
+    if (count > 1) {
+      throw new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
+    }
+  });
+
+  // Check that codes are valid
+
+  codes.forEach(code => {
+    if (!isValidCode(code)) {
+      throw new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
+    }
+  });
 
 }
 
@@ -61,8 +96,8 @@ export default function getSchema(utteranceString) {
 
       const lineCount = lines.length;
 
-      if (lineCount === 2) return [`trs`, `tln`];
-      if (lineCount === 3) return [`morph`, `gl`, `tln`];
+      if (lineCount === 2) return [`txn`, `tln`];
+      if (lineCount === 3) return [`m`, `gl`, `tln`];
 
       throw new Error(`Cannot infer an interlinear gloss schema for utterances with more than 3 lines, or fewer than 2 lines.`);
 
@@ -72,7 +107,7 @@ export default function getSchema(utteranceString) {
 
   } catch (e) {
 
-    e.message = `[scription2dlx.getUtterances.getSchema] ${e.message}\n\nUtterance text:\n\n${utteranceString}`;
+    e.message = `[getSchema] ${e.message}\n\nUtterance text:\n\n${utteranceString}`;
     throw e;
 
   }

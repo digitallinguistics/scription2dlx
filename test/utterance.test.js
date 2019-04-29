@@ -45,8 +45,8 @@ describe(`utterance`, () => {
     const translation = `one day a man`;
 
     const text = `
-    \\morph waxt-qungu qasi
-    \\tln   ${translation}
+    \\m   waxt-qungu qasi
+    \\tln ${translation}
     `;
 
     const { utterances: [utterance] } = convert(text);
@@ -59,7 +59,7 @@ describe(`utterance`, () => {
     const translation = `one day a man`;
 
     const text = `
-    \\morph waxt-qungu qasi
+    \\m      waxt-qungu qasi
     \\tln\t\t${translation}
     `;
 

@@ -1,5 +1,5 @@
-import getSchema       from './getSchema.mjs';
-import UtteranceParser from './UtteranceParser.mjs';
+import getSchema      from './getSchema.mjs';
+import parseUtterance from './parseUtterance.mjs';
 
 /**
  * Creates a regular expression to match one or more empty lines
@@ -19,20 +19,11 @@ function createBlankLinesRegExp() {
  */
 function getUtterancesString(text) {
 
-  try {
+  const parts = text
+  .split(/---/gsu)
+  .map(part => part.trim());
 
-    const parts = text
-    .split(/---/gsu)
-    .map(part => part.trim());
-
-    return parts.pop();
-
-  } catch (e) {
-
-    e.message = `[getUtterances.getUtterancesString] ${e.message}`;
-    throw e;
-
-  }
+  return parts.pop();
 
 }
 
@@ -52,15 +43,19 @@ export default function getUtterances(scription) {
 
     const utterancesStrings = utterancesString.split(blankLinesRegExp);
     const schema            = getSchema(utterancesStrings[0]);
-    const parseUtterance    = new UtteranceParser(schema);
+    const parse             = utteranceString => parseUtterance(utteranceString, schema);
 
     return utterancesString
     .split(blankLinesRegExp)
-    .map(parseUtterance);
+    .map(parse)
+    .filter(utterance => utterance);
 
   } catch (e) {
 
-    e.message = `[scription2dlx.getUtterances] ${e.message}`;
+    const textPreviewLength = 250;
+
+    e.message = `[getUtterances] ${e.message}\n\nError parsing utterances for the following text:\n\n${scription.slice(0, textPreviewLength)}`;
+
     throw e;
 
   }

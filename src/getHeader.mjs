@@ -7,21 +7,12 @@ import yamlParser from 'yaml';
  */
 function getHeaderString(text) {
 
-  try {
+  const headerRegExp = /---(?<header>.+?)---/gsu;
+  const result       = headerRegExp.exec(text);
 
-    const headerRegExp = /---(?<header>.+?)---/gsu;
-    const result       = headerRegExp.exec(text);
+  if (!result) return null;
 
-    if (!result) return null;
-
-    return result.groups.header.trim();
-
-  } catch (e) {
-
-    e.message = `[getHeader.getHeaderString] ${e.message}`;
-    throw e;
-
-  }
+  return result.groups.header.trim();
 
 }
 
@@ -31,18 +22,9 @@ function getHeaderString(text) {
  * @return {Object}
  */
 function parseHeader(headerString) {
-  try {
-
-    const isEmpty = headerString === ``;
-    if (isEmpty) throw new TypeError(`The metadata header must not be empty.`);
-    return yamlParser.parse(headerString);
-
-  } catch (e) {
-
-    e.message = `[getHeader.parseHeader] ${e.message}`;
-    throw e;
-
-  }
+  const isEmpty = headerString === ``;
+  if (isEmpty) throw new TypeError(`The metadata header must not be empty.`);
+  return yamlParser.parse(headerString);
 }
 
 /**
@@ -51,22 +33,14 @@ function parseHeader(headerString) {
  */
 function validateHeader(header) {
 
-  try {
+  const isString = typeof header === `string`;
 
-    const isString = typeof header === `string`;
+  if (isString) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
 
-    if (isString) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
+  const { title, utterances } = header;
 
-    const { title, utterances } = header;
-
-    if (!title) throw new Error(`The metadata header must have a "title" attribute.`);
-    if (utterances) throw new Error(`The metadata header must not have an "utterances" attribute.`);
-
-  } catch (e) {
-
-    throw new Error(`[scription2dlx.validateHeader] ${e.message}`);
-
-  }
+  if (!title) throw new Error(`The metadata header must have a "title" attribute.`);
+  if (utterances) throw new Error(`The metadata header must not have an "utterances" attribute.`);
 
 }
 
@@ -92,9 +66,10 @@ export default function getHeader(text) {
 
   } catch (e) {
 
-    e.message = `[scription2dlx.getHeader] ${e.message}`;
+    e.message = `[getHeader] ${e.message}\n\nError parsing the following header:\n\n${text}`;
     throw e;
 
   }
+
 
 }

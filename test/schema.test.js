@@ -6,6 +6,60 @@ const convert = require(`../scription2dlx`);
 
 describe(`interlinear gloss schema`, () => {
 
+  it(`must have valid backslash codes (basic Latin characters and hyphens only)`, () => {
+
+    const text1 = `
+    \\txn wetkš hus na·nča·kamankš wetk hi hokmiʔi
+    \\tln He left his brothers.
+    \\nóm Benjamin Paul
+    `;
+
+    const text2 = `
+    \\txn     wetkš hus na·nča·kamankš wetk hi hokmiʔi
+    \\tln     He left his brothers.
+    \\name_en Benjamin Paul
+    `;
+
+    const test1 = () => convert(text1);
+    const test2 = () => convert(text2);
+
+    expect(test1).toThrow();
+    expect(test2).toThrow();
+
+  });
+
+  it(`may not have the same backslash code appear twice`, () => {
+
+    const text = `
+    \\tln waxdungu qasi
+    \\m   waxdungu qasi
+    \\gl  one.day  man
+    \\tln one day a man
+    `;
+
+    const test = () => convert(text);
+
+    expect(test).toThrow();
+
+  });
+
+  it(`treats different orthographies / languages as separate backslash codes`, () => {
+
+    const EnglishTranslation = `one day a man`;
+    const SpanishTranslation = `un día un hombre`;
+
+    const text = `
+    \\txn    waxdungu qasi
+    \\tln-en ${EnglishTranslation}
+    \\tln-es ${SpanishTranslation}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.translation.eng).toBe(EnglishTranslation);
+    expect(utterance.translation.spa).toBe(SpanishTranslation);
+
+  });
+
   it(`must have backslash codes for all lines if there is a backslash code on any line`, () => {
 
     const text = `
@@ -19,7 +73,22 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`infers the interlinear gloss schema from the first utterance`, () => {
+  it(`should process unknown backslash codes`, () => {
+
+    const Swadesh = `He left his brothers.`;
+
+    const text = `
+    \\txn  wetkš hus na·nča·kamankš wetk hi hokmiʔi
+    \\tln  He left his brothers.
+    \\swad ${Swadesh}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.swad).toBe(Swadesh);
+
+  });
+
+  it(`infers the interlinear gloss schema from the first utterance`, () => {
 
     const transcript = `Waxdungu qasi,`;
 
@@ -30,8 +99,8 @@ describe(`interlinear gloss schema`, () => {
     \\trs ${transcript}
     \\tln One day a man,
 
-    \\${transcript}
-    \\One day a man,
+    ${transcript}
+    One day a man,
     `;
 
     const { utterances: [, utterance] } = convert(text);
@@ -41,9 +110,31 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`treats a blank first utterance as a schema but not data`);
+  it(`treats a blank first utterance as a schema but not data`, () => {
 
-  xit(`2-line utterances default to transcription + translation`, () => {
+    const transcript  = `Waxdungu qasi,`;
+    const translation = `One day a man,`;
+
+    const text = `
+    ---
+    title: How the world began
+    ---
+    \\trs
+    \\tln
+
+    ${transcript}
+    ${translation}
+    `;
+
+    const { utterances: [u1, u2] } = convert(text);
+
+    expect(u1.transcript).toBe(transcript);
+    expect(u1.translation).toBe(translation);
+    expect(u2).toBeUndefined();
+
+  });
+
+  it(`2-line utterances default to transcription + translation`, () => {
 
     const transcription = `waxdungu qasi`;
     const translation   = `one day a man`;
@@ -84,77 +175,20 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`may not have the same backslash code appear twice`, () => {
-
-    const text = `
-    \\tln   waxdungu qasi
-    \\morph waxdungu qasi
-    \\gl    one.day  man
-    \\tln   one day a man
-    `;
-
-    const test = () => convert(text);
-
-    expect(test).toThrow();
-
-  });
-
-  xit(`treats different orthographies / languages as separate backslash codes`, () => {
-
-    const EnglishTranslation = `one day a man`;
-    const SpanishTranslation = `un día un hombre`;
-
-    const text = `
-    \\txn     waxdungu qasi
-    \\tln-eng ${EnglishTranslation}
-    \\tln-spa ${SpanishTranslation}
-    `;
-
-    const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation.eng).toBe(EnglishTranslation);
-    expect(utterance.translation.spa).toBe(SpanishTranslation);
-
-  });
-
-  xit(`must have valid backslash codes (basic Latin characters, hyphens, and underscores only)`, () => {
-
-    const text = `
-    \\txn wetkš hus na·nča·kamankš wetk hi hokmiʔi
-    \\tln He left his brothers.
-    \\nóm Benjamin Paul
-    `;
-
-    const test = () => convert(text);
-
-    expect(test).toThrow();
-
-  });
-
-  xit(`should ignore unknown backslash codes`, () => {
-
-    const text = `
-    \\txn  wetkš hus na·nča·kamankš wetk hi hokmiʔi
-    \\tln  He left his brothers.
-    \\swad He left his brothers.
-    `;
-
-    const test = () => convert(text);
-
-    expect(test).not.toThrow();
-
-  });
-
-  xit(`allows custom schemas`, () => {
+  it(`allows custom schemas`, () => {
 
     const transcript  = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`;
     const translation = `He left his brothers.`;
 
     const text = `
-    \\trs ${transcript}
-    \\tln ${translation}
+    \\trs Waxdungu qasi,
+    \\tln One day a man,
+
+    ${transcript}
+    ${translation}
     `;
 
-    const { utterances: [utterance] } = convert(text);
+    const { utterances: [, utterance] } = convert(text);
     expect(utterance.transcript).toBe(transcript);
     expect(utterance.translation).toBe(translation);
 
