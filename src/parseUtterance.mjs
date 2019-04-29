@@ -10,7 +10,8 @@ const newlineRegExp  = /\r?\n/gu;
  */
 function zipLines(map, [code, line]) {
   const match = line.match(lineDataRegExp);
-  const data  = (match ? match.groups.lineData : line).trim();
+  let data  = (match ? match.groups.lineData : line).trim();
+  data      = cleanLine(code, data);
   map.set(code, data);
   return map;
 }
@@ -30,7 +31,6 @@ export default function parseUtterance(utteranceString, schema) {
     .split(newlineRegExp)
     .map(line => line.trim())
     .map((line, i) => [schema[i], line])
-    .map(([code, line]) => [code, cleanLine(code, line)])
     .reduce(zipLines, new Map);
 
     // Return null if the utterance contains no data
@@ -43,6 +43,7 @@ export default function parseUtterance(utteranceString, schema) {
     // Extract known utterance properties
     // NB: The lines object is mutated by each of the following functions
 
+    const literal       = getLineGroup(`lit`, lines);
     const transcript    = getLineGroup(`trs`, lines);
     const transcription = getLineGroup(`txn`, lines) || ``;
     const translation   = getLineGroup(`tln`, lines) || ``;
@@ -50,6 +51,7 @@ export default function parseUtterance(utteranceString, schema) {
     // Populate the utterance
 
     const utterance = {
+      literal,
       transcript,
       transcription,
       translation,
