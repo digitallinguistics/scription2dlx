@@ -1,8 +1,15 @@
-const literalBracketsRegExp = new RegExp(`^\\[(?<data>.*)\\]$`, `u`);
-const phonemicSlashesRegExp = /^\/(?<data>.*)\/$/u;
+const literalBracketsRegExp  = new RegExp(`^\\[(?<data>.*)\\]$`, `u`);
+const phonemicSlashesRegExp  = /^\/(?<data>.*)\/$/u;
+const phoneticBracketsRegExp = new RegExp(`^\\[(?<data>.*)\\]$`, `u`);
 
 function cleanLiteral(line) {
   const match = line.match(literalBracketsRegExp);
+  if (!match) return line;
+  return match.groups.data.trim();
+}
+
+function cleanPhonetic(line) {
+  const match = line.match(phoneticBracketsRegExp);
   if (!match) return line;
   return match.groups.data.trim();
 }
@@ -21,6 +28,7 @@ function cleanTranscription(line) {
  */
 export default function cleanLine(code, line) {
   if (code.startsWith(`lit`)) return cleanLiteral(line);
+  if (code.startsWith(`phon`)) return cleanPhonetic(line);
   if (code.startsWith(`txn`)) return cleanTranscription(line);
   return line;
 }

@@ -44,6 +44,7 @@ export default function parseUtterance(utteranceString, schema) {
     // NB: The lines object is mutated by each of the following functions
 
     const literal       = getLineGroup(`lit`, lines);
+    const phonetic      = lines.get(`phon`);
     const transcript    = getLineGroup(`trs`, lines);
     const transcription = getLineGroup(`txn`, lines) || ``;
     const translation   = getLineGroup(`tln`, lines) || ``;
@@ -52,6 +53,7 @@ export default function parseUtterance(utteranceString, schema) {
 
     const utterance = {
       literal,
+      phonetic,
       transcript,
       transcription,
       translation,

@@ -6,19 +6,6 @@ const convert = require(`../../scription2dlx`);
 
 describe(`phonetic transcription`, () => {
 
-  it(`may only contain IPA characters`, () => {
-
-    const text = `
-    wetkš hus na·nča·kamankš wetk hi hokmiʔi
-    He left his brothers.
-    `;
-
-    const test = () => convert(text);
-
-    expect(test).toThrow();
-
-  });
-
   it(`should remove phonetic brackets`, () => {
 
     const transcription = `wetkʃ hus naːnt͡ʃaːkamankʃ wetk hi hokmiʔi`;
@@ -42,9 +29,9 @@ describe(`phonetic transcription`, () => {
     \\tln He left his brothers.
     `;
 
-    const test = () => convert(text);
+    const { utterances: [utterance] } = convert(text);
 
-    expect(test).toThrow();
+    expect(utterance.phonetic).toBeUndefined();
 
   });
 
