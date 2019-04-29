@@ -1,9 +1,9 @@
 {
   "spec_dir": "test",
   "spec_files": [
-    "metadata.test.js",
-    "schema.test.js",
-    "text.test.js",
-    "utterances.test.js"
+    "*.test.js",
+    "lines/transcript.test.js",
+    "lines/transcription.test.js",
+    "lines/translation.test.js"
   ]
 }

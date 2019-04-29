@@ -15,7 +15,35 @@ describe(`line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation.endsWith(` `)).toBe(true);
+    expect(utterance.translation.endsWith(` `)).toBe(false);
+
+  });
+
+  it(`may have backslash codes followed by multiple spaces`, () => {
+
+    const translation = `one day a man`;
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\tln ${translation}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.translation).toBe(translation);
+
+  });
+
+  it(`may have backslash codes followed by tabs`, () => {
+
+    const translation = `one day a man`;
+
+    const text = `
+    \\m      waxt-qungu qasi
+    \\tln\t\t${translation}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.translation).toBe(translation);
 
   });
 

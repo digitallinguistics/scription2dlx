@@ -1,6 +1,5 @@
-import parseTranscript    from './parseTranscript.mjs';
-import parseTranscription from './parseTranscription.mjs';
-import parseTranslation   from './parseTranslation.mjs';
+import cleanLine    from './cleanLine.mjs';
+import getLineGroup from './getLineGroup.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
@@ -26,31 +25,37 @@ export default function parseUtterance(utteranceString, schema) {
 
   try {
 
+    // Create a hash of lines and their backslash codes
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim())
     .map((line, i) => [schema[i], line])
+    .map(([code, line]) => [code, cleanLine(code, line)])
     .reduce(zipLines, new Map);
+
+    // Return null if the utterance contains no data
 
     const linesData = Array.from(lines.values());
     const noData    = linesData.every(line => line === ``);
 
     if (noData) return null;
 
-    const transcript = parseTranscript(lines.get(`trs`));
-    lines.delete(`trs`);
+    // Extract known utterance properties
+    // NB: The lines object is mutated by each of the following functions
 
-    const transcription = parseTranscription(lines.get(`txn`) || ``);
-    lines.delete(`txn`);
+    const transcript    = getLineGroup(`trs`, lines);
+    const transcription = getLineGroup(`txn`, lines) || ``;
+    const translation   = getLineGroup(`tln`, lines) || ``;
 
-    const translation = parseTranslation(lines.get(`tln`) || ``);
-    lines.delete(`tln`);
+    // Populate the utterance
 
     const utterance = {
       transcript,
       transcription,
       translation,
     };
+
+    // Add remaining (custom) lines to utterance
 
     lines.forEach((data, key) => {
       utterance[key] = data;

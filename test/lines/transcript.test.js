@@ -12,7 +12,7 @@ describe(`transcript`, () => {
     const DFTTranscript     = `wetkš↗ hus↗ na·nča·kamankš↗ wetkˊ hi hokmiʔiˊ↗`;
 
     const text = `
-    \\trs-swad ${SwadeshTranscript}.
+    \\trs-swad ${SwadeshTranscript}
     \\trs-dft  ${DFTTranscript}
     \\tln      He left his brothers.
     `;
