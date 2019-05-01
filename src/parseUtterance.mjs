@@ -1,8 +1,50 @@
 import cleanLine    from './cleanLine.mjs';
+import getLine      from './getLine.mjs';
 import getLineGroup from './getLineGroup.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
+const speakerRegExp  = /^[A-Za-z0-9]+$/u;
+
+/**
+ * Checks whether a value is defined
+ * @param  {Any}     val The value to check
+ * @return {Boolean}
+ */
+function isDefined(val) {
+  return typeof val !== undefined; // eslint-disable-line no-undefined
+}
+
+/**
+ * Checks whether a speaker abbreviation is validly formatted
+ * @param  {Any}     speaker The speaker value to validate
+ * @return {Boolean}
+ */
+function isValidSpeaker(speaker) {
+  return speakerRegExp.test(speaker);
+}
+
+/**
+ * Performs simple validation on some (but not all) properties of the utterance
+ * @param  {Object} utterance The Utterance data to validate
+ */
+function validateUtterance({ speaker }) {
+
+  try {
+
+    if (isDefined(speaker)) {
+      if (!isValidSpeaker(speaker)) {
+        throw new Error(`${speaker} is not a valid value for the speaker line.`);
+      }
+    }
+
+  } catch (e) {
+
+    throw new Error(`[validateUtterance] Error validating utterance data: ${e.message}`);
+
+  }
+
+}
 
 /**
  * Reducer that creates a hash of backslash codes and their data
@@ -26,7 +68,8 @@ export default function parseUtterance(utteranceString, schema) {
 
   try {
 
-    // Create a hash of lines and their backslash codes
+    // Create a Map of lines and their backslash codes
+
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim())
@@ -40,24 +83,19 @@ export default function parseUtterance(utteranceString, schema) {
 
     if (noData) return null;
 
-    // Extract known utterance properties
+    // Extract known utterance properties and populate the utterance
     // NB: The lines object is mutated by each of the following functions
 
-    const literal       = getLineGroup(`lit`, lines);
-    const phonetic      = lines.get(`phon`);
-    const transcript    = getLineGroup(`trs`, lines);
-    const transcription = getLineGroup(`txn`, lines) || ``;
-    const translation   = getLineGroup(`tln`, lines) || ``;
-
-    // Populate the utterance
-
     const utterance = {
-      literal,
-      phonetic,
-      transcript,
-      transcription,
-      translation,
+      literal:       getLineGroup(`lit`, lines),
+      phonetic:      getLine(`phon`, lines),
+      speaker:       getLine(`sp`, lines),
+      transcript:    getLineGroup(`trs`, lines),
+      transcription: getLineGroup(`txn`, lines) || ``,
+      translation:   getLineGroup(`tln`, lines) || ``,
     };
+
+    validateUtterance(utterance);
 
     // Add remaining (custom) lines to utterance
 

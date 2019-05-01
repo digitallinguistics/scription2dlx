@@ -16,7 +16,7 @@ describe(`speaker`, () => {
 
     const test = () => convert(text);
 
-    expect(test).not.toThrow();
+    expect(test).toThrow();
 
   });
 

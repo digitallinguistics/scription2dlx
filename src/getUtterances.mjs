@@ -48,7 +48,7 @@ export default function getUtterances(scription) {
     return utterancesString
     .split(blankLinesRegExp)
     .map(parse)
-    .filter(utterance => utterance);
+    .filter(Boolean);
 
   } catch (e) {
 
