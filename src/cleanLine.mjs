@@ -1,23 +1,21 @@
-const literalBracketsRegExp  = new RegExp(`^\\[(?<data>.*)\\]$`, `u`);
-const phonemicSlashesRegExp  = /^\/(?<data>.*)\/$/u;
-const phoneticBracketsRegExp = new RegExp(`^\\[(?<data>.*)\\]$`, `u`);
+const lineBrackets = {
+  lit:  [`[`, `]`],
+  phon: [`[`, `]`],
+  txn:  [`/`, `/`],
+};
 
-function cleanLiteral(line) {
-  const match = line.match(literalBracketsRegExp);
-  if (!match) return line;
-  return match.groups.data.trim();
-}
-
-function cleanPhonetic(line) {
-  const match = line.match(phoneticBracketsRegExp);
-  if (!match) return line;
-  return match.groups.data.trim();
-}
-
-function cleanTranscription(line) {
-  const match = line.match(phonemicSlashesRegExp);
-  if (!match) return line;
-  return match.groups.data.trim();
+/**
+ * Removes leading/trailing brackets/symbols from a string
+ * @param  {String} start The leading character to trim
+ * @param  {String} end   The trailing character to trim
+ * @param  {string} str   The string to trim
+ * @return {string}       Returns the trimmed string
+ */
+function trimBrackets(start, end, str) {
+  if (str.startsWith(start) && str.endsWith(end)) {
+    return str.slice(1, str.length - 1).trim();
+  }
+  return str;
 }
 
 /**
@@ -26,9 +24,12 @@ function cleanTranscription(line) {
  * @param  {String} line The line data (excluding backslash codes)
  * @return {String}
  */
-export default function cleanLine(code, line) {
-  if (code.startsWith(`lit`)) return cleanLiteral(line);
-  if (code.startsWith(`phon`)) return cleanPhonetic(line);
-  if (code.startsWith(`txn`)) return cleanTranscription(line);
+export default function cleanLine(type, line) {
+
+  if (Object.keys(lineBrackets).includes(type)) {
+    return trimBrackets(...lineBrackets[type], line);
+  }
+
   return line;
+
 }

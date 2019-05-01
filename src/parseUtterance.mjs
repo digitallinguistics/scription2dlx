@@ -1,10 +1,16 @@
-import cleanLine    from './cleanLine.mjs';
-import getLine      from './getLine.mjs';
-import getLineGroup from './getLineGroup.mjs';
+import cleanLine from './cleanLine.mjs';
+import getLine   from './getLine.mjs';
+import getLines  from './getLines.mjs';
+import types     from './types.json';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
 const speakerRegExp  = /^[A-Za-z0-9]+$/u;
+
+const singleLines = [
+  `phon`,
+  `sp`,
+];
 
 /**
  * Checks whether a value is defined
@@ -47,18 +53,6 @@ function validateUtterance({ speaker }) {
 }
 
 /**
- * Reducer that creates a hash of backslash codes and their data
- * @return {Object}
- */
-function zipLines(map, [code, line]) {
-  const match = line.match(lineDataRegExp);
-  let data  = (match ? match.groups.lineData : line).trim();
-  data      = cleanLine(code, data);
-  map.set(code, data);
-  return map;
-}
-
-/**
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
  * @param  {String} utteranceString The utterance string to parse
  * @param  {Array}  schema          An interlinear gloss schema, as an array of backslash codes (without leading slashes)
@@ -68,41 +62,59 @@ export default function parseUtterance(utteranceString, schema) {
 
   try {
 
-    // Create a Map of lines and their backslash codes
+    // Create an arry of line objects with information about each line
 
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim())
-    .map((line, i) => [schema[i], line])
-    .reduce(zipLines, new Map);
+    .map((line, i) => {
+
+      const code   = schema[i];
+      const [type] = code.split(`-`, 1);
+      const match  = line.match(lineDataRegExp);
+      let data     = (match ? match.groups.lineData : line).trim();
+      data         = cleanLine(type, data);
+
+      return { code, data, type };
+
+    });
 
     // Return null if the utterance contains no data
 
-    const linesData = Array.from(lines.values());
-    const noData    = linesData.every(line => line === ``);
-
+    const noData = lines.every(({ data }) => data === ``);
     if (noData) return null;
 
     // Extract known utterance properties and populate the utterance
-    // NB: The lines object is mutated by each of the following functions
+
+    const literal    = getLines(`lit`, lines);
+    const notes      = lines.filter(({ code }) => code === `n`);
+    const phonetic   = getLine(`phon`, lines);
+    const speaker    = getLine(`sp`, lines);
+    const transcript = getLines(`trs`, lines);
 
     const utterance = {
-      literal:       getLineGroup(`lit`, lines),
-      phonetic:      getLine(`phon`, lines),
-      speaker:       getLine(`sp`, lines),
-      transcript:    getLineGroup(`trs`, lines),
-      transcription: getLineGroup(`txn`, lines) || ``,
-      translation:   getLineGroup(`tln`, lines) || ``,
+      ...literal ? { literal } : {},
+      ...notes ? { notes } : {},
+      ...phonetic ? { phonetic } : {},
+      ...speaker ? { speaker } : {},
+      ...transcript ? { transcript } : {},
+      transcription: getLines(`txn`, lines) || ``,
+      translation:   getLines(`tln`, lines) || ``,
     };
-
-    validateUtterance(utterance);
 
     // Add remaining (custom) lines to utterance
 
-    lines.forEach((data, key) => {
-      utterance[key] = data;
-      lines.delete(key);
+    lines.forEach(({ code, data, type }) => {
+
+      const isCustomType = !types.includes(type);
+      if (isCustomType) utterance[type] = getLines(type, lines);
+
+      const isCustomCode = singleLines.includes(type) && code.startsWith(`${type}-`);
+      if (isCustomCode) utterance[code] = data;
+
     });
+
+    validateUtterance(utterance);
 
     return utterance;
 

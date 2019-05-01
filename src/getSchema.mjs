@@ -39,28 +39,29 @@ function isValidCode(code) {
  * Valides an array of backslash codes, without leading slashes
  * @param  {Array} codes The array of backslash codes to validate
  */
-function validateBackslashCodes(codes) {
+function validateBackslashCodes(rawCodes) {
 
   // Check that if any line has a backslash code, all lines do
 
-  const someLinesHaveCodes = hasBackslashCodes(codes);
-  const allLinesHaveCodes  = codes.every(code => typeof code === `string`);
+  const someLinesHaveCodes = hasBackslashCodes(rawCodes);
+  const allLinesHaveCodes  = rawCodes.every(code => typeof code === `string`);
 
   if (someLinesHaveCodes && !allLinesHaveCodes) {
     throw new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
   }
 
+  const codes = rawCodes.filter(Boolean);
+
   // Check that there are no duplicate codes
 
   const codeCounts = codes.reduce((counts, code) => {
-    if (code === null) return counts;
     const currentCount = counts.get(code) || 0;
     counts.set(code, currentCount + 1);
     return counts;
   }, new Map);
 
   codeCounts.forEach((count, code) => {
-    if (count > 1) {
+    if (code !== `n` && count > 1) {
       throw new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
     }
   });

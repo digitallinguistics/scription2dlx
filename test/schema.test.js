@@ -228,7 +228,7 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`may have multiple note lines`, () => {
+  it(`may have multiple note lines`, () => {
 
     const text = `
     \\txn waxdungu qasi

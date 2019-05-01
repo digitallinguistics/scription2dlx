@@ -1,11 +1,10 @@
 /**
- * Extracts a specific line from the lines Map. Only use this for individual lines, not line groups.
- * @param  {String} code  The backslash code for the line to get
- * @param  {Map}    lines The Map of lines
- * @return {String}       Returns the data for that line
+ * Gets data for a line that only allows one language / orthography
+ * @param  {String} type  The line type to get
+ * @param  {Array}  lines The array of line objects
+ * @return {String}
  */
-export default function getLine(code, lines) {
-  const data = lines.get(code);
-  lines.delete(code);
-  return data;
+export default function getLine(type, lines) {
+  const line = lines.find(({ code }) => code === type) || {};
+  return line.data;
 }
