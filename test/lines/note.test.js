@@ -14,6 +14,8 @@ describe(`note`, () => {
 
   });
 
+  it(`must use a valid ISO language tag for the language`);
+
   it(`may have a source and text`, () => {
 
     const text = `
@@ -32,9 +34,9 @@ describe(`note`, () => {
 
   });
 
-  it(`must only use ASCII letters and numbers for the source`);
+  it(`must only use basic alphanumeric characters for the source`);
 
-  it(`must only use ASCII letters and numbers for the language/orthography`);
+  it(`must only use basic alphanumeric characters for the language/orthography`);
 
   it(`assumes the language of the note is English if not specified`);
 
@@ -53,5 +55,7 @@ describe(`note`, () => {
     `;
 
   });
+
+  it(`allows colons in the note text`);
 
 });

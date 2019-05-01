@@ -175,6 +175,28 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
+  xit(`4-line utterances to default to transcription + morphemes + glosses + translation`);
+
+  it(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
+
+    const noteText = `This is the traditional opening to a story.`;
+
+    const text = `
+    waxdungu qasi
+    waxt-qungu qasi
+    day-one    man
+    one day a man
+    ${noteText}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.notes.length).toBe(1);
+
+    const { notes: [note] } = utterance;
+    expect(note.text).toBe(noteText);
+
+  });
+
   it(`allows custom schemas`, () => {
 
     const transcript  = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`;
@@ -194,28 +216,32 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`treats one extra line as a note line`, () => {
+  it(`treats an extra line as a note line`, () => {
 
-    const noteText = `This is the traditional opening to a story.`;
+    const noteText = `This is a note.`;
 
     const text = `
     waxt-qungu qasi
     day-one    man
     one day a man
+
+    naancaakamankx hokmiqi
+    brothers       he.left
+    he left his brothers
     ${noteText}
     `;
 
-    const { utterances: [utterance] } = convert(text);
-    expect(utterance.notes.length).toBe(1);
+    const { utterances: [, utterance] } = convert(text);
+    const { notes: [note] }             = utterance;
 
-    const { notes: [note] } = utterance;
     expect(note.text).toBe(noteText);
 
   });
 
-  xit(`ignores any additional unknown lines beyond the first note line`, () => {
+  it(`treats any additional unknown lines as note lines`, () => {
 
     const text = `
+    waxdungu qasi
     waxt-qungu qasi
     day-one    man
     one day a man
@@ -224,7 +250,7 @@ describe(`interlinear gloss schema`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.notes.length).toBe(1);
+    expect(utterance.notes.length).toBe(2);
 
   });
 

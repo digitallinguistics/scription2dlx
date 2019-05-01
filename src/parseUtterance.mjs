@@ -1,6 +1,7 @@
 import cleanLine from './cleanLine.mjs';
 import getLine   from './getLine.mjs';
 import getLines  from './getLines.mjs';
+import getNotes  from './getNotes.mjs';
 import types     from './types.json';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
@@ -69,7 +70,7 @@ export default function parseUtterance(utteranceString, schema) {
     .map(line => line.trim())
     .map((line, i) => {
 
-      const code   = schema[i];
+      const code   = schema[i] || `n`; // treat extra lines as notes
       const [type] = code.split(`-`, 1);
       const match  = line.match(lineDataRegExp);
       let data     = (match ? match.groups.lineData : line).trim();
@@ -86,20 +87,22 @@ export default function parseUtterance(utteranceString, schema) {
 
     // Extract known utterance properties and populate the utterance
 
-    const literal    = getLines(`lit`, lines);
-    const notes      = lines.filter(({ code }) => code === `n`);
-    const phonetic   = getLine(`phon`, lines);
-    const speaker    = getLine(`sp`, lines);
-    const transcript = getLines(`trs`, lines);
+    const literal       = getLines(`lit`, lines);
+    const notes         = getNotes(lines);
+    const phonetic      = getLine(`phon`, lines);
+    const speaker       = getLine(`sp`, lines);
+    const transcript    = getLines(`trs`, lines);
+    const transcription = getLines(`txn`, lines) || ``;
+    const translation   = getLines(`tln`, lines) || ``;
 
     const utterance = {
       ...literal ? { literal } : {},
-      ...notes ? { notes } : {},
+      ...notes.length ? { notes } : {},
       ...phonetic ? { phonetic } : {},
       ...speaker ? { speaker } : {},
       ...transcript ? { transcript } : {},
-      transcription: getLines(`txn`, lines) || ``,
-      translation:   getLines(`tln`, lines) || ``,
+      transcription,
+      translation,
     };
 
     // Add remaining (custom) lines to utterance

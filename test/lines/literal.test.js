@@ -39,4 +39,6 @@ describe(`literal translation`, () => {
 
   });
 
+  it(`must have valid ISO language tags`);
+
 });

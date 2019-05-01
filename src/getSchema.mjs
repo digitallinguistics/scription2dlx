@@ -97,10 +97,13 @@ export default function getSchema(utteranceString) {
 
       const lineCount = lines.length;
 
+      /* eslint-disable no-magic-numbers */
       if (lineCount === 2) return [`txn`, `tln`];
       if (lineCount === 3) return [`m`, `gl`, `tln`];
+      if (lineCount >= 4)  return [`txn`, `m`, `gl`, `tln`].fill(`n`, 4);
+      /* eslint-enable no-magic-numbers */
 
-      throw new Error(`Cannot infer an interlinear gloss schema for utterances with more than 3 lines, or fewer than 2 lines.`);
+      throw new Error(`Cannot infer an interlinear gloss schema for utterances with fewer than 2 lines.`);
 
     }
 

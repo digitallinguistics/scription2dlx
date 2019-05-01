@@ -8,6 +8,8 @@ describe(`glosses`, () => {
 
   it(`may be in multiple languages`);
 
+  it(`must have valid ISO language tags`);
+
   it(`may separate words with one or more white spaces or tabs`);
 
   it(`may be omitted when the morphemes line is present`);

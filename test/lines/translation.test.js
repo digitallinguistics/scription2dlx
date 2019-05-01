@@ -25,4 +25,6 @@ describe(`free translation`, () => {
 
   });
 
+  it(`must have valid ISO language tags`);
+
 });
