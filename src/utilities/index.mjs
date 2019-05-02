@@ -1,9 +1,9 @@
-import getLine      from './getLine.mjs';
-import getLines     from './getLines.mjs';
-import trimBrackets from './trimBrackets.mjs';
+import cleanBrackets from './cleanBrackets.mjs';
+import getLine       from './getLine.mjs';
+import getLines      from './getLines.mjs';
 
 export {
+  cleanBrackets,
   getLine,
   getLines,
-  trimBrackets,
 };

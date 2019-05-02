@@ -1,6 +1,6 @@
 import {
+  cleanBrackets,
   getLines,
-  trimBrackets,
 } from '../utilities/index.mjs';
 
 /**
@@ -12,16 +12,9 @@ export default function parseTranscription(lines) {
 
   try {
 
-    const data = getLines(`txn`, lines);
-
+    let data = getLines(`txn`, lines);
     if (!data) return null;
-
-    if (typeof data === `string`) return trimBrackets(`/`, `/`, data);
-
-    Object.entries(data).forEach(([lang, text]) => {
-      data[lang] = trimBrackets(`/`, `/`, text);
-    });
-
+    data = cleanBrackets(`txn`, data);
     return data;
 
   } catch (e) {

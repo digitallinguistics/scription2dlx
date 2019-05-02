@@ -39,6 +39,17 @@ describe(`literal translation`, () => {
 
   });
 
-  it(`must have valid ISO language tags`);
+  it(`must have valid ISO language tags`, () => {
+
+    const text = `
+    \\txn      ninakupenda
+    \\lit-eng2 I love you.
+    `;
+
+    const test = () => convert(text);
+
+    expect(test).toThrow();
+
+  });
 
 });

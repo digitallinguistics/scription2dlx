@@ -1,6 +1,6 @@
 import {
+  cleanBrackets,
   getLine,
-  trimBrackets,
 } from '../utilities/index.mjs';
 
 /**
@@ -16,7 +16,7 @@ export default function parsePhonetic(lines) {
 
     if (!data) return null;
 
-    data = trimBrackets(`[`, `]`, data);
+    data = cleanBrackets(`phon`, data);
 
     return data;
 
