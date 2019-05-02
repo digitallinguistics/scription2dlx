@@ -5,6 +5,15 @@
  * @return {String}
  */
 export default function getLine(type, lines) {
-  const line = lines.find(({ code }) => code === type) || {};
-  return line.data;
+  try {
+
+    const line = lines.find(({ code }) => code === type) || {};
+    return line.data;
+
+  } catch (e) {
+
+    e.message = `[getLine] ${e.message}`;
+    throw e;
+
+  }
 }

@@ -7,8 +7,8 @@ function parseNote(data) {
 
   try {
 
-    const noteRegExp = /^(?:\s*(?<meta>.+)\s*:)?\s*(?<text>.+)\s*$/u;
-    const { meta, text }   = noteRegExp.exec(data).groups;
+    const noteRegExp     = /^(?:\s*(?<meta>.+)\s*:)?\s*(?<text>.+)\s*$/u;
+    const { meta, text } = noteRegExp.exec(data).groups;
 
     return { text };
 
@@ -26,7 +26,7 @@ function parseNote(data) {
  * @param  {Array} lines The array of line objects
  * @return {Array}       Returns the "notes" property of the utterance (or null)
  */
-export default function getNotes(lines) {
+export default function parseNotes(lines) {
 
   try {
 
@@ -38,7 +38,7 @@ export default function getNotes(lines) {
 
   } catch (e) {
 
-    e.message = `[getNotes] ${e.message}`;
+    e.message = `[parseNotes] ${e.message}`;
     throw e;
 
   }

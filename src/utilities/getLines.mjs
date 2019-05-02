@@ -29,6 +29,7 @@ export default function getLines(lineType, utteranceLines) {
   } catch (e) {
 
     e.message = `[getLineGroup] ${e.message}\n\n${utteranceLines}`;
+    throw e;
 
   }
 
