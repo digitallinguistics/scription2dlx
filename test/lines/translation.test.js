@@ -25,6 +25,17 @@ describe(`free translation`, () => {
 
   });
 
-  it(`must have valid ISO language tags`);
+  it(`must have valid ISO language tags`, () => {
+
+    const text = `
+    \\trs     Hujambo dunia.
+    \\tln--es Hola mundo.
+    `;
+
+    const test = () => convert(text);
+
+    expect(test).toThrow();
+
+  });
 
 });

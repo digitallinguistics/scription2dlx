@@ -1,30 +1,8 @@
-import createLangRegExp from 'ietf-language-tag-regex';
-
 import {
   cleanBrackets,
   getLines,
+  validateLanguages,
 } from '../utilities/index.mjs';
-
-/**
- * Validates the data for the "literal" field
- * @param  {String|Object} data The data to validate
- */
-function validateLiteral(data) {
-
-  if (typeof data === `object`) {
-
-    const langRegExp = createLangRegExp();
-    const isValidTag = tag => langRegExp.test(tag);
-
-    Object.entries(data).forEach(([lang]) => {
-      if (!isValidTag(lang)) {
-        throw new Error(`${lang} is not a valid IETF language tag.`);
-      }
-    });
-
-  }
-
-}
 
 /**
  * Parses, validates, and cleans the literal translation lines
@@ -38,7 +16,7 @@ export default function parseLiteral(lines) {
     let data = getLines(`lit`, lines);
     if (!data) return null;
     data = cleanBrackets(`lit`, data);
-    validateLiteral(data);
+    validateLanguages(data);
     return data;
 
   } catch (e) {

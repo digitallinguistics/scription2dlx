@@ -1,4 +1,7 @@
-import { getLines } from '../utilities/index.mjs';
+import {
+  getLines,
+  validateLanguages,
+} from '../utilities/index.mjs';
 
 /**
  * Extracts, validates, and cleans the translation lines from the lines array
@@ -10,8 +13,9 @@ export default function parseTranslation(lines) {
   try {
 
     const data = getLines(`tln`, lines);
-
-    return data || null;
+    if (!data) return null;
+    validateLanguages(data);
+    return data;
 
   } catch (e) {
 
