@@ -1,3 +1,4 @@
+import './polyfills.mjs';
 import parseHeader     from './parseHeader.mjs';
 import parseUtterances from './parseUtterances.mjs';
 
