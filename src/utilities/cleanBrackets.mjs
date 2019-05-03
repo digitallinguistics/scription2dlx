@@ -37,19 +37,12 @@ export default function cleanBrackets(type, data) {
 
     const brackets = bracketTypes[type];
 
-    if (typeof data === `string`) {
+    if (typeof data === `string`) return trimBrackets(...brackets, data);
 
-      data = trimBrackets(...brackets, data);
+    const trimmedEntries = Object.entries(data)
+    .map(([lang, text]) => [lang, trimBrackets(...brackets, text)]);
 
-    } else {
-
-      Object.entries(data).forEach(([lang, text]) => {
-        data[lang] = trimBrackets(...brackets, text);
-      });
-
-    }
-
-    return data;
+    return Object.fromEntries(trimmedEntries);
 
   } catch (e) {
 

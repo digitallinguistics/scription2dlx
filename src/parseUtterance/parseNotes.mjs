@@ -22,19 +22,20 @@ function parseNote(data) {
 }
 
 /**
- * Contrusts the "notes" array on the utterance from an array of utterance line objects
- * @param  {Array} lines The array of line objects
- * @return {Array}       Returns the "notes" property of the utterance (or null)
+ * Accepts the lines hash and returns an array of DLx Note objects
+ * @param  {Object} lines The lines hash
+ * @return {Array}        Returns the "notes" property of the utterance (or null)
  */
 export default function parseNotes(lines) {
 
   try {
 
-    const noteLines = lines.filter(({ code }) => code === `n`);
+    const noteLines = Object.entries(lines)
+    .filter(([code]) => code === `n`);
 
     if (!noteLines.length) return [];
 
-    return noteLines.map(({ data }) => parseNote(data));
+    return noteLines.map(([, data]) => parseNote(data));
 
   } catch (e) {
 

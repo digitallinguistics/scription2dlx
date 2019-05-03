@@ -1,11 +1,13 @@
 import cleanBrackets     from './cleanBrackets.mjs';
-import getLine           from './getLine.mjs';
-import getLines          from './getLines.mjs';
+import getLineType       from './getLineType.mjs';
+import groupLines        from './groupLines.mjs';
 import validateLanguages from './validateLanguages.mjs';
+import zip               from './zip.mjs';
 
 export {
   cleanBrackets,
-  getLine,
-  getLines,
+  getLineType,
+  groupLines,
   validateLanguages,
+  zip,
 };

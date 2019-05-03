@@ -1,19 +1,19 @@
 import {
   cleanBrackets,
-  getLines,
+  groupLines,
   validateLanguages,
 } from '../utilities/index.mjs';
 
 /**
  * Parses, validates, and cleans the literal translation lines
- * @param  {Array}         lines The array of line objects
+ * @param  {Object}        lines The lines hash
  * @return {String|Object}
  */
 export default function parseLiteral(lines) {
 
   try {
 
-    let data = getLines(`lit`, lines);
+    let data = groupLines(`lit`, lines);
     if (!data) return null;
     data = cleanBrackets(`lit`, data);
     validateLanguages(data);

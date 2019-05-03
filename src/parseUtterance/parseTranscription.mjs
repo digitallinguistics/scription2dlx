@@ -1,18 +1,18 @@
 import {
   cleanBrackets,
-  getLines,
+  groupLines,
 } from '../utilities/index.mjs';
 
 /**
- * Extracts, validates, and cleans the transcription lines from the lines array
- * @param  {Array}         lines The array of line objects
+ * Extracts, validates, and cleans the transcription lines from the lines hash
+ * @param  {Object}        lines The lines hash
  * @return {String|Object}
  */
 export default function parseTranscription(lines) {
 
   try {
 
-    let data = getLines(`txn`, lines);
+    let data = groupLines(`txn`, lines);
     if (!data) return null;
     data = cleanBrackets(`txn`, data);
     return data;

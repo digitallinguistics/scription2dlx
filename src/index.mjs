@@ -1,5 +1,5 @@
-import getHeader      from './getHeader.mjs';
-import getUtterances  from './getUtterances.mjs';
+import parseHeader     from './parseHeader.mjs';
+import parseUtterances from './parseUtterances.mjs';
 
 /**
  * Converts a scription-format text to DLx format
@@ -12,8 +12,8 @@ export default function scription2dlx(scription) {
 
   if (isEmpty) return {};
 
-  const header     = getHeader(scription);
-  const utterances = getUtterances(scription);
+  const header     = parseHeader(scription);
+  const utterances = parseUtterances(scription);
 
   return { ...header, utterances };
 

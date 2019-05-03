@@ -1,5 +1,5 @@
 import getSchema      from './getSchema.mjs';
-import parseUtterance from './parseUtterance.mjs';
+import parseUtterance from './parseUtterance/index.mjs';
 
 /**
  * Creates a regular expression to match one or more empty lines
@@ -32,7 +32,7 @@ function getUtterancesString(text) {
  * @param  {String} scription The scription text
  * @return {Array}
  */
-export default function getUtterances(scription) {
+export default function parseUtterances(scription) {
 
   try {
 
@@ -54,7 +54,7 @@ export default function getUtterances(scription) {
 
     const textPreviewLength = 250;
 
-    e.message = `[getUtterances] ${e.message}\n\nError parsing utterances for the following text:\n\n${scription.slice(0, textPreviewLength)}`;
+    e.message = `[parseUtterances] ${e.message}\n\nError parsing utterances for the following text:\n\n${scription.slice(0, textPreviewLength)}`;
 
     throw e;
 

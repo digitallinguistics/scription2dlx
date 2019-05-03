@@ -8,13 +8,9 @@ const newlineRegExp   = /\r?\n/gu;
  * @return {String}      The backslash code that was found, without a leading slash
  */
 function getBackslashCode(line) {
-
   const match = line.match(backslashRegExp);
-
   if (!match) return null;
-
   return match.groups.code;
-
 }
 
 /**

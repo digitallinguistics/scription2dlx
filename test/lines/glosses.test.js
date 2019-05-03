@@ -33,4 +33,50 @@ describe(`glosses`, () => {
 
   it(`may group multiple words with [square brackets]`);
 
+  xit(`parses discontinuous morphology`, () => {
+
+    const text = `
+    na-wíčha-wa-xʔu̧
+    hear-3PL.UND-1SG.ACT-hear
+    I hear them
+    `;
+
+  });
+
+  xit(`parses infixes`, () => {
+
+    const text = `
+    b<um>ili
+    <FOC>buy
+    buy
+    `;
+
+    const { utterances: [{ words: [{ morphemes }] }] } = convert(text);
+    expect(morphemes[0].transcription).toBe(`um`);
+    expect(morphemes[0].gloss).toBe(`FOC`);
+    expect(morphemes[1].transcription).toBe(`bili`);
+    expect(morphemes[1].gloss).toBe(`buy`);
+
+  });
+
+  xit(`parses reduplication`, () => {
+
+    // Hebrew, Tagalog, Tagalog
+
+    const text = `
+    yerak~rak-im
+    green~ATT-M.PL
+    greenish ones
+
+    bi~bili
+    IPFV~buy
+    is buying
+
+    b<um>i~bili
+    <ACT>IPFV~buy
+    is buying
+    `;
+
+  });
+
 });

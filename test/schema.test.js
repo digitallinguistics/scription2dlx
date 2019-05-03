@@ -151,7 +151,7 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`3-line utterances default to morphemes + glosses + translation`, () => {
+  it(`3-line utterances default to morphemes + glosses + translation`, () => {
 
     const translation = `one day a man`;
 

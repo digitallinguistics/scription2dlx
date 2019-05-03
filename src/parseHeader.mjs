@@ -21,7 +21,7 @@ function getHeaderString(text) {
  * @param  {String} headerString The text of the header, without dashes
  * @return {Object}
  */
-function parseHeader(headerString) {
+function parseYAML(headerString) {
   const isEmpty = headerString === ``;
   if (isEmpty) throw new TypeError(`The metadata header must not be empty.`);
   return yamlParser.parse(headerString);
@@ -49,7 +49,7 @@ function validateHeader(header) {
  * @param  {String} text The scription text
  * @return {String}      The text metadata, as a JavaScript object
  */
-export default function getHeader(text) {
+export default function parseHeader(text) {
 
   try {
 
@@ -58,7 +58,7 @@ export default function getHeader(text) {
 
     if (isMissing) return {};
 
-    const header = parseHeader(headerString);
+    const header = parseYAML(headerString);
 
     validateHeader(header);
 
@@ -66,7 +66,7 @@ export default function getHeader(text) {
 
   } catch (e) {
 
-    e.message = `[getHeader] ${e.message}\n\nError parsing the following header:\n\n${text}`;
+    e.message = `[parseHeader] ${e.message}\n\nError parsing the following header:\n\n${text}`;
     throw e;
 
   }

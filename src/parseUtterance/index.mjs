@@ -1,13 +1,12 @@
-import {
-  parseCustom,
-  parseLiteral,
-  parseNotes,
-  parsePhonetic,
-  parseSpeaker,
-  parseTranscript,
-  parseTranscription,
-  parseTranslation,
-} from './lines/index.mjs';
+import parseCustom        from './parseCustom.mjs';
+import parseLiteral       from './parseLiteral.mjs';
+import parseNotes         from './parseNotes.mjs';
+import parsePhonetic      from './parsePhonetic.mjs';
+import parseSpeaker       from './parseSpeaker.mjs';
+import parseTranscript    from './parseTranscript.mjs';
+import parseTranscription from './parseTranscription.mjs';
+import parseTranslation   from './parseTranslation.mjs';
+import parseWords         from './parseWords.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
@@ -27,20 +26,21 @@ export default function parseUtterance(utteranceString, schema) {
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim())
-    .map((line, i) => {
+    .reduce((hash, line, i) => {
 
-      const code   = schema[i] || `n`; // treat extra lines as notes
-      const [type] = code.split(`-`, 1);
-      const match  = line.match(lineDataRegExp);
-      const data   = (match ? match.groups.lineData : line).trim();
+      const code  = schema[i] || `n`; // treat extra lines as notes
+      const match = line.match(lineDataRegExp);
+      const data  = (match ? match.groups.lineData : line).trim();
 
-      return { code, data, type };
+      hash[code] = data; // eslint-disable-line no-param-reassign
+      return hash;
 
-    });
+    }, {});
 
     // Return null if the utterance contains no data
+    // Return null if the utterance contains no data
 
-    const noData = lines.every(({ data }) => data === ``);
+    const noData = !Object.values(lines).every(Boolean);
     if (noData) return null;
 
     // Extract known utterance properties and populate the utterance
@@ -48,11 +48,12 @@ export default function parseUtterance(utteranceString, schema) {
     const custom        = parseCustom(lines);
     const literal       = parseLiteral(lines);
     const notes         = parseNotes(lines);
-    const phonetic      = parsePhonetic(lines);
-    const speaker       = parseSpeaker(lines);
+    const phonetic      = parsePhonetic(lines.phon);
+    const speaker       = parseSpeaker(lines.sp);
     const transcript    = parseTranscript(lines);
     const transcription = parseTranscription(lines) || ``;
     const translation   = parseTranslation(lines) || ``;
+    const words         = parseWords(lines);
 
     const utterance = {
       ...custom,
@@ -63,6 +64,7 @@ export default function parseUtterance(utteranceString, schema) {
       ...transcript ? { transcript } : {},
       transcription,
       translation,
+      ...words.length ? { words } : {},
     };
 
     return utterance;

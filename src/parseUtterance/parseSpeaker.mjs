@@ -1,5 +1,3 @@
-import { getLine } from '../utilities/index.mjs';
-
 const speakerRegExp = /^[A-Za-z0-9]+$/u;
 
 /**
@@ -12,15 +10,13 @@ function isValidSpeaker(speaker) {
 }
 
 /**
- * Extracts the speaker data from the lines array
- * @param  {Array}  lines The array of line objects
+ * Cleans and validates the speaker line
+ * @param  {Object}  line The speaker line
  * @return {String}
  */
-export default function parseSpeaker(lines) {
+export default function parseSpeaker(data) {
 
   try {
-
-    const data = getLine(`sp`, lines);
 
     if (!data) return null;
 
