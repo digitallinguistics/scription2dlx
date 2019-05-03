@@ -12,8 +12,6 @@ describe(`text`, () => {
 
     const result = convert(text);
 
-    throw new Error(`BOOM`);
-
     expect(JSON.stringify(result)).toBe(`{}`);
 
   });
