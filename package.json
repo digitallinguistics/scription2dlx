@@ -34,10 +34,10 @@
   },
   "scripts": {
     "build":   "webpack",
-    "jasmine": "jasmine --config=test/jasmine.json",
+    "jasmine": "node --experimental-modules --no-warnings test/jasmine.mjs",
     "karma":   "karma start",
     "prepare": "npm run build",
-    "test":    "karma start",
+    "test":    "npm run jasmine && npm run karma",
     "upload":  "node build/upload.js"
   },
   "devDependencies": {
