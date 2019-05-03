@@ -1,4 +1,7 @@
 {
+  "helpers": [
+    "setup-node.mjs"
+  ],
   "spec_dir": "test",
   "spec_files": [
     "*.test.*js",

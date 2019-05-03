@@ -37,7 +37,7 @@ module.exports = function setConfig(config) {
     // list of files / patterns to load in the browser
     files: [
       `scription2dlx.js`,
-      `setup.mjs`,
+      `setup-browser.mjs`,
       `*.test.mjs`,
       `*/*.test.mjs`,
     ],

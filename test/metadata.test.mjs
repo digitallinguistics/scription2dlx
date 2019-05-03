@@ -1,8 +1,7 @@
 /**
  * This test suite applies tests to the metadata header
  */
-
-describe(`metadata header`, () => {
+describe(`metadata header`, function() {
 
   it(`must be in valid YAML (or JSON) format`, () => {
 

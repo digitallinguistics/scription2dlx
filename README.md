@@ -65,6 +65,11 @@ If you would like to use `scription2dlx` as a dependency in your library, it is 
 
 * The `scription2dlx` library does **not** perform validation on the text data. You should use another validator like [AJV][AJV] to validate your data against the DLx DaFoDiL format.
 
+## Tests
+
+- **Manual:** Open `test/index.html` in a browser.
+- **Karma:** Run `karma start` from the command line
+
 [AJV]:       https://www.npmjs.com/package/ajv
 [DaFoDiL]:   https://format.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
