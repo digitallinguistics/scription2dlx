@@ -6,11 +6,49 @@ import convert from '../../src/index.mjs';
 
 describe(`glosses`, () => {
 
-  it(`may be in multiple languages`);
+  it(`may be in multiple languages`, () => {
 
-  it(`must have valid ISO language tags`);
+    const text = `
+    \\m     waxt-qungu qasi
+    \\gl-en day-one man
+    \\gl-es día-uno hombre
+    `;
 
-  it(`may separate words with one or more white spaces or tabs`);
+    const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
+    expect(morpheme.gloss.en).toBe(`day`);
+    expect(morpheme.gloss.es).toBe(`día`);
+
+  });
+
+  it(`must have valid ISO language tags`, () => {
+
+    const text = `
+    \\m      waxt-qungu qasi
+    \\gl-es1 day-one man
+    \\gl-es2 día-uno hombre
+    `;
+
+    try {
+      convert(text);
+      fail();
+    } catch (e) {
+      expect(e.message.includes(`IETF`)).toBe(true);
+    }
+
+  });
+
+  it(`may separate words with one or more white spaces or tabs`, () => {
+
+    const text = `
+    \\m  waxt-qungu  qasi
+    \\gl day-one\t\t man
+    `;
+
+    const test = () => convert(text);
+
+    expect(test).not.toThrow();
+
+  });
 
   it(`must be present when the morphemes line is present`);
 
@@ -43,7 +81,7 @@ describe(`glosses`, () => {
 
   });
 
-  fit(`parses infixes`, () => {
+  it(`parses infixes`, () => {
 
     // Tagalog, Latin
 

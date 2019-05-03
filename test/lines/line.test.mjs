@@ -25,6 +25,7 @@ describe(`line`, () => {
 
     const text = `
     \\m   waxt-qungu qasi
+    \\gl  day-one    man
     \\tln ${translation}
     `;
 
@@ -39,6 +40,7 @@ describe(`line`, () => {
 
     const text = `
     \\m      waxt-qungu qasi
+    \\gl     day-one    man
     \\tln\t\t${translation}
     `;
 

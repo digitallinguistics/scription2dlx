@@ -1,6 +1,7 @@
 import {
   getLineType,
   groupLines,
+  validateLanguages,
   zip,
 } from '../utilities/index.mjs';
 
@@ -73,12 +74,18 @@ export default function parseMorphemes(wordLines) {
   try {
 
     const morphemesHash = createMorphemesHash(wordLines);
+
     const morphemes = zip(morphemesHash)
     .flatMap(separateInfix)
     .map(data => ({
       transcription: groupLines(`m`, data),
       gloss:         groupLines(`gl`, data), // eslint-disable-line sort-keys
     }));
+
+    morphemes.forEach(m => {
+      validateLanguages(m.transcription);
+      validateLanguages(m.gloss);
+    });
 
     return morphemes;
 

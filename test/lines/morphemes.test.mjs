@@ -10,7 +10,22 @@ describe(`morphemes`, () => {
 
   it(`may separate words by one or more white spaces or tabs`);
 
-  it(`must have the same number of words as the glosses line`);
+  it(`must have the same number of words as the glosses line`, () => {
+
+    const text = `
+    \\m  waxdungu qasi
+    \\gl day-one  a man
+    `;
+
+    try {
+      convert(text);
+      fail();
+    } catch (e) {
+      expect(e.message.includes(`same number`)).toBe(true);
+    }
+
+
+  });
 
   it(`must have the same number of morphemes in each word as the glosses line`);
 

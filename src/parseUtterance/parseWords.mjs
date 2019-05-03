@@ -34,6 +34,23 @@ function tokenizeLine(string) {
 }
 
 /**
+ * Checks that each line in the lines hash has the same number of words
+ * @param {Object} lines The lines hash
+ */
+function validateNumWords(lines) {
+
+  const wordLists = Object.values(lines);
+
+  const numWords     = Math.max(...wordLists.map(w => w.length));
+  const sameNumWords = wordLists.every(list => list.length === numWords);
+
+  if (!sameNumWords) {
+    throw new Error(`All morpheme and glosses lines must have the same number of words.`);
+  }
+
+}
+
+/**
  * Extracts the morphemes and glosses lines from the lines hash and converts them into an array of DLx Word objects
  * @param  {Object} lines The lines hash
  * @return {Array}        Returns an array of DLx Word objects
@@ -45,6 +62,8 @@ export default function parseWords(lines) {
     const wordLines = getWordLines(lines);
 
     if (!Object.keys(wordLines).length) return [];
+
+    validateNumWords(wordLines);
 
     return zip(wordLines)
     .map(wordData => ({ morphemes: parseMorphemes(wordData) }));
