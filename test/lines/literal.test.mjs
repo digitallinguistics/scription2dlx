@@ -2,7 +2,7 @@
  * This file applies tests to the literal translation line (`\lit`)
  */
 
-const convert = require(`../../scription2dlx`);
+import convert from '../../src/index.mjs';
 
 describe(`literal translation`, () => {
 

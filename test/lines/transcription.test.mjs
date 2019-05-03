@@ -2,7 +2,7 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
-const convert = require(`../../scription2dlx`);
+import convert from '../../src/index.mjs';
 
 describe(`phomemic transcription`, () => {
 

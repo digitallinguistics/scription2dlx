@@ -2,7 +2,7 @@
  * This test suite applies tests to the metadata header
  */
 
-const convert = require(`../scription2dlx`);
+import convert from '../src/index.mjs';
 
 describe(`metadata header`, () => {
 

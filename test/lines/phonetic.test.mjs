@@ -2,7 +2,7 @@
  * This file applies tests for the phonetic transcription line
  */
 
-const convert = require(`../../scription2dlx`);
+import convert from '../../src/index.mjs';
 
 describe(`phonetic transcription`, () => {
 

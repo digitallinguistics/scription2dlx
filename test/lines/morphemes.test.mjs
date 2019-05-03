@@ -2,7 +2,7 @@
  * This file applies tests to the morphemes line (`\m`)
  */
 
-const convert = require(`../../scription2dlx`);
+import convert from '../../src/index.mjs';
 
 describe(`morphemes`, () => {
 
