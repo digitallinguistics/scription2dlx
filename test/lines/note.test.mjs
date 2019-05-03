@@ -39,46 +39,121 @@ describe(`note`, () => {
 
   });
 
-  xit(`may have a source and text`, () => {
+  it(`may have a source and text`, () => {
 
-    const text = `
-    \\n DWH: Is this utterance past or present tense?
+    const initials = `DWH`;
+    const noteText = `Is this utterance past or present tense?`;
+
+    const sampleText = `
+    \\n ${initials}: ${noteText}
     `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBe(initials);
+    expect(text).toBe(noteText);
 
   });
 
-  it(`may have only text`);
+  it(`may have only text`, () => {
 
-  xit(`may not have only a language and text`, () => {
+    const noteText = `Is this utterance past or present tense?`;
 
-    const text = `
-    \\n -eng: Is this utterance past or present tense?
+    const sampleText = `
+    \\n ${noteText}
     `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBeUndefined();
+    expect(text).toBe(noteText);
 
   });
 
-  it(`must only use basic alphanumeric characters for the source`);
+  it(`may have only a language and text`, () => {
 
-  it(`must only use basic alphanumeric characters for the language/orthography`);
+    const lang     = `en`;
+    const noteText = `Is this utterance past or present tense?`;
 
-  it(`assumes the language of the note is English if not specified`);
-
-  xit(`removes white space before the colon`, () => {
-
-    const text = `
-    \\n DWH-eng : This is a note.
+    const sampleText = `
+    \\n (${lang}): ${noteText}
     `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(lang);
+    expect(source).toBeUndefined();
+    expect(text).toBe(noteText);
 
   });
 
-  xit(`may have multiple white spaces or tabs after the colon`, () => {
+  it(`assumes the language of the note is English if not specified`, () => {
 
-    const text = `
-    \\n DWH:\t \tThis is a note.
+    const noteText = `This is a note.`;
+
+    const sampleText = `
+    \\n ${noteText}
     `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBeUndefined();
+    expect(text).toBe(noteText);
 
   });
 
-  it(`allows colons in the note text`);
+  it(`removes white space before the colon`, () => {
+
+    const initials = `DWH`;
+    const lang     = `en`;
+    const noteText = `This is a note.`;
+
+    const sampleText = `
+    \\n ${initials} (${lang}) : ${noteText}
+    `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBe(initials);
+    expect(text).toBe(noteText);
+
+  });
+
+  it(`may have multiple white spaces or tabs after the colon`, () => {
+
+    const initials = `DWH`;
+    const noteText = `This is a note.`;
+
+    const sampleText = `
+    \\n ${initials}:\t \t${noteText}
+    `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBe(initials);
+    expect(text).toBe(noteText);
+
+  });
+
+  it(`allows colons in the note text`, () => {
+
+    const noteText = `What do you think: choice one or choice two?`;
+
+    const sampleText = `
+    \\n ${noteText}
+    `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(language).toBe(`en`);
+    expect(source).toBeUndefined();
+    expect(text).toBe(noteText);
+
+  });
 
 });

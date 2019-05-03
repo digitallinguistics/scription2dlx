@@ -12,9 +12,9 @@ function parseNote(data) {
 
   try {
 
-    const noteRegExp = /^\s*(?:(?<source>[^(\s]+)?\s*(?:\((?<language>.+)\))?:\s+)?(?<text>.+)\s*$/u;
+    const noteRegExp = /^\s*(?:(?<source>[^(\s]+)?\s*(?:\((?<language>.+)\))?\s*:\s+)?(?<text>.+)\s*$/u;
 
-    const { language, source, text } = data.match(noteRegExp).groups;
+    const { language = `en`, source, text } = data.match(noteRegExp).groups;
 
     if (language && !isValidTag(language)) {
       throw new Error(`${language} is not a valid IETF language tag.`);
