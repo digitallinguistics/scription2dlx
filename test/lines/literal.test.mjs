@@ -2,7 +2,7 @@
  * This file applies tests to the literal translation line (`\lit`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`literal translation`, () => {
 

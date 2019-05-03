@@ -2,7 +2,7 @@
  * This test suite applies tests to the metadata header
  */
 
-import convert from '../src/index.mjs';
+import convert from './convert.mjs';
 
 describe(`metadata header`, () => {
 

@@ -2,7 +2,7 @@
  * This file applies tests for the utterances section of the scription file
  */
 
-import convert from '../src/index.mjs';
+import convert from './convert.mjs';
 
 describe(`utterances`, () => {
 

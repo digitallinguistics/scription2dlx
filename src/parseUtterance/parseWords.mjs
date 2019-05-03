@@ -33,7 +33,9 @@ function getWordLines(lines) {
  */
 function tokenizeLine(string) {
 
-  const regExp = /\[(?<bracketed>[^[\]]*)\]|(?<unbracketed>[^\s]+)/gu;
+  // const regExp = /\[(?<bracketed>[^[\]]*)\]|(?<unbracketed>[^\s]+)/gu;
+
+  const regExp = new RegExp(`\\[(?<bracketed>[^[\\]]*)\\]|(?<unbracketed>[^\\s]+)`, `gu`);
 
   return getMatches(regExp, string)
   .map(({ bracketed, unbracketed }) => bracketed || unbracketed);

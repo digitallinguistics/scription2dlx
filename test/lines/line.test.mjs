@@ -2,7 +2,7 @@
  * This file applies tests for lines (generally)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`line`, () => {
 

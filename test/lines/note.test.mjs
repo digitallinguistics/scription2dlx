@@ -2,7 +2,7 @@
  * This file applies tests to the note line (`\n`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`note`, () => {
 

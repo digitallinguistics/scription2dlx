@@ -2,7 +2,7 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`phomemic transcription`, () => {
 

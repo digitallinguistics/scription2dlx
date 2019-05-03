@@ -2,7 +2,7 @@
  * This file applies tests to the morphemes line (`\m`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`morphemes`, () => {
 

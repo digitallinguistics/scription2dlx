@@ -2,7 +2,7 @@
  * This file applies tests to the free translation line (`\tln`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`free translation`, () => {
 

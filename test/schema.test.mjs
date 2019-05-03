@@ -2,7 +2,7 @@
  * This file applies tests for the interlinear gloss schema
  */
 
-import convert from '../src/index.mjs';
+import convert from './convert.mjs';
 
 describe(`interlinear gloss schema`, () => {
 

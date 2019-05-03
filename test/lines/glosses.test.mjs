@@ -2,7 +2,7 @@
  * This file applies tests to the gloses line (`\gl`)
  */
 
-import convert from '../../src/index.mjs';
+import convert from '../convert.mjs';
 
 describe(`glosses`, () => {
 
