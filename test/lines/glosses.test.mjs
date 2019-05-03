@@ -50,7 +50,21 @@ describe(`glosses`, () => {
 
   });
 
-  it(`must be present when the morphemes line is present`);
+  it(`must be present when the morphemes line is present`, () => {
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\tln one day a man
+    `;
+
+    try {
+      convert(text);
+      fail(`Error not thrown.`);
+    } catch (e) {
+      expect(e.message.includes(`glosses`)).toBe(true);
+    }
+
+  });
 
   it(`treats morphemes as grammatical when written in CAPS`, () => {
 
