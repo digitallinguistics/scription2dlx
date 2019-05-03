@@ -52,7 +52,7 @@ describe(`morphemes`, () => {
 
   });
 
-  fit(`must have the same number of morphemes in each word as the glosses line`, () => {
+  it(`must have the same number of morphemes in each word as the glosses line`, () => {
 
     const text = `
     \\m  waxdungu qasi
@@ -70,7 +70,21 @@ describe(`morphemes`, () => {
 
   it(`may not contain non-breaking hyphens`);
 
-  it(`must be present if the glosses line is present`);
+  it(`must be present if the glosses line is present`, () => {
+
+    const text = `
+    \\txn waxdungu qasi
+    \\gl  one.day  man
+    `;
+
+    try {
+      convert(text);
+      fail(`Error not thrown.`);
+    } catch (e) {
+      expect(e.message.includes(`morphemes`)).toBe(true);
+    }
+
+  });
 
   it(`may group multiple words with [square brackets]`);
 

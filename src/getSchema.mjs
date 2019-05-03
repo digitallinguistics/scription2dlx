@@ -1,3 +1,5 @@
+import { getLineType } from './utilities/index.mjs';
+
 const backslashRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
 const codeRegExp      = /^[-A-Za-z0-9]+$/u;
 const newlineRegExp   = /\r?\n/gu;
@@ -38,6 +40,7 @@ function isValidCode(code) {
 function validateBackslashCodes(rawCodes) {
 
   // Check that if any line has a backslash code, all lines do
+  // NB: This validation must come first
 
   const someLinesHaveCodes = hasBackslashCodes(rawCodes);
   const allLinesHaveCodes  = rawCodes.every(code => typeof code === `string`);
@@ -47,6 +50,15 @@ function validateBackslashCodes(rawCodes) {
   }
 
   const codes = rawCodes.filter(Boolean);
+  const types = codes.map(getLineType);
+
+  // Check that codes are valid
+
+  codes.forEach(code => {
+    if (!isValidCode(code)) {
+      throw new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
+    }
+  });
 
   // Check that there are no duplicate codes
 
@@ -62,13 +74,14 @@ function validateBackslashCodes(rawCodes) {
     }
   });
 
-  // Check that codes are valid
+  // Check that morphemes and glosses lines are bidependent
 
-  codes.forEach(code => {
-    if (!isValidCode(code)) {
-      throw new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
-    }
-  });
+  const hasMorphemes = types.some(type => type === `m`);
+  const hasGlosses   = types.some(type => type === `gl`);
+
+  if ((hasMorphemes || hasGlosses) && !(hasMorphemes && hasGlosses)) {
+    throw new Error(`If either the morphemes or glosses line is present, the other must be present as well.`);
+  }
 
 }
 
