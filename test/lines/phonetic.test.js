@@ -2,8 +2,6 @@
  * This file applies tests for the phonetic transcription line
  */
 
-const convert = require(`../scription2dlx.js`)
-
 describe(`phonetic transcription`, () => {
 
   it(`should remove phonetic brackets`, () => {

@@ -2,8 +2,6 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
-const convert = require(`../scription2dlx.js`)
-
 describe(`phomemic transcription`, () => {
 
   it(`should remove phonemic slashes`, () => {

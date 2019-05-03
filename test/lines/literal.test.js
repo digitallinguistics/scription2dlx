@@ -2,8 +2,6 @@
  * This file applies tests to the literal translation line (`\lit`)
  */
 
-const convert = require(`../scription2dlx.js`)
-
 describe(`literal translation`, () => {
 
   it(`removes brackets`, () => {

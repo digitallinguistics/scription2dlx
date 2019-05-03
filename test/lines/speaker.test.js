@@ -2,8 +2,6 @@
  * This file applies tests for the speaker line
  */
 
-const convert = require(`../scription2dlx.js`)
-
 describe(`speaker`, () => {
 
   it(`must be a valid abbreviation`, () => {

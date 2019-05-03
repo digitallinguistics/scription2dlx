@@ -2,8 +2,6 @@
  * This test suite applies tests to the metadata header
  */
 
-const convert = require(`./scription2dlx.js`);
-
 describe(`metadata header`, () => {
 
   it(`must be in valid YAML (or JSON) format`, () => {
