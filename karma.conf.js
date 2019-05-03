@@ -12,7 +12,10 @@ module.exports = function setConfig(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [`Chrome`],
+    browsers: [
+      `ChromeHeadless`,
+      `FirefoxHeadless`,
+    ],
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
@@ -20,6 +23,13 @@ module.exports = function setConfig(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity,
+
+    customLaunchers: {
+      FirefoxHeadless: {
+        base:  `Firefox`,
+        flags: [`-headless`],
+      },
+    },
 
     // list of files / patterns to exclude
     exclude: [],
