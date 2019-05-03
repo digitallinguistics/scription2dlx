@@ -97,6 +97,20 @@ describe(`morphemes`, () => {
 
   });
 
-  it(`may group multiple words with [square brackets]`);
+  it(`may group multiple words with [square brackets]`, () => {
+
+    const text = `
+    waxt-qungu qasi [Benjamin Paul]
+    day-one    man  NAME
+    one day a man, Benjamin Paul
+    `;
+
+    const { utterances: [{ words }] } = convert(text);
+    const lastWord = words.pop();
+
+    expect(lastWord.transcription).toBe(`Benjamin Paul`);
+    expect(lastWord.gloss).toBe(`NAME`);
+
+  });
 
 });

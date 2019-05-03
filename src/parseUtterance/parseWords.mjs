@@ -1,6 +1,9 @@
 import parseMorphemes from './parseMorphemes.mjs';
+
 import {
   getLineType,
+  getMatches,
+  groupLines,
   validateNumItems,
   zip,
 } from '../utilities/index.mjs';
@@ -29,9 +32,12 @@ function getWordLines(lines) {
  * @return {Array}         Returns an array of word tokens
  */
 function tokenizeLine(string) {
-  return string
-  .split(/\s+/gu)
-  .map(str => str.trim());
+
+  const regExp = /\[(?<bracketed>[^[\]]*)\]|(?<unbracketed>[^\s]+)/gu;
+
+  return getMatches(regExp, string)
+  .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
+
 }
 
 /**
@@ -50,7 +56,20 @@ export default function parseWords(lines) {
     validateNumItems(wordLines);
 
     return zip(wordLines)
-    .map(wordData => ({ morphemes: parseMorphemes(wordData) }));
+    .map(wordData => {
+
+      const hasSpaces = Object.values(wordData).some(str => /\s/gu.test(str));
+
+      if (hasSpaces) {
+        return {
+          gloss:         groupLines(`gl`, wordData),
+          transcription: groupLines(`m`, wordData),
+        };
+      }
+
+      return { morphemes: parseMorphemes(wordData) };
+
+    });
 
   } catch (e) {
 

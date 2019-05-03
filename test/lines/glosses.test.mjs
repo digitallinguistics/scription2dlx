@@ -174,4 +174,14 @@ describe(`glosses`, () => {
 
   });
 
+  xit(`may group multiple words with [square brackets]`, () => {
+
+    const text = `
+    waxdungu qasi
+    [one day] man
+    one day a man
+    `;
+
+  });
+
 });
