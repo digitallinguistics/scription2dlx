@@ -1,4 +1,7 @@
-import { getLineType } from '../utilities/index.mjs';
+import {
+  getLineType,
+  isValidTag,
+} from '../utilities/index.mjs';
 
 /**
  * Accepts the text of the note line, and returns a valid DLx Note object
@@ -9,10 +12,19 @@ function parseNote(data) {
 
   try {
 
-    const noteRegExp     = /^(?:\s*(?<meta>.+)\s*:)?\s*(?<text>.+)\s*$/u;
-    const { meta, text } = noteRegExp.exec(data).groups;
+    const noteRegExp = /^\s*(?:(?<source>[^(\s]+)?\s*(?:\((?<language>.+)\))?:\s+)?(?<text>.+)\s*$/u;
 
-    return { text };
+    const { language, source, text } = data.match(noteRegExp).groups;
+
+    if (language && !isValidTag(language)) {
+      throw new Error(`${language} is not a valid IETF language tag.`);
+    }
+
+    return {
+      language,
+      source,
+      text,
+    };
 
   } catch (e) {
 

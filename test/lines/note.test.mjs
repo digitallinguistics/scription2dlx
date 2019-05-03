@@ -8,15 +8,38 @@ describe(`note`, () => {
 
   it(`may have source, language, and text`, () => {
 
-    const text = `
-    \\n DWH-eng: Is this utterance past or present tense?
+    const initials = `DWH`;
+    const lang     = `en`;
+    const noteText = `Is this utterance past or present tense?`;
+
+    const sampleText = `
+    \\n ${initials} (${lang}): ${noteText}
     `;
+
+    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+
+    expect(source).toBe(initials);
+    expect(language).toBe(lang);
+    expect(text).toBe(noteText);
 
   });
 
-  it(`must use a valid ISO language tag for the language`);
+  it(`must use a valid ISO language tag for the language`, () => {
 
-  it(`may have a source and text`, () => {
+    const text = `
+    \\n (en2): This is a note.
+    `;
+
+    try {
+      convert(text);
+      fail(`Error not thrown.`);
+    } catch (e) {
+      expect(e.message.includes(`IETF`)).toBe(true);
+    }
+
+  });
+
+  xit(`may have a source and text`, () => {
 
     const text = `
     \\n DWH: Is this utterance past or present tense?
@@ -26,7 +49,7 @@ describe(`note`, () => {
 
   it(`may have only text`);
 
-  it(`may not have only a language and text`, () => {
+  xit(`may not have only a language and text`, () => {
 
     const text = `
     \\n -eng: Is this utterance past or present tense?
@@ -40,7 +63,7 @@ describe(`note`, () => {
 
   it(`assumes the language of the note is English if not specified`);
 
-  it(`removes white space before the colon`, () => {
+  xit(`removes white space before the colon`, () => {
 
     const text = `
     \\n DWH-eng : This is a note.
@@ -48,7 +71,7 @@ describe(`note`, () => {
 
   });
 
-  it(`may have multiple white spaces or tabs after the colon`, () => {
+  xit(`may have multiple white spaces or tabs after the colon`, () => {
 
     const text = `
     \\n DWH:\t \tThis is a note.
