@@ -1,5 +1,5 @@
 {
-  "exec": "npm run test",
+  "exec": "npm run build && karma start",
   "ignore": [
     "scription2dlx.js"
   ]

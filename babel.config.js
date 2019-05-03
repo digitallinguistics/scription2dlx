@@ -1,7 +1,9 @@
 module.exports = {
+  // Order of plugins is important
   plugins: [
     `@babel/plugin-transform-named-capturing-groups-regex`,
     `@babel/plugin-transform-dotall-regex`,
+    `@babel/plugin-transform-unicode-regex`,
   ],
   presets: [
     [
