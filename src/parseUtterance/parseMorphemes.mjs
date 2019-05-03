@@ -2,6 +2,7 @@ import {
   getLineType,
   groupLines,
   validateLanguages,
+  validateNumItems,
   zip,
 } from '../utilities/index.mjs';
 
@@ -74,6 +75,8 @@ export default function parseMorphemes(wordLines) {
   try {
 
     const morphemesHash = createMorphemesHash(wordLines);
+
+    validateNumItems(morphemesHash);
 
     const morphemes = zip(morphemesHash)
     .flatMap(separateInfix)
