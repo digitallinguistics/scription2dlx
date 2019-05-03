@@ -68,7 +68,18 @@ describe(`morphemes`, () => {
 
   });
 
-  it(`may not contain non-breaking hyphens`);
+  it(`treats non-breaking hyphens as word characters`, () => {
+
+    const text = `
+    \\m  waxt‑qungu qasi
+    \\gl day‑one    man
+    `;
+
+    const { utterances: [{ words: [{ morphemes }] }] } = convert(text);
+
+    expect(morphemes.length).toBe(1);
+
+  });
 
   it(`must be present if the glosses line is present`, () => {
 
