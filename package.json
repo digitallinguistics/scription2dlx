@@ -36,7 +36,6 @@
     "build":   "webpack",
     "jasmine": "node --experimental-modules --no-warnings test/jasmine.mjs",
     "karma":   "karma start",
-    "prepare": "npm i -D && npm run build",
     "test":    "npm run jasmine && npm run karma",
     "upload":  "node build/upload.js"
   },
