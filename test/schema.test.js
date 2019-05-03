@@ -175,24 +175,47 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  xit(`4-line utterances to default to transcription + morphemes + glosses + translation`);
+  it(`4-line utterances to default to transcription + morphemes + glosses + translation`, () => {
+
+    const transcription = `waxdungu qasi`;
+    const translation   = `one day a man`;
+
+    const text = `
+    ${transcription}
+    waxt-qungu qasi
+    day-one    man
+    ${translation}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcription).toBe(transcription);
+    expect(utterance.translation).toBe(translation);
+    expect(utterance.words.length).toBe(2);
+
+  });
 
   it(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
 
-    const noteText = `This is the traditional opening to a story.`;
+    const transcription = `waxdungu qasi`;
+    const translation   = `one day a man`;
+    const noteText          = `This is the traditional opening to a story.`;
 
     const text = `
-    waxdungu qasi
+    ${transcription}
     waxt-qungu qasi
     day-one    man
-    one day a man
+    ${translation}
     ${noteText}
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.notes.length).toBe(1);
-
     const { notes: [note] } = utterance;
+
+    expect(utterance.transcription).toBe(transcription);
+    expect(utterance.words.length).toBe(2);
+    expect(utterance.translation).toBe(translation);
+    expect(utterance.notes.length).toBe(1);
     expect(note.text).toBe(noteText);
 
   });

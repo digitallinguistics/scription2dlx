@@ -23,19 +23,28 @@ export default function parseUtterance(utteranceString, schema) {
 
     // Create an arry of line objects with information about each line
 
+    let noteCount = 0;
+
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim())
     .reduce((hash, line, i) => {
 
-      const code  = schema[i] || `n`; // treat extra lines as notes
-      const match = line.match(lineDataRegExp);
-      const data  = (match ? match.groups.lineData : line).trim();
+      const code    = schema[i] || `n`; // treat extra lines as notes
+      const match   = line.match(lineDataRegExp);
+      const data    = (match ? match.groups.lineData : line).trim();
 
-      hash[code] = data; // eslint-disable-line no-param-reassign
+      if (code === `n`) {
+        noteCount++;
+        hash[`${code}-${noteCount}`] = data; // eslint-disable-line no-param-reassign
+      } else {
+        hash[code] = data; // eslint-disable-line no-param-reassign
+      }
+
       return hash;
 
     }, {});
+
 
     // Return null if the utterance contains no data
     // Return null if the utterance contains no data
@@ -55,7 +64,7 @@ export default function parseUtterance(utteranceString, schema) {
     const translation   = parseTranslation(lines) || ``;
     const words         = parseWords(lines);
 
-    const utterance = {
+    return {
       ...custom,
       ...literal ? { literal } : {},
       ...notes.length ? { notes } : {},
@@ -66,8 +75,6 @@ export default function parseUtterance(utteranceString, schema) {
       translation,
       ...words.length ? { words } : {},
     };
-
-    return utterance;
 
   } catch (e) {
 

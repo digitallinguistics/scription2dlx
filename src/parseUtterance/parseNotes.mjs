@@ -1,3 +1,5 @@
+import { getLineType } from '../utilities/index.mjs';
+
 /**
  * Accepts the text of the note line, and returns a valid DLx Note object
  * @param  {String} data The text of the note line
@@ -31,7 +33,7 @@ export default function parseNotes(lines) {
   try {
 
     const noteLines = Object.entries(lines)
-    .filter(([code]) => code === `n`);
+    .filter(([code]) => getLineType(code) === `n`);
 
     if (!noteLines.length) return [];
 
