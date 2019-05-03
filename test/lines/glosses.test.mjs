@@ -12,7 +12,7 @@ describe(`glosses`, () => {
 
   it(`may separate words with one or more white spaces or tabs`);
 
-  it(`may be omitted when the morphemes line is present`);
+  it(`must be present when the morphemes line is present`);
 
   it(`treats morphemes as grammatical when written in CAPS`, () => {
 
@@ -43,19 +43,35 @@ describe(`glosses`, () => {
 
   });
 
-  xit(`parses infixes`, () => {
+  fit(`parses infixes`, () => {
+
+    // Tagalog, Latin
 
     const text = `
     b<um>ili
     <FOC>buy
     buy
+
+    reli<n>qu-ere
+    leave<PRS>-INF
+    to leave
     `;
 
-    const { utterances: [{ words: [{ morphemes }] }] } = convert(text);
-    expect(morphemes[0].transcription).toBe(`um`);
-    expect(morphemes[0].gloss).toBe(`FOC`);
-    expect(morphemes[1].transcription).toBe(`bili`);
-    expect(morphemes[1].gloss).toBe(`buy`);
+    const { utterances: [Tagalog, Latin] } = convert(text);
+
+    const TagalogMorphemes = Tagalog.words[0].morphemes;
+
+    expect(TagalogMorphemes[0].transcription).toBe(`um`);
+    expect(TagalogMorphemes[0].gloss).toBe(`FOC`);
+    expect(TagalogMorphemes[1].transcription).toBe(`bili`);
+    expect(TagalogMorphemes[1].gloss).toBe(`buy`);
+
+    const LatinMorphemes = Latin.words[0].morphemes;
+
+    expect(LatinMorphemes[0].transcription).toBe(`reliqu`);
+    expect(LatinMorphemes[0].gloss).toBe(`leave`);
+    expect(LatinMorphemes[1].transcription).toBe(`n`);
+    expect(LatinMorphemes[1].gloss).toBe(`PRS`);
 
   });
 
