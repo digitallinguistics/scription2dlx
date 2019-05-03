@@ -1,7 +1,5 @@
 {
-  "helpers": [
-    "setup-node.*js"
-  ],
+  "helpers": [],
   "spec_dir": "test",
   "spec_files": [
     "*.test.*js",
