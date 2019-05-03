@@ -2,7 +2,7 @@ const babelOptions = require(`./babel.config.js`);
 const path         = require(`path`);
 
 module.exports = {
-  entry:  path.resolve(__dirname, `./src/index.js`),
+  entry:  path.resolve(__dirname, `./src/index.mjs`),
   mode:   `production`,
   module: {
     rules: [
@@ -14,6 +14,9 @@ module.exports = {
         },
       },
     ],
+  },
+  node: {
+    fs: `empty`,
   },
   output: {
     filename:      `scription2dlx.js`,

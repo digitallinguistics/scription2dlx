@@ -1,0 +1,12 @@
+{
+  "spec_dir": "test",
+  "spec_files": [
+    "*.test.js",
+    "lines/phonetic.test.js",
+    "lines/literal.test.js",
+    "lines/speaker.test.js",
+    "lines/transcript.test.js",
+    "lines/transcription.test.js",
+    "lines/translation.test.js"
+  ]
+}

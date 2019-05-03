@@ -1,8 +1,10 @@
 module.exports = {
+  plugins: [`@babel/plugin-transform-named-capturing-groups-regex`],
   presets: [
     [
       `@babel/preset-env`,
       {
+        corejs:  `core-js@3`,
         targets: {
           browsers: [
             `last 2 Chrome major versions`,
