@@ -34,6 +34,7 @@
   },
   "scripts": {
     "build": "webpack",
+    "prepare": "npm run build",
     "test": "node --experimental-modules --no-warnings test/index.mjs",
     "upload": "node build/upload.js"
   },
