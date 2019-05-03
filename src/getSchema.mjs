@@ -1,4 +1,7 @@
-import { getLineType } from './utilities/index.mjs';
+import {
+  getLineType,
+  isString,
+} from './utilities/index.mjs';
 
 const backslashRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
 const codeRegExp      = /^[-A-Za-z0-9]+$/u;
@@ -21,7 +24,7 @@ function getBackslashCode(line) {
  * @return {Boolean}
  */
 function hasBackslashCodes(codes) {
-  return codes.some(code => typeof code === `string`);
+  return codes.some(code => isString(code));
 }
 
 /**
@@ -43,7 +46,7 @@ function validateBackslashCodes(rawCodes) {
   // NB: This validation must come first
 
   const someLinesHaveCodes = hasBackslashCodes(rawCodes);
-  const allLinesHaveCodes  = rawCodes.every(code => typeof code === `string`);
+  const allLinesHaveCodes  = rawCodes.every(code => isString(code));
 
   if (someLinesHaveCodes && !allLinesHaveCodes) {
     throw new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);

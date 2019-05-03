@@ -2,6 +2,8 @@
   no-param-reassign,
 */
 
+import isString from './isString.mjs';
+
 const bracketTypes = {
   lit:  [`[`, `]`],
   phon: [`[`, `]`],
@@ -37,7 +39,7 @@ export default function cleanBrackets(type, data) {
 
     const brackets = bracketTypes[type];
 
-    if (typeof data === `string`) return trimBrackets(...brackets, data);
+    if (isString(data)) return trimBrackets(...brackets, data);
 
     const trimmedEntries = Object.entries(data)
     .map(([lang, text]) => [lang, trimBrackets(...brackets, text)]);

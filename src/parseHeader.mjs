@@ -1,4 +1,5 @@
-import yamlParser from 'yaml';
+import { isString } from './utilities/index.mjs';
+import yamlParser   from 'yaml';
 
 /**
  * Extracts the text of the header metadata, if present
@@ -33,9 +34,7 @@ function parseYAML(headerString) {
  */
 function validateHeader(header) {
 
-  const isString = typeof header === `string`;
-
-  if (isString) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
+  if (isString(header)) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
 
   const { title, utterances } = header;
 

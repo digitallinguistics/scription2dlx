@@ -6,7 +6,7 @@ import createLangRegExp from 'ietf-language-tag-regex';
  */
 export default function validateLanguages(data) {
 
-  if (typeof data === `object`) {
+  if (data instanceof Object) {
 
     const langRegExp = createLangRegExp();
     const isValidTag = tag => langRegExp.test(tag);

@@ -81,17 +81,27 @@ describe(`glosses`, () => {
 
   });
 
-  it(`should not contain non-breaking hyphens`);
+  it(`parses reduplication`, () => {
 
-  it(`may group multiple words with [square brackets]`);
-
-  xit(`parses discontinuous morphology`, () => {
+    // Hebrew, Tagalog, Tagalog
 
     const text = `
-    na-wíčha-wa-xʔu̧
-    hear-3PL.UND-1SG.ACT-hear
-    I hear them
+    yerak~rak-im
+    green~ATT-M.PL
+    greenish ones
+
+    bi~bili
+    IPFV~buy
+    is buying
+
+    b<um>i~bili
+    <ACT>IPFV~buy
+    is buying
     `;
+
+    const { utterances: [{ words: [{ morphemes: [, morpheme] }] }] } = convert(text);
+
+    expect(morpheme.gloss).toBe(`ATT`);
 
   });
 
@@ -127,23 +137,40 @@ describe(`glosses`, () => {
 
   });
 
-  xit(`parses reduplication`, () => {
+  it(`parses discontinuous morphology`, () => {
 
-    // Hebrew, Tagalog, Tagalog
+    // Lakota, Darfur Arabic
 
     const text = `
-    yerak~rak-im
-    green~ATT-M.PL
-    greenish ones
+    na-wíčha-wa-xʔu̧
+    hear-3PL.UND-1SG.ACT-hear
+    I hear them
 
-    bi~bili
-    IPFV~buy
-    is buying
-
-    b<um>i~bili
-    <ACT>IPFV~buy
-    is buying
+    t-u-r-u-g
+    way-PL-way-PL-way
+    ways
     `;
+
+    const { utterances: [Lakota, Arabic] } = convert(text);
+
+    const LakotaMorphemes = Lakota.words[0].morphemes;
+
+    const LakotaStem = LakotaMorphemes
+    .find(({ transcription }) => transcription === `na…xʔu̧`);
+
+    const ArabicMorphemes = Arabic.words[0].morphemes;
+
+    const ArabicStem = ArabicMorphemes
+    .find(({ transcription }) => transcription === `t…r…g`);
+
+    const ArabicTransfix = ArabicMorphemes
+    .find(({ transcription }) => transcription === `u…u`);
+
+    expect(LakotaMorphemes.length).toBe(3);
+    expect(LakotaStem.gloss).toBe(`hear`);
+    expect(ArabicMorphemes.length).toBe(2);
+    expect(ArabicStem.gloss).toBe(`way`);
+    expect(ArabicTransfix.gloss).toBe(`PL`);
 
   });
 
