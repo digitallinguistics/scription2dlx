@@ -2,8 +2,6 @@
  * This file applies tests for the speaker line
  */
 
-import convert from '../convert.mjs';
-
 describe(`speaker`, () => {
 
   it(`must be a valid abbreviation`, () => {

@@ -2,8 +2,6 @@
  * This file applies tests to the literal translation line (`\lit`)
  */
 
-import convert from '../convert.mjs';
-
 describe(`literal translation`, () => {
 
   it(`removes brackets`, () => {

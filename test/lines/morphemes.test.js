@@ -2,8 +2,6 @@
  * This file applies tests to the morphemes line (`\m`)
  */
 
-import convert from '../convert.mjs';
-
 describe(`morphemes`, () => {
 
   it(`may be in multiple orthographies`, () => {

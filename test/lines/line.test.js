@@ -2,8 +2,6 @@
  * This file applies tests for lines (generally)
  */
 
-import convert from '../convert.mjs';
-
 describe(`line`, () => {
 
   it(`is stripped of leading / trailing whitespace`, () => {

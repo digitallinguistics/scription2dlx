@@ -2,8 +2,6 @@
  * This file applies tests for the transcript line
  */
 
-import convert from '../convert.mjs';
-
 describe(`transcript`, () => {
 
   it(`may be in multiple formats`, () => {

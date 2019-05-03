@@ -2,8 +2,6 @@
  * This file applies tests for the interlinear gloss schema
  */
 
-import convert from './convert.mjs';
-
 describe(`interlinear gloss schema`, () => {
 
   it(`must have valid backslash codes (basic Latin characters and hyphens only)`, () => {

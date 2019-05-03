@@ -2,8 +2,6 @@
  * This file applies tests to the gloses line (`\gl`)
  */
 
-import convert from '../convert.mjs';
-
 describe(`glosses`, () => {
 
   it(`may be in multiple languages`, () => {

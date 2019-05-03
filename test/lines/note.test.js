@@ -2,8 +2,6 @@
  * This file applies tests to the note line (`\n`)
  */
 
-import convert from '../convert.mjs';
-
 describe(`note`, () => {
 
   it(`may have source, language, and text`, () => {

@@ -1,3 +1,3 @@
-import types from './types.json';
+import types from './types.mjs';
 
 export { types };

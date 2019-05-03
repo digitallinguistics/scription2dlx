@@ -2,8 +2,6 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
-import convert from '../convert.mjs';
-
 describe(`phomemic transcription`, () => {
 
   it(`should remove phonemic slashes`, () => {
