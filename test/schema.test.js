@@ -2,7 +2,7 @@
  * This file applies tests for the interlinear gloss schema
  */
 
-import convert from './convert.mjs';
+const convert = require(`./scription2dlx.js`);
 
 describe(`interlinear gloss schema`, () => {
 

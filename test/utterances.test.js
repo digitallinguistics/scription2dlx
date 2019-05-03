@@ -2,7 +2,7 @@
  * This file applies tests for the utterances section of the scription file
  */
 
-import convert from './convert.mjs';
+const convert = require(`./scription2dlx.js`);
 
 describe(`utterances`, () => {
 

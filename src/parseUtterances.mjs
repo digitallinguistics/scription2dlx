@@ -6,10 +6,15 @@ import parseUtterance from './parseUtterance/index.mjs';
  * @return {RegExp}
  */
 function createBlankLinesRegExp() {
-  const whitespacePattern = `[ \\t\\v\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000\\ufeff]`;
-  const blankLinePattern  = `${whitespacePattern}*\\r?\\n`;
-  const blankLinesPattern = `(?:${blankLinePattern}){2,}`;
-  return new RegExp(blankLinesPattern, `gsu`);
+
+  // const whitespacePattern = `[ \\t\\v\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000\\ufeff]`;
+  // const blankLinePattern  = `${whitespacePattern}*\\r?\\n`;
+  // const blankLinesPattern = `(?:${blankLinePattern}){2,}`;
+  // return new RegExp(blankLinesPattern, `gsu`);
+
+  // NB: Writing the RegExp this way allows Babel to parse the "s" flag correctly
+  return /(?:[ \t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*\r?\n){2,}/gsu;
+
 }
 
 /**

@@ -2,7 +2,7 @@
  * This file applies tests for the transcript line
  */
 
-import convert from '../convert.mjs';
+const convert = require(`../scription2dlx.js`)
 
 describe(`transcript`, () => {
 

@@ -1,5 +1,8 @@
 module.exports = {
-  plugins: [`@babel/plugin-transform-named-capturing-groups-regex`],
+  plugins: [
+    `@babel/plugin-transform-named-capturing-groups-regex`,
+    `@babel/plugin-transform-dotall-regex`,
+  ],
   presets: [
     [
       `@babel/preset-env`,

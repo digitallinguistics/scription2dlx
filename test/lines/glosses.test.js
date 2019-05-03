@@ -2,7 +2,7 @@
  * This file applies tests to the gloses line (`\gl`)
  */
 
-import convert from '../convert.mjs';
+const convert = require(`../scription2dlx.js`)
 
 describe(`glosses`, () => {
 

@@ -1,4 +1,5 @@
 const babelOptions = require(`./babel.config.js`);
+const CopyPlugin   = require(`copy-webpack-plugin`);
 const path         = require(`path`);
 
 module.exports = {
@@ -26,4 +27,12 @@ module.exports = {
     libraryTarget: `umd`,
     path:          path.resolve(__dirname),
   },
+  plugins: [
+    new CopyPlugin([
+      {
+        from: path.join(__dirname, `scription2dlx.js`),
+        to:   path.join(__dirname, `test/scription2dlx.js`),
+      },
+    ]),
+  ],
 };

@@ -2,7 +2,7 @@
  * This file applies tests to the note line (`\n`)
  */
 
-import convert from '../convert.mjs';
+const convert = require(`../scription2dlx.js`)
 
 describe(`note`, () => {
 

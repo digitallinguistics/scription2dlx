@@ -2,7 +2,7 @@
  * This file applies tests for lines (generally)
  */
 
-import convert from '../convert.mjs';
+const convert = require(`../scription2dlx.js`)
 
 describe(`line`, () => {
 

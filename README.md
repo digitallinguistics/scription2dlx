@@ -7,7 +7,7 @@
 [![GitHub](https://img.shields.io/github/license/digitallinguistics/scription2dlx.svg)][license]
 [![GitHub stars](https://img.shields.io/github/stars/digitallinguistics/scription2dlx.svg?style=social)][GitHub]
 
-A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL] in JSON. It runs in recent versions of browsers and Node.js. It is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
+A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL] in JSON. It runs in recent versions of browsers and Node.js. This library is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
 
 ## Installation
 

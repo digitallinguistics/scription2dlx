@@ -2,7 +2,7 @@
  * This test suite applies tests that check the text as a whole
  */
 
-import convert from './convert.mjs';
+const convert = require(`./scription2dlx.js`);
 
 describe(`text`, () => {
 

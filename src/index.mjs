@@ -7,7 +7,7 @@ import parseUtterances from './parseUtterances.mjs';
  * @param  {String} scription The text of the Scription file to parse
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
-export default function scription2dlx(scription) {
+export default function scription2dlx(scription = ``) {
 
   const isEmpty = scription.trim() === ``;
 

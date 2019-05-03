@@ -2,7 +2,7 @@
  * This file applies tests to the free translation line (`\tln`)
  */
 
-import convert from '../convert.mjs';
+const convert = require(`../scription2dlx.js`)
 
 describe(`free translation`, () => {
 
