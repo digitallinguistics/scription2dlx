@@ -1,5 +1,6 @@
 import {
   getLineType,
+  getMatches,
   groupLines,
   isString,
   validateLanguages,
@@ -150,9 +151,12 @@ function separateInfix(morpheme) {
  * @return {Array}         Returns an array of morpheme / gloss strings
  */
 function tokenizeWord(string) {
-  return string
-  .split(/[-=~]/gu)
-  .map(s => s.trim());
+
+  const regExp = /\[(?<bracketed>[^[\u005d]+)\u005d|(?<unbracketed>[^-=~]+)/gu;
+
+  return string.split(regExp)
+  .filter(Boolean);
+
 }
 
 /**

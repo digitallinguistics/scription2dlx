@@ -1,6 +1,7 @@
 {
-  "exec": "npm run build && karma start",
+  "exec": "npm run build && npm run browser",
   "ignore": [
-    "scription2dlx.js"
+    "scription2dlx.js",
+    "test/**"
   ]
 }

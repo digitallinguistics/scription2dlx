@@ -1,22 +1,9 @@
-import {
-  getLineType,
-  isString,
-} from './utilities/index.mjs';
+import getCode     from './getCode.mjs';
+import getLineType from './getLineType.mjs';
+import isString    from './isString.mjs';
 
-const backslashRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
 const codeRegExp      = /^[-A-Za-z0-9]+$/u;
 const newlineRegExp   = /\r?\n/gu;
-
-/**
- * Extracts the backslash code for a line, without the leading slash. Returns null if none is found.
- * @param  {String} line The line of text to find the backslash code in
- * @return {String}      The backslash code that was found, without a leading slash
- */
-function getBackslashCode(line) {
-  const match = line.match(backslashRegExp);
-  if (!match) return null;
-  return match.groups.code;
-}
 
 /**
  * Checks an array of backslash codes to see whether it actually contains backslash codes (rather than just nulls)
@@ -101,7 +88,7 @@ export default function getSchema(utteranceString) {
     .split(newlineRegExp)
     .map(line => line.trim());
 
-    const codes = lines.map(getBackslashCode);
+    const codes = lines.map(getCode);
 
     validateBackslashCodes(codes);
 

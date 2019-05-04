@@ -51,6 +51,8 @@ export default function parseWords(lines) {
 
     const wordLines = getWordLines(lines);
 
+    console.log(wordLines);
+
     if (!Object.keys(wordLines).length) return [];
 
     validateNumItems(wordLines);

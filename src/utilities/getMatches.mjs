@@ -14,6 +14,6 @@ export default function getMatches(regExp, str) {
     match = regExp.exec(str);
   }
 
-  return matches;
+  return matches.filter(Boolean);
 
 }

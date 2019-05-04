@@ -1,3 +1,8 @@
+import {
+  getCode,
+  getSchema,
+} from '../utilities/index.mjs';
+
 import parseCustom        from './parseCustom.mjs';
 import parseLiteral       from './parseLiteral.mjs';
 import parseNotes         from './parseNotes.mjs';
@@ -27,8 +32,13 @@ export default function parseUtterance(utteranceString, schema) {
 
     const lines = utteranceString
     .split(newlineRegExp)
-    .map(line => line.trim())
-    .reduce((hash, line, i) => {
+    .map(line => line.trim());
+
+    const codes = lines.map(getCode).filter(Boolean);
+
+    if (codes.length) schema = getSchema(utteranceString); // eslint-disable-line no-param-reassign
+
+    const linesHash = lines.reduce((hash, line, i) => {
 
       const code    = schema[i] || `n`; // treat extra lines as notes
       const match   = line.match(lineDataRegExp);
@@ -49,20 +59,20 @@ export default function parseUtterance(utteranceString, schema) {
     // Return null if the utterance contains no data
     // Return null if the utterance contains no data
 
-    const noData = !Object.values(lines).every(Boolean);
+    const noData = !Object.values(linesHash).every(Boolean);
     if (noData) return null;
 
     // Extract known utterance properties and populate the utterance
 
-    const custom        = parseCustom(lines);
-    const literal       = parseLiteral(lines);
-    const notes         = parseNotes(lines);
-    const phonetic      = parsePhonetic(lines.phon);
-    const speaker       = parseSpeaker(lines.sp);
-    const transcript    = parseTranscript(lines);
-    const transcription = parseTranscription(lines) || ``;
-    const translation   = parseTranslation(lines) || ``;
-    const words         = parseWords(lines);
+    const custom        = parseCustom(linesHash);
+    const literal       = parseLiteral(linesHash);
+    const notes         = parseNotes(linesHash);
+    const phonetic      = parsePhonetic(linesHash.phon);
+    const speaker       = parseSpeaker(linesHash.sp);
+    const transcript    = parseTranscript(linesHash);
+    const transcription = parseTranscription(linesHash) || ``;
+    const translation   = parseTranslation(linesHash) || ``;
+    const words         = parseWords(linesHash);
 
     return {
       ...custom,

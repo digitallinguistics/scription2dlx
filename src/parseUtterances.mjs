@@ -1,4 +1,4 @@
-import getSchema      from './getSchema.mjs';
+import { getSchema }  from './utilities/index.mjs';
 import parseUtterance from './parseUtterance/index.mjs';
 
 /**
