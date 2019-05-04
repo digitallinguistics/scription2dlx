@@ -1,7 +1,7 @@
 import parseMorphemes from './parseMorphemes/index.mjs';
 
 import {
-  getLineType,
+  getLines,
   getMatches,
   groupLines,
   validateNumItems,
@@ -9,21 +9,16 @@ import {
 } from '../utilities/index.mjs';
 
 /**
- * Extracts any morpheme and gloss lines from the lines array
- * @param  {Array} lines The array of line objects
- * @return {Array}
+ * Takes the words line hash and tokenizes the data on each line
+ * @param  {Object} wordLines A hash of raw word lines
+ * @return {Object}           Returns a hash with the lines tokenized
  */
-function getWordLines(lines) {
-
-  const lineEntries = Object.entries(lines)
-  .filter(([code]) => {
-    const type = getLineType(code);
-    return type === `m` || type === `gl`;
-  })
-  .map(([code, data]) => [code, tokenizeLine(data)]);
-
-  return Object.fromEntries(lineEntries);
-
+function getWordsHash(wordLines) {
+  return Object.entries(wordLines)
+  .reduce((hash, [code, data]) => {
+    hash[code] = tokenizeLine(data); // eslint-disable-line no-param-reassign
+    return hash;
+  }, {});
 }
 
 /**
@@ -33,17 +28,19 @@ function getWordLines(lines) {
  */
 function parseWord(data) {
 
-  // TODO: Figure out why this is here
-  const hasSpaces = Object.values(data).some(str => /\s/gu.test(str));
+  const transcription = groupLines(`w`, data);
+  const analysis      = groupLines(`m`, data);
+  const gloss         = groupLines(`gl`, data);
+  const literal       = groupLines(`wlt`, data);
+  const morphemes     = parseMorphemes(getLines([`gl`, `m`], data));
 
-  if (hasSpaces) {
-    return {
-      gloss:         groupLines(`gl`, data),
-      transcription: groupLines(`m`, data),
-    };
-  }
-
-  return { morphemes: parseMorphemes(data) };
+  return {
+    transcription,
+    ...analysis ? { analysis } : {},
+    ...gloss ? { gloss } : {},
+    ...literal ? { literal } : {},
+    ...morphemes.length ? { morphemes } : {},
+  };
 
 }
 
@@ -54,27 +51,31 @@ function parseWord(data) {
  */
 function tokenizeLine(string) {
 
-  const regExp = /\[(?<bracketed>[^[\u005d]*)\u005d|(?<unbracketed>[^\s]+)/gu;
+  // NOTE: Leave these here for debugging and development
+  // const bracketsRegExp = /(?<bracketed>\[.*?\])/gu;
+  // const wordsRegExp    = /(?<unbracketed>[^\s]+)/gu;
 
-  return getMatches(regExp, string)
+  const wordRegExp = /(?<bracketed>\[.*?\])|(?<unbracketed>[^\s]+)/gu;
+
+  return getMatches(wordRegExp, string)
   .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
 
 }
 
 /**
- * Extracts the morphemes and glosses lines from the lines hash and converts them into an array of DLx Word objects
+ * Extracts word-specific lines from the lines hash and converts them into an array of DLx Word objects
  * @param  {Object} lines The lines hash
  * @return {Array}        Returns an array of DLx Word objects
  */
 export default function parseWords(lines) {
 
-  const wordLines = getWordLines(lines);
+  if (!Object.keys(lines).length) return [];
 
-  if (!Object.keys(wordLines).length) return [];
+  const wordsHash = getWordsHash(lines);
 
-  validateNumItems(wordLines);
+  validateNumItems(wordsHash);
 
-  return zip(wordLines)
+  return zip(wordsHash)
   .map(parseWord);
 
 }

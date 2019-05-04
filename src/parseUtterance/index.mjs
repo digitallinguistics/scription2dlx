@@ -14,12 +14,15 @@ import parseWords         from './parseWords.mjs';
 
 import {
   getCode,
+  getLines,
   getLineType,
   getSchema,
 } from '../utilities/index.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
+
+const wordTypes = [`gl`, `m`, `w`, `wlt`];
 
 /**
  * Create a lines hash from an array of strings and an array of line codes
@@ -34,7 +37,7 @@ function createLinesHash(lines, schema) {
     const data  = (match ? match.groups.lineData : line).trim();
     hash[code]  = data; // eslint-disable-line no-param-reassign
     return hash;
-  });
+  }, {});
 }
 
 /**
@@ -89,24 +92,29 @@ export default function parseUtterance(utteranceString, schema) {
     const transcript    = parseTranscript(linesHash);
     const transcription = parseTranscription(linesHash) || ``;
     const translation   = parseTranslation(linesHash) || ``;
-    const words         = parseWords(linesHash);
+    const words         = parseWords(getLines(wordTypes, linesHash));
 
     return {
-      ...custom,
-      ...literal ? { literal } : {},
-      ...notes.length ? { notes } : {},
-      ...phonetic ? { phonetic } : {},
       ...speaker ? { speaker } : {},
       ...transcript ? { transcript } : {},
       transcription,
+      ...phonetic ? { phonetic } : {},
+      ...literal ? { literal } : {},
       translation,
       ...words.length ? { words } : {},
+      ...custom,
+      ...notes.length ? { notes } : {},
     };
 
   } catch (e) {
 
-    e.name    = this.name;
-    e.message = `${e.message}\n\nUtterance text:\n\n${utteranceString}`;
+    const utteranceText = utteranceString
+    .split(newlineRegExp)
+    .map(str => str.trim())
+    .join(`\n`);
+
+    e.name    = parseUtterance.name;
+    e.message = `${e.message}\n\nUtterance text:\n\n${utteranceText}`;
     throw e;
 
   }

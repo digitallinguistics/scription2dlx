@@ -1,6 +1,7 @@
 import cleanBrackets     from './cleanBrackets.mjs';
 import difference        from './difference.mjs';
 import getCode           from './getCode.mjs';
+import getLines          from './getLines.mjs';
 import getLineType       from './getLineType.mjs';
 import getMatches        from './getMatches.mjs';
 import getSchema         from './getSchema.mjs';
@@ -15,6 +16,7 @@ export {
   cleanBrackets,
   difference,
   getCode,
+  getLines,
   getLineType,
   getMatches,
   getSchema,

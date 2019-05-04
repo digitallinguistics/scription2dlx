@@ -187,21 +187,22 @@ describe(`glosses`, () => {
 
   });
 
+  /* eslint-disable max-statements */
   fit(`tokenizes words and morphemes correctly`, () => {
 
     const text = `
-    \\m  a~b     c   [d f]
-    \\gl one~two [~] compound
+    \\m  a~b     c           [d f]    []
+    \\gl one~two [NAME NAME] compound null
     `;
 
-    const { utterances: [{ words: [w1, w2, w3] }] } = convert(text);
+    const { utterances: [{ words: [w1, w2, w3, w4] }] } = convert(text);
 
     // Word 1
 
-    expect(w1.transcription).toBe(`a~b`);
+    expect(w1.analysis).toBe(`a~b`);
     expect(w1.gloss).toBe(`one~two`);
 
-    const [w1m1, w1m2] = w1.words;
+    const [w1m1, w1m2] = w1.morphemes;
 
     expect(w1m1.transcription).toBe(`a`);
     expect(w1m1.gloss).toBe(`one`);
@@ -211,23 +212,33 @@ describe(`glosses`, () => {
 
     // Word 2
 
-    expect(w2.transcription).toBe(`[c]`);
-    expect(w2.gloss).toBe(`~`);
+    expect(w2.analysis).toBe(`c`);
+    expect(w2.gloss).toBe(`[NAME NAME]`);
 
-    const [w2m] = w2.words;
+    const [w2m] = w2.morphemes;
 
     expect(w2m.transcription).toBe(`c`);
-    expect(w2m.gloss).toBe(`~`);
+    expect(w2m.gloss).toBe(`[NAME NAME]`);
 
     // Word 3
 
-    expect(w3.transcription).toBe(`[d f]`);
+    expect(w3.analysis).toBe(`[d f]`);
     expect(w3.gloss).toBe(`compound`);
 
-    const [w3m] = w3.words;
+    const [w3m] = w3.morphemes;
 
     expect(w3m.transcription).toBe(`[d f]`);
     expect(w3m.gloss).toBe(`compound`);
+
+    // Word 4
+
+    expect(w4.analysis).toBe(`[]`);
+    expect(w4.gloss).toBe(`null`);
+
+    const [w4m] = w4.morphemes;
+
+    expect(w4m.transcription).toBe(`[]`);
+    expect(w4m.gloss).toBe(`null`);
 
   });
 

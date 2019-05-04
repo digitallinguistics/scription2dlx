@@ -4,6 +4,7 @@ import separateInfix         from './separateInfix.mjs';
 
 import {
   difference,
+  getMatches,
   groupLines,
   validateLanguages,
   validateNumItems,
@@ -29,8 +30,12 @@ function createMorphemesHash(wordLines) {
  * @return {Array}         Returns an array of morpheme / gloss strings
  */
 function tokenizeWord(string) {
-  return string.split(/(?:\s|[-=~]+)/gu)
-  .map(str => str.trim());
+
+  const morphemeRegExp = /(?<bracketed>\[.*?\])|(?<unbracketed>[^-=~\s]+)/gu;
+
+  return getMatches(morphemeRegExp, string)
+  .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
+
 }
 
 /**
