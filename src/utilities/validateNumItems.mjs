@@ -4,8 +4,7 @@
  */
 export default function validateNumItems(lines) {
 
-  const itemLists = Object.values(lines);
-
+  const itemLists    = Object.values(lines);
   const numItems     = Math.max(...itemLists.map(w => w.length));
   const sameNumItems = itemLists.every(list => list.length === numItems);
 

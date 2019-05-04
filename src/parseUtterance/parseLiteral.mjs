@@ -10,20 +10,9 @@ import {
  * @return {String|Object}
  */
 export default function parseLiteral(lines) {
-
-  try {
-
-    let data = groupLines(`lit`, lines);
-    if (!data) return null;
-    data = cleanBrackets(`lit`, data);
-    validateLanguages(data);
-    return data;
-
-  } catch (e) {
-
-    e.message = `[parseLiteral] ${e.message}`;
-    throw e;
-
-  }
-
+  let data = groupLines(`lit`, lines);
+  if (!data) return null;
+  data = cleanBrackets(`lit`, data);
+  validateLanguages(data);
+  return data;
 }

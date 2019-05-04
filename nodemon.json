@@ -1,7 +1,7 @@
 {
-  "exec": "npm run build && npm run browser",
+  "exec": "npm run jasmine",
   "ignore": [
     "scription2dlx.js",
-    "test/**"
+    "xtest/**"
   ]
 }

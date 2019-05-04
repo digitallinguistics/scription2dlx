@@ -187,4 +187,48 @@ describe(`glosses`, () => {
 
   });
 
+  fit(`tokenizes words and morphemes correctly`, () => {
+
+    const text = `
+    \\m  a~b     c   [d f]
+    \\gl one~two [~] compound
+    `;
+
+    const { utterances: [{ words: [w1, w2, w3] }] } = convert(text);
+
+    // Word 1
+
+    expect(w1.transcription).toBe(`a~b`);
+    expect(w1.gloss).toBe(`one~two`);
+
+    const [w1m1, w1m2] = w1.words;
+
+    expect(w1m1.transcription).toBe(`a`);
+    expect(w1m1.gloss).toBe(`one`);
+
+    expect(w1m2.transcription).toBe(`b`);
+    expect(w1m2.gloss).toBe(`two`);
+
+    // Word 2
+
+    expect(w2.transcription).toBe(`[c]`);
+    expect(w2.gloss).toBe(`~`);
+
+    const [w2m] = w2.words;
+
+    expect(w2m.transcription).toBe(`c`);
+    expect(w2m.gloss).toBe(`~`);
+
+    // Word 3
+
+    expect(w3.transcription).toBe(`[d f]`);
+    expect(w3.gloss).toBe(`compound`);
+
+    const [w3m] = w3.words;
+
+    expect(w3m.transcription).toBe(`[d f]`);
+    expect(w3m.gloss).toBe(`compound`);
+
+  });
+
 });

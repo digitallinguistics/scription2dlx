@@ -14,6 +14,7 @@ export default function groupLines(type, linesHash) {
   if (!typedLines.length) return null;
 
   const isString = typedLines.length === 1 && typedLines[0][0] === type;
+
   if (isString) return linesHash[type];
 
   return typedLines.reduce((hash, [code, data]) => {

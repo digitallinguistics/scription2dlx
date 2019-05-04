@@ -1,6 +1,5 @@
 import {
   getLineType,
-  isValidTag,
 } from '../utilities/index.mjs';
 
 /**
@@ -8,30 +7,16 @@ import {
  * @param  {String} data The text of the note line
  * @return {Object}      Returns a valid DLx Note object
  */
-function parseNote(data) {
+function parseNote({ code, data: text }) {
 
-  try {
+  const source   = text.split(`:`, 1);
+  const language = code.split(`-`, 1)[1] || `en`;
 
-    const noteRegExp = /^\s*(?:(?<source>[^(\s]+)?\s*(?:\((?<language>.+)\))?\s*:\s+)?(?<text>.+)\s*$/u;
-
-    const { language = `en`, source, text } = data.match(noteRegExp).groups;
-
-    if (language && !isValidTag(language)) {
-      throw new Error(`${language} is not a valid IETF language tag.`);
-    }
-
-    return {
-      language,
-      source,
-      text,
-    };
-
-  } catch (e) {
-
-    e.message = `Error parsing note line: ${e.message}\n\nNote line data: ${data}`;
-    throw e;
-
-  }
+  return {
+    language,
+    source,
+    text,
+  };
 
 }
 
@@ -42,20 +27,14 @@ function parseNote(data) {
  */
 export default function parseNotes(lines) {
 
-  try {
+  const numberedRegExp = /n-[0-9]/u;
 
-    const noteLines = Object.entries(lines)
-    .filter(([code]) => getLineType(code) === `n`);
+  const noteLines = Object.entries(lines)
+  .filter(([code]) => getLineType(code) === `n`)
+  .map(([code, data]) => [code.replace(numberedRegExp, `n`), data]);
 
-    if (!noteLines.length) return [];
+  if (!noteLines.length) return [];
 
-    return noteLines.map(([, data]) => parseNote(data));
-
-  } catch (e) {
-
-    e.message = `[parseNotes] ${e.message}`;
-    throw e;
-
-  }
+  return noteLines.map(parseNote);
 
 }

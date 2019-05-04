@@ -1,4 +1,4 @@
-import parseMorphemes from './parseMorphemes.mjs';
+import parseMorphemes from './parseMorphemes/index.mjs';
 
 import {
   getLineType,
@@ -27,6 +27,27 @@ function getWordLines(lines) {
 }
 
 /**
+ * Parses the word hash into a DLx Word object
+ * @param  {Object} data The word hash
+ * @return {Object}      Returns a DLx Word object
+ */
+function parseWord(data) {
+
+  // TODO: Figure out why this is here
+  const hasSpaces = Object.values(data).some(str => /\s/gu.test(str));
+
+  if (hasSpaces) {
+    return {
+      gloss:         groupLines(`gl`, data),
+      transcription: groupLines(`m`, data),
+    };
+  }
+
+  return { morphemes: parseMorphemes(data) };
+
+}
+
+/**
  * Tokenizes the string on white space, returning an array of word tokens
  * @param  {String} string The string to tokenize
  * @return {Array}         Returns an array of word tokens
@@ -47,35 +68,13 @@ function tokenizeLine(string) {
  */
 export default function parseWords(lines) {
 
-  try {
+  const wordLines = getWordLines(lines);
 
-    const wordLines = getWordLines(lines);
+  if (!Object.keys(wordLines).length) return [];
 
-    if (!Object.keys(wordLines).length) return [];
+  validateNumItems(wordLines);
 
-    validateNumItems(wordLines);
-
-    return zip(wordLines)
-    .map(wordData => {
-
-      const hasSpaces = Object.values(wordData).some(str => /\s/gu.test(str));
-
-      if (hasSpaces) {
-        return {
-          gloss:         groupLines(`gl`, wordData),
-          transcription: groupLines(`m`, wordData),
-        };
-      }
-
-      return { morphemes: parseMorphemes(wordData) };
-
-    });
-
-  } catch (e) {
-
-    e.message = `[parseWords] ${e.message}`;
-    throw e;
-
-  }
+  return zip(wordLines)
+  .map(parseWord);
 
 }

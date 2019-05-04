@@ -35,22 +35,13 @@ function trimBrackets(start, end, str) {
  */
 export default function cleanBrackets(type, data) {
 
-  try {
+  const brackets = bracketTypes[type];
 
-    const brackets = bracketTypes[type];
+  if (isString(data)) return trimBrackets(...brackets, data);
 
-    if (isString(data)) return trimBrackets(...brackets, data);
+  const trimmedEntries = Object.entries(data)
+  .map(([lang, text]) => [lang, trimBrackets(...brackets, text)]);
 
-    const trimmedEntries = Object.entries(data)
-    .map(([lang, text]) => [lang, trimBrackets(...brackets, text)]);
-
-    return Object.fromEntries(trimmedEntries);
-
-  } catch (e) {
-
-    e.message = `[cleanBrackets] ${e.message}`;
-    throw e;
-
-  }
+  return Object.fromEntries(trimmedEntries);
 
 }

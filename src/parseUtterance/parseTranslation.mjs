@@ -9,19 +9,8 @@ import {
  * @return {String|Object}
  */
 export default function parseTranslation(lines) {
-
-  try {
-
-    const data = groupLines(`tln`, lines);
-    if (!data) return null;
-    validateLanguages(data);
-    return data;
-
-  } catch (e) {
-
-    e.message = `[parseTranslation] ${e.message}`;
-    throw e;
-
-  }
-
+  const data = groupLines(`tln`, lines);
+  if (!data) return null;
+  validateLanguages(data);
+  return data;
 }

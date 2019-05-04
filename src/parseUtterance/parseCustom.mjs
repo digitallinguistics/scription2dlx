@@ -20,35 +20,28 @@ const singleLines = [
  * @return {Object}
  */
 export default function parseCustom(lines) {
-  try {
 
-    const lineCodes = Object.keys(lines);
-    const lineTypes = lineCodes.map(getLineType);
+  const lineCodes = Object.keys(lines);
 
-    const customLineTypes = lineTypes.filter(type => !types.includes(type));
+  const customTypes = lineCodes
+  .map(getLineType)
+  .filter(type => !types.includes(type))
+  .reduce((hash, type) => {
+    hash[type] = groupLines(type, lines);
+    return hash;
+  }, {});
 
-    const customTypes = customLineTypes.reduce((hash, type) => {
-      hash[type] = groupLines(type, lines);
-      return hash;
-    }, {});
+  const customCodes = lineCodes.filter(code => {
+    const type         = getLineType(code);
+    const isSingleLine = singleLines.includes(type);
+    const hasSubType   = code.startsWith(`${type}-`);
+    return isSingleLine && hasSubType;
+  })
+  .reduce((hash, code) => {
+    hash[code] = lines[code];
+    return hash;
+  }, {});
 
-    const customLineCodes = lineCodes.filter(code => {
-      const type         = getLineType(code);
-      const isSingleLine = singleLines.includes(type);
-      return isSingleLine && code.startsWith(`${type}-`);
-    });
+  return { ...customCodes, ...customTypes };
 
-    const customCodes = customLineCodes.reduce((hash, code) => {
-      hash[code] = lines[code];
-      return hash;
-    }, {});
-
-    return { ...customCodes, ...customTypes };
-
-  } catch (e) {
-
-    e.message = `[parseCustom] ${e.message}`;
-    throw e;
-
-  }
 }

@@ -9,20 +9,8 @@ import {
  * @return {String|Object}
  */
 export default function parseTranscription(lines) {
-
-  try {
-
-    let data = groupLines(`txn`, lines);
-    if (!data) return null;
-    data = cleanBrackets(`txn`, data);
-    return data;
-
-  } catch (e) {
-
-    e.message = `[parseTranscription] ${e.message}`;
-    throw e;
-
-  }
-
-
+  let data = groupLines(`txn`, lines);
+  if (!data) return null;
+  data = cleanBrackets(`txn`, data);
+  return data;
 }

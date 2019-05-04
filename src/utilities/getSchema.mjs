@@ -1,38 +1,18 @@
 import getCode     from './getCode.mjs';
 import getLineType from './getLineType.mjs';
 import isString    from './isString.mjs';
-
-const codeRegExp      = /^[-A-Za-z0-9]+$/u;
-const newlineRegExp   = /\r?\n/gu;
-
-/**
- * Checks an array of backslash codes to see whether it actually contains backslash codes (rather than just nulls)
- * @param  {Array}   codes The array of backslash codes to check
- * @return {Boolean}
- */
-function hasBackslashCodes(codes) {
-  return codes.some(code => isString(code));
-}
-
-/**
- * Checks whether a backslash code is valid
- * @param  {String}  code The backslash code to check, without a leading slash
- * @return {Boolean}
- */
-function isValidCode(code) {
-  return codeRegExp.test(code);
-}
+import isValidCode from './isValidCode.mjs';
 
 /**
  * Valides an array of backslash codes, without leading slashes
  * @param  {Array} codes The array of backslash codes to validate
  */
-function validateBackslashCodes(rawCodes) {
+function validateSchema(rawCodes) {
 
   // Check that if any line has a backslash code, all lines do
   // NB: This validation must come first
 
-  const someLinesHaveCodes = hasBackslashCodes(rawCodes);
+  const someLinesHaveCodes = rawCodes.some(code => isString(code));
   const allLinesHaveCodes  = rawCodes.every(code => isString(code));
 
   if (someLinesHaveCodes && !allLinesHaveCodes) {
@@ -84,15 +64,19 @@ export default function getSchema(utteranceString) {
 
   try {
 
+    const newlineRegExp = /\r?\n/gu;
+
     const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim());
 
     const codes = lines.map(getCode);
 
-    validateBackslashCodes(codes);
+    validateSchema(codes);
 
-    if (!hasBackslashCodes(codes)) {
+    const hasCodes = codes.filter(Boolean).length;
+
+    if (!hasCodes) {
 
       const lineCount = lines.length;
 
@@ -102,7 +86,7 @@ export default function getSchema(utteranceString) {
       if (lineCount >= 4)  return [`txn`, `m`, `gl`, `tln`].fill(`n`, 4);
       /* eslint-enable no-magic-numbers */
 
-      throw new Error(`Cannot infer an interlinear gloss schema for utterances with fewer than 2 lines.`);
+      throw new Error(`Cannot infer an interlinear gloss schema for utterances with one line.`);
 
     }
 
