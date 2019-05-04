@@ -188,7 +188,7 @@ describe(`glosses`, () => {
   });
 
   /* eslint-disable max-statements */
-  fit(`tokenizes words and morphemes correctly`, () => {
+  it(`tokenizes words and morphemes correctly`, () => {
 
     const text = `
     \\m  a~b     c           [d f]    []

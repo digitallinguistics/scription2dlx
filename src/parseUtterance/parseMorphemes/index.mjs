@@ -69,6 +69,6 @@ export default function parseMorphemes(wordLines) {
   morphemes                    = difference(morphemes, duplicateMorphemes.flat());
   const discontinuousMorphemes = duplicateMorphemes.map(mergeMorphemes);
 
-  return [...morphemes, discontinuousMorphemes];
+  return [...morphemes, ...discontinuousMorphemes];
 
 }

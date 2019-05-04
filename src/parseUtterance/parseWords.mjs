@@ -28,7 +28,7 @@ function getWordsHash(wordLines) {
  */
 function parseWord(data) {
 
-  const transcription = groupLines(`w`, data);
+  const transcription = groupLines(`w`, data) || ``;
   const analysis      = groupLines(`m`, data);
   const gloss         = groupLines(`gl`, data);
   const literal       = groupLines(`wlt`, data);

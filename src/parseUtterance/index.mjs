@@ -45,10 +45,10 @@ function createLinesHash(lines, schema) {
  * @param  {Array<String>} lines An array of line strings
  * @return {Array<String>}
  */
-function numberNotes(lines) {
+function numberNotes(lines, schema) {
   return lines.map((line, i) => {
 
-    const code = getCode(line);
+    const code = getCode(line) || schema[i];
     const type = getLineType(code);
 
     if (type !== `n`) return line;
@@ -76,7 +76,7 @@ export default function parseUtterance(utteranceString, schema) {
 
     if (codes.length) schema = getSchema(utteranceString); // eslint-disable-line no-param-reassign
 
-    lines           = numberNotes(lines);
+    lines           = numberNotes(lines, schema);
     const linesHash = createLinesHash(lines, schema);
     const noData    = !Object.values(linesHash).every(Boolean);
 
