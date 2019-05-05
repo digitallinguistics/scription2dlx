@@ -1,16 +1,22 @@
-import config           from './jasmine.json';
-import convertCommonJS  from './scription2dlx';
-import convertESModules from '../src/index.mjs';
-import fs               from 'fs';
-import Jasmine          from 'jasmine';
+import CommonJSBuild  from './scription2dlx';
+import config         from './jasmine.json';
+import ESModulesBuild from '../src/index.mjs';
+import fs             from 'fs';
+import Jasmine        from 'jasmine';
+import path           from 'path';
 
 const { promises: { readFile } } = fs;
 
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 async function loadData() {
 
-  const Chitimacha   = await readFile(`test/data/Chitimacha.txt`, `utf8`);
-  const Nuuchahnulth = await readFile(`test/data/Nuuchahnulth.txt`, `utf8`);
-  const OldLatin     = await readFile(`test/data/OldLatin.txt`, `utf8`);
+  const Chitimacha   = await readFile(path.join(__dirname, `data/Chitimacha.txt`), `utf8`);
+  const Nuuchahnulth = await readFile(path.join(__dirname, `data/Nuuchahnulth.txt`), `utf8`);
+  const OldLatin     = await readFile(path.join(__dirname, `data/OldLatin.txt`), `utf8`);
 
   return {
     Chitimacha,
@@ -21,10 +27,13 @@ async function loadData() {
 }
 
 const env = process.env.NODE_ENV || `development`;
+const dev = process.env.NODE_ENV === `development`;
 
-console.info(`Running Jasmine in ${env}`);
+// Setup Jasmine
 
-const convert = process.env.NODE_ENV === `development` ? convertESModules : convertCommonJS;
+console.info(`Running tests in ${env}`);
+
+const convert = dev ? ESModulesBuild : CommonJSBuild;
 const jasmine = new Jasmine;
 
 jasmine.loadConfig(config);

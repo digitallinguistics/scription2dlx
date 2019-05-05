@@ -5,7 +5,7 @@ module.exports = function setConfig(config) {
   config.set({
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: `test`,
@@ -13,6 +13,7 @@ module.exports = function setConfig(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
+      `Chrome`,
       `ChromeHeadless`,
       `FirefoxHeadless`,
     ],
@@ -36,6 +37,11 @@ module.exports = function setConfig(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {
+        included: false,
+        pattern:  `*/*.txt`,
+        served:   true,
+      },
       `scription2dlx.*js`,
       `init-browser.*js`,
       `*.test.*js`,
@@ -57,6 +63,10 @@ module.exports = function setConfig(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {},
 
+    proxies: {
+      '/data/': '/base/data/',
+    },
+
     // test results reporter to use
     // possible values: `dots`, `progress`
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -64,7 +74,7 @@ module.exports = function setConfig(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
   });
 };

@@ -34,11 +34,12 @@
   },
   "scripts": {
     "browser": "cd test && static-server && cd ..",
-    "build":   "webpack",
+    "build": "webpack && npm run copy-dist",
+    "copy-dist": "node --no-warnings test/copyDist.js",
     "jasmine": "node --experimental-modules --no-warnings test/init-node.mjs",
-    "karma":   "karma start",
-    "test":    "npm run jasmine && npm run karma",
-    "upload":  "node build/upload.js"
+    "karma": "karma start",
+    "test": "npm run jasmine && npm run karma",
+    "upload": "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
@@ -48,7 +49,6 @@
     "@babel/plugin-transform-unicode-regex": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
-    "copy-webpack-plugin": "^5.0.3",
     "core-js": "^3.0.1",
     "eslint": "^5.16.0",
     "ietf-language-tag-regex": "0.0.5",
