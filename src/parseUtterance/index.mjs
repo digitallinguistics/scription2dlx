@@ -16,6 +16,7 @@ import {
   getCode,
   getLines,
   getSchema,
+  mergeTranscriptions,
 } from '../utilities/index.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
@@ -64,15 +65,20 @@ export default function parseUtterance(utteranceString, schema) {
 
     // Extract known utterance properties and populate the utterance
 
-    const custom        = parseCustom(linesHash);
-    const literal       = parseLiteral(linesHash);
-    const notes         = parseNotes(linesHash);
-    const phonetic      = parsePhonetic(linesHash.phon);
-    const speaker       = parseSpeaker(linesHash.sp);
-    const transcript    = parseTranscript(linesHash);
-    const transcription = parseTranscription(linesHash) || ``;
-    const translation   = parseTranslation(linesHash) || ``;
-    const words         = parseWords(getLines(wordTypes, linesHash));
+    const speaker     = parseSpeaker(linesHash.sp);
+    const transcript  = parseTranscript(linesHash);
+    let transcription = parseTranscription(linesHash);
+    const phonetic    = parsePhonetic(linesHash.phon);
+    const literal     = parseLiteral(linesHash);
+    const translation = parseTranslation(linesHash) || ``;
+    const notes       = parseNotes(linesHash);
+    const words       = parseWords(getLines(wordTypes, linesHash) || {});
+    const custom      = parseCustom(linesHash);
+
+    if (!transcription) {
+      const wordTranscriptions = words.map(({ transcription: txn }) => txn);
+      transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
+    }
 
     return {
       ...speaker ? { speaker } : {},
@@ -81,9 +87,9 @@ export default function parseUtterance(utteranceString, schema) {
       ...phonetic ? { phonetic } : {},
       ...literal ? { literal } : {},
       translation,
+      ...notes.length ? { notes } : {},
       ...words.length ? { words } : {},
       ...custom,
-      ...notes.length ? { notes } : {},
     };
 
   } catch (e) {

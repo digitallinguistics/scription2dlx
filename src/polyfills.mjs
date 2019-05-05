@@ -34,8 +34,16 @@ if (!Array.prototype.flatMap) {
 }
 
 if (!Object.fromEntries) {
-  Object.prototype.fromEntries = function fromEntries(iterable) {
-    return [...iterable]
-      .reduce((obj, { 0: key, 1: val }) => Object.assign(obj, { [key]: val }), {});
-  };
+
+  function fromEntries(iterable) {
+    return [...iterable].reduce((obj, { 0: key, 1: val }) => Object.assign(obj, { [key]: val }), {});
+  }
+
+  Object.defineProperty(Object.prototype, `fromEntries`, {
+    configurable: true,
+    enumerable:   false,
+    value:        fromEntries,
+    writable:     true,
+  });
+
 }

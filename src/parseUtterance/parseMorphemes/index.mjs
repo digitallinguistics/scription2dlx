@@ -1,11 +1,11 @@
 import getDuplicateMorphemes from './getDuplicateMorphemes.mjs';
-import mergeMorphemes        from './mergeMorphemes.mjs';
 import separateInfix         from './separateInfix.mjs';
 
 import {
   difference,
   getMatches,
   groupLines,
+  mergeTranscriptions,
   validateLanguages,
   validateNumItems,
   zip,
@@ -31,7 +31,8 @@ function createMorphemesHash(wordLines) {
  */
 function tokenizeWord(string) {
 
-  const morphemeRegExp = /(?<bracketed>\[.*?\])|(?<unbracketed>[^-=~\s]+)/gu;
+  // NOTE: Using the unicode escape \u005D is necessary here for Babel to transpile the regexp correctly
+  const morphemeRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^-=~\s]+)/gu;
 
   return getMatches(morphemeRegExp, string)
   .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
@@ -60,14 +61,20 @@ export default function parseMorphemes(wordLines) {
     gloss:         groupLines(`gl`, data), // eslint-disable-line sort-keys
   }));
 
+  if (!morphemes.length) return [];
+
   morphemes.forEach(m => {
     validateLanguages(m.transcription);
     validateLanguages(m.gloss);
   });
 
-  const duplicateMorphemes     = getDuplicateMorphemes(morphemes);
-  morphemes                    = difference(morphemes, duplicateMorphemes.flat());
-  const discontinuousMorphemes = duplicateMorphemes.map(mergeMorphemes);
+  const duplicateMorphemes = getDuplicateMorphemes(morphemes);
+  morphemes                = difference(morphemes, duplicateMorphemes.flat());
+
+  const discontinuousMorphemes = duplicateMorphemes.map(dups => ({
+    transcription: mergeTranscriptions(dups.map(({ transcription }) => transcription), `…`),
+    gloss:         dups[0].gloss, // eslint-disable-line sort-keys
+  }));
 
   return [...morphemes, ...discontinuousMorphemes];
 

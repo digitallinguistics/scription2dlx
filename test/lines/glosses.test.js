@@ -175,15 +175,15 @@ describe(`glosses`, () => {
   it(`may group multiple words with [square brackets]`, () => {
 
     const text = `
-    waxdungu qasi
+    waxdungu  qasi
     [one day] man
     one day a man
     `;
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.transcription).toBe(`waxdungu`);
-    expect(word.gloss).toBe(`one day`);
+    expect(word.analysis).toBe(`waxdungu`);
+    expect(word.gloss).toBe(`[one day]`);
 
   });
 

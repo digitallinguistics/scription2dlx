@@ -105,7 +105,8 @@ export default function getSchema(utteranceString) {
 
   } catch (e) {
 
-    e.message = `[getSchema] ${e.message}\n\nUtterance text:\n\n${utteranceString}`;
+    e.name    = getSchema.name;
+    e.message = `${e.message}\n\nUtterance text:\n\n${utteranceString}`;
     throw e;
 
   }

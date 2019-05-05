@@ -1,5 +1,6 @@
 import {
   getLines,
+  isValidTag,
 } from '../utilities/index.mjs';
 
 /**
@@ -14,13 +15,18 @@ export default function parseNotes(lines) {
   if (!noteLines) return [];
 
   const numberedRegExp = /n-[0-9]/u;
+  const noteRegExp     = /^(?:\s*(?<source>.+?)\s*:\s*)?(?<text>.+)$/u;
 
   return Object.entries(noteLines)
   .map(([rawCode, data]) => {
 
-    const code                    = rawCode.replace(numberedRegExp, `n`);
-    const [source, text = source] = data.split(/:\s+/u);
-    const [, language = `en`]     = code.split(`-`, 1);
+    const code                = rawCode.replace(numberedRegExp, `n`);
+    const [, language = `en`] = code.split(`-`, 2);
+    const { source, text }    = data.match(noteRegExp).groups;
+
+    if (!isValidTag(language)) {
+      throw new Error(`The ${language} language tag is invalid. It must be a valid IETF language tag.`);
+    }
 
     return {
       language,

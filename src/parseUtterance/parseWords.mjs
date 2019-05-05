@@ -55,7 +55,8 @@ function tokenizeLine(string) {
   // const bracketsRegExp = /(?<bracketed>\[.*?\])/gu;
   // const wordsRegExp    = /(?<unbracketed>[^\s]+)/gu;
 
-  const wordRegExp = /(?<bracketed>\[.*?\])|(?<unbracketed>[^\s]+)/gu;
+  // NOTE: Using the unicode escape \u005D is necessary for Babel to transpile the regexp correctly
+  const wordRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^\s]+)/gu;
 
   return getMatches(wordRegExp, string)
   .map(({ bracketed, unbracketed }) => bracketed || unbracketed);

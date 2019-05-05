@@ -1,16 +1,17 @@
-import cleanBrackets     from './cleanBrackets.mjs';
-import difference        from './difference.mjs';
-import getCode           from './getCode.mjs';
-import getLines          from './getLines.mjs';
-import getLineType       from './getLineType.mjs';
-import getMatches        from './getMatches.mjs';
-import getSchema         from './getSchema.mjs';
-import groupLines        from './groupLines.mjs';
-import isString          from './isString.mjs';
-import isValidTag        from './isValidTag.mjs';
-import validateLanguages from './validateLanguages.mjs';
-import validateNumItems  from './validateNumItems.mjs';
-import zip               from './zip.mjs';
+import cleanBrackets       from './cleanBrackets.mjs';
+import difference          from './difference.mjs';
+import getCode             from './getCode.mjs';
+import getLines            from './getLines.mjs';
+import getLineType         from './getLineType.mjs';
+import getMatches          from './getMatches.mjs';
+import getSchema           from './getSchema.mjs';
+import groupLines          from './groupLines.mjs';
+import isString            from './isString.mjs';
+import isValidTag          from './isValidTag.mjs';
+import mergeTranscriptions from './mergeTranscriptions.mjs';
+import validateLanguages   from './validateLanguages.mjs';
+import validateNumItems    from './validateNumItems.mjs';
+import zip                 from './zip.mjs';
 
 export {
   cleanBrackets,
@@ -23,6 +24,7 @@ export {
   groupLines,
   isString,
   isValidTag,
+  mergeTranscriptions,
   validateLanguages,
   validateNumItems,
   zip,

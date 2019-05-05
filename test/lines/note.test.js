@@ -25,7 +25,7 @@ describe(`note`, () => {
   it(`must use a valid ISO language tag for the language`, () => {
 
     const text = `
-    \\n (en2): This is a note.
+    \\n-en2 This is a note.
     `;
 
     try {
@@ -76,7 +76,7 @@ describe(`note`, () => {
     const noteText = `Is this utterance past or present tense?`;
 
     const sampleText = `
-    \\n (${lang}): ${noteText}
+    \\n-${lang} ${noteText}
     `;
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
@@ -103,19 +103,19 @@ describe(`note`, () => {
 
   });
 
-  it(`removes white space before the colon`, () => {
+  it(`removes white space before and after the colon`, () => {
 
     const initials = `DWH`;
     const lang     = `en`;
     const noteText = `This is a note.`;
 
     const sampleText = `
-    \\n ${initials} (${lang}) : ${noteText}
+    \\n-${lang} ${initials} : ${noteText}
     `;
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
+    expect(language).toBe(lang);
     expect(source).toBe(initials);
     expect(text).toBe(noteText);
 
@@ -138,19 +138,16 @@ describe(`note`, () => {
 
   });
 
-  it(`allows colons in the note text`, () => {
-
-    const noteText = `What do you think: choice one or choice two?`;
+  it(`does not recognize colons in the note text`, () => {
 
     const sampleText = `
-    \\n ${noteText}
+    \\n What do you think: choice one or choice two?
     `;
 
-    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+    const { utterances: [{ notes: [{ language, source }] }] } = convert(sampleText);
 
     expect(language).toBe(`en`);
-    expect(source).toBeUndefined();
-    expect(text).toBe(noteText);
+    expect(source).toBe(`What do you think`);
 
   });
 

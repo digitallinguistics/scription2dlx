@@ -12,7 +12,6 @@ describe(`data`, function() {
   });
 
   it(`parses Nuuchahnulth`, () => {
-    // pending(`Writing another test to isolate the issue here.`);
     const test = () => convert(data.Nuuchahnulth);
     expect(test).not.toThrow();
   });
