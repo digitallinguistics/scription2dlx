@@ -9,7 +9,8 @@ module.exports = {
     [
       `@babel/preset-env`,
       {
-        corejs:  `core-js@3`,
+        corejs:  3,
+        modules: false,
         targets: {
           browsers: [
             `last 2 Chrome major versions`,
@@ -20,7 +21,7 @@ module.exports = {
             `maintained node versions`,
           ],
         },
-        useBuiltIns: `entry`,
+        useBuiltIns: `usage`,
       },
     ],
   ],

@@ -1,5 +1,4 @@
 import { isString } from './utilities/index.mjs';
-import yamlParser   from 'yaml';
 
 /**
  * Extracts the text of the header metadata, if present
@@ -32,21 +31,28 @@ function validateHeader(header) {
 }
 
 /**
- * Retrieves the header from a scription file and returns the metadata as a JavaScript object. Returns null if no header is found
- * @param  {String} text The scription text
- * @return {String}      The text metadata, as a JavaScript object
+ * Retrieves the header from a scription file and returns the metadata as a JavaScript object containing either a property `header` (if no parser is provided) or all the properties in the header if one is.
+ * @param  {String}   text   The scription text
+ * @param  {Function} parser A YAML parser to use to parser the header
+ * @return {Object}          The text metadata, as a JavaScript object
  */
-export default function parseHeader(text) {
+export default function parseHeader(text, parse) {
 
   const headerString = getHeaderString(text);
   const isMissing    = headerString === null;
 
   if (isMissing) return {};
 
-  const header = yamlParser.parse(headerString);
+  if (parse) {
 
-  validateHeader(header);
+    const header = parse(headerString);
 
-  return header;
+    validateHeader(header);
+
+    return header;
+
+  }
+
+  return { header: headerString };
 
 }

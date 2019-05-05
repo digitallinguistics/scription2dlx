@@ -1,0 +1,1 @@
+import{cleanBrackets}from"../utilities/index.mjs";export default function parsePhonetic(line){if(!line)return null;return cleanBrackets("phon",line)}

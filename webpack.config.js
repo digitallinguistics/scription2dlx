@@ -1,10 +1,10 @@
-const babelOptions = require(`./babel.config.js`);
+const babelOptions = require(`./babel.config`);
 const path         = require(`path`);
 
 module.exports = {
-  entry:  path.resolve(__dirname, `./src/index.mjs`),
-  mode:   `production`,
-  module: {
+  entry:   path.resolve(__dirname, `./src/index.mjs`),
+  mode:    process.env.NODE_ENV,
+  module:  {
     rules: [
       {
         test: /\.m?js$/u,
@@ -28,3 +28,7 @@ module.exports = {
   },
   plugins: [],
 };
+
+if (process.env.NODE_ENV === `development`) {
+  module.exports.devtool = `inline-source-map`;
+}

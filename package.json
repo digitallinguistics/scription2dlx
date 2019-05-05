@@ -20,8 +20,9 @@
     "email": "dwhieb@gmail.com",
     "url": "https://danielhieber.com"
   },
+  "browser": "scription2dlx.js",
   "main": "scription2dlx.js",
-  "module": "src/index.mjs",
+  "module": "dist/index.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
@@ -34,34 +35,37 @@
   },
   "scripts": {
     "browser": "cd test && static-server && cd ..",
-    "build": "webpack && npm run copy-dist",
-    "copy-dist": "node --no-warnings test/copyDist.js",
-    "jasmine": "node --experimental-modules --no-warnings test/init-node.mjs",
+    "build": "npm run transpile && npm run bundle",
+    "bundle": "webpack",
     "karma": "karma start",
-    "test": "npm run jasmine && npm run karma",
+    "prepare": "npm run build",
+    "pretest": "node --no-warnings test/copy.js",
+    "transpile": "babel src -d dist --keep-file-extension --compact --minified --delete-dir-on-start --no-comments --source-type=module",
     "upload": "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/plugin-transform-dotall-regex": "^7.4.4",
     "@babel/plugin-transform-named-capturing-groups-regex": "^7.4.4",
     "@babel/plugin-transform-unicode-regex": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
-    "core-js": "^3.0.1",
     "eslint": "^5.16.0",
+    "fs-extra": "^7.0.1",
     "ietf-language-tag-regex": "0.0.5",
     "jasmine": "^3.4.0",
     "jasmine-core": "^3.4.0",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^2.0.0",
+    "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
-    "yaml": "^1.5.0"
+    "yamljs": "^0.3.0"
   },
   "dependencies": {}
 }

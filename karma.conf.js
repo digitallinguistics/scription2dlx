@@ -1,6 +1,3 @@
-// Karma configuration
-// Generated on Fri May 03 2019 12:48:09 GMT-0700 (Pacific Daylight Time)
-
 module.exports = function setConfig(config) {
   config.set({
 
@@ -41,6 +38,7 @@ module.exports = function setConfig(config) {
         pattern:  `*/*.txt`,
         served:   true,
       },
+      `yaml.js`,
       `scription2dlx.*js`,
       `init-browser.*js`,
       `*.test.*js`,
