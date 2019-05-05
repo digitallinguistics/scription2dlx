@@ -1,6 +1,7 @@
 module.exports = {
+  comments: false,
   // Order of plugins is important
-  plugins: [
+  plugins:  [
     `@babel/plugin-transform-named-capturing-groups-regex`,
     `@babel/plugin-transform-dotall-regex`,
     `@babel/plugin-transform-unicode-regex`,
@@ -10,7 +11,6 @@ module.exports = {
       `@babel/preset-env`,
       {
         corejs:  3,
-        modules: false,
         targets: {
           browsers: [
             `last 2 Chrome major versions`,
@@ -18,8 +18,8 @@ module.exports = {
             `last 2 Firefox major versions`,
             `last 2 iOS major versions`,
             `last 2 Safari major versions`,
-            `maintained node versions`,
           ],
+          node: true,
         },
         useBuiltIns: `usage`,
       },

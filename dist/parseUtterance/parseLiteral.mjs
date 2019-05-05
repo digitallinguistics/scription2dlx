@@ -1,1 +1,0 @@
-import{cleanBrackets,groupLines,validateLanguages}from"../utilities/index.mjs";export default function parseLiteral(lines){let data=groupLines("lit",lines);if(!data)return null;data=cleanBrackets("lit",data);validateLanguages(data);return data}

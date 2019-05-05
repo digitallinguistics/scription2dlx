@@ -2,8 +2,9 @@ const babelOptions = require(`./babel.config`);
 const path         = require(`path`);
 
 module.exports = {
+  devtool: process.env.NODE_ENV === `development` ? `inline-source-map` : undefined,
   entry:   path.resolve(__dirname, `./src/index.mjs`),
-  mode:    process.env.NODE_ENV,
+  mode:    process.env.NODE_ENV || `production`,
   module:  {
     rules: [
       {
@@ -15,7 +16,7 @@ module.exports = {
       },
     ],
   },
-  output: {
+  output:  {
     filename:      `scription2dlx.js`,
     globalObject:  `this`,
     library:       `scription2dlx`,
@@ -25,7 +26,3 @@ module.exports = {
   },
   plugins: [],
 };
-
-if (process.env.NODE_ENV === `development`) {
-  module.exports.devtool = `inline-source-map`;
-}

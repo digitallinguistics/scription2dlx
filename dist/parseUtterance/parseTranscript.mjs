@@ -1,1 +1,0 @@
-import{groupLines}from"../utilities/index.mjs";export default function parseTranscript(lines){const data=groupLines("trs",lines);return data||null}

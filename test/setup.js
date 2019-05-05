@@ -1,5 +1,5 @@
 const convert = scription2dlx;
-const parser  = yamljs.parse;
+const parser  = YAML.parse;
 
 async function loadText(filename) {
   const res = await fetch(`data/${filename}`, { mode: `cors` });

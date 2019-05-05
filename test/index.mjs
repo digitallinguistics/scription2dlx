@@ -1,5 +1,5 @@
 import config            from './jasmine.json';
-import convert           from '../dist/index.mjs';
+import convert           from './scription2dlx.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs';
 import Jasmine           from 'jasmine';
