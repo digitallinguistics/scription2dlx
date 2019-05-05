@@ -15,9 +15,6 @@ module.exports = {
       },
     ],
   },
-  node: {
-    fs: `empty`,
-  },
   output: {
     filename:      `scription2dlx.js`,
     globalObject:  `this`,

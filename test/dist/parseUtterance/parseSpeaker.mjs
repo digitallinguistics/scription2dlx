@@ -1,1 +1,0 @@
-const speakerRegExp=/^[0-9A-Za-z]+$/;function isValidSpeaker(speaker){return speakerRegExp.test(speaker)}export default function parseSpeaker(data){if(!data)return null;if(!isValidSpeaker(data)){throw new Error("".concat(data," is not a valid value for the speaker line."))}return data}

@@ -20,9 +20,9 @@
     "email": "dwhieb@gmail.com",
     "url": "https://danielhieber.com"
   },
-  "browser": "scription2dlx.js",
-  "main": "scription2dlx.js",
-  "module": "dist/index.mjs",
+  "browser": "src/index.mjs",
+  "main": "dist/index.mjs",
+  "module": "src/index.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
@@ -35,12 +35,13 @@
   },
   "scripts": {
     "browser": "cd test && static-server && cd ..",
-    "build": "npm run transpile && npm run bundle",
-    "bundle": "webpack",
+    "build": "npm run transpile",
     "karma": "karma start",
     "prepare": "npm run build",
     "pretest": "node --no-warnings test/copy.js",
-    "transpile": "babel src -d dist --keep-file-extension --compact --minified --delete-dir-on-start --no-comments --source-type=module",
+    "test": "npm run test-node-modules",
+    "test-node-modules": "node --experimental-modules --no-warnings test/index.mjs",
+    "transpile": "./node_modules/.bin/babel src -d dist --keep-file-extension --compact --minified --delete-dir-on-start --no-comments --source-type=module",
     "upload": "node build/upload.js"
   },
   "devDependencies": {

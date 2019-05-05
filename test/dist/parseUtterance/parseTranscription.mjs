@@ -1,1 +1,0 @@
-import{cleanBrackets,groupLines}from"../utilities/index.mjs";export default function parseTranscription(lines){let data=groupLines("txn",lines);if(!data)return null;data=cleanBrackets("txn",data);return data}

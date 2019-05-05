@@ -1,1 +1,0 @@
-const codeRegExp=/^[\x2D0-9A-Za-z]+$/;export default function isValidCode(str){return codeRegExp.test(str)}
