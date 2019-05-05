@@ -1,24 +1,6 @@
 import {
-  getLineType,
+  getLines,
 } from '../utilities/index.mjs';
-
-/**
- * Accepts the text of the note line, and returns a valid DLx Note object
- * @param  {String} data The text of the note line
- * @return {Object}      Returns a valid DLx Note object
- */
-function parseNote({ code, data: text }) {
-
-  const source   = text.split(`:`, 1);
-  const language = code.split(`-`, 1)[1] || `en`;
-
-  return {
-    language,
-    source,
-    text,
-  };
-
-}
 
 /**
  * Accepts the lines hash and returns an array of DLx Note objects
@@ -27,14 +9,25 @@ function parseNote({ code, data: text }) {
  */
 export default function parseNotes(lines) {
 
+  const noteLines = getLines(`n`, lines);
+
+  if (!noteLines) return [];
+
   const numberedRegExp = /n-[0-9]/u;
 
-  const noteLines = Object.entries(lines)
-  .filter(([code]) => getLineType(code) === `n`)
-  .map(([code, data]) => [code.replace(numberedRegExp, `n`), data]);
+  return Object.entries(noteLines)
+  .map(([rawCode, data]) => {
 
-  if (!noteLines.length) return [];
+    const code                    = rawCode.replace(numberedRegExp, `n`);
+    const [source, text = source] = data.split(/:\s+/u);
+    const [, language = `en`]     = code.split(`-`, 1);
 
-  return noteLines.map(parseNote);
+    return {
+      language,
+      source,
+      text,
+    };
+
+  });
 
 }

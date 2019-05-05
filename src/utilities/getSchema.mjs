@@ -56,6 +56,17 @@ function validateSchema(rawCodes) {
 }
 
 /**
+ * Adjust the codes at the beginning of each line to number the notes lines
+ * @param  {Array<String>} lines An array of line strings
+ * @return {Array<String>}
+ */
+function numberNotes(code, i) {
+  const type = getLineType(code);
+  if (type !== `n`) return code;
+  return code.replace(`n`, `n-${i + 1}`);
+}
+
+/**
  * Accepts the text of a scription utterance and returns an array representing its interlinear gloss schema, where each item in the array is a backslash code (without the leading slash)
  * @param  {String} utteranceString The scription utterance to get the interlinear schema for
  * @return {Array}                  Returns an array of backslash codes (without the leading slash)
@@ -90,7 +101,7 @@ export default function getSchema(utteranceString) {
 
     }
 
-    return codes;
+    return codes.map(numberNotes);
 
   } catch (e) {
 

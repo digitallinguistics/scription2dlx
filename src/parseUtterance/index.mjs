@@ -15,7 +15,6 @@ import parseWords         from './parseWords.mjs';
 import {
   getCode,
   getLines,
-  getLineType,
   getSchema,
 } from '../utilities/index.mjs';
 
@@ -32,30 +31,12 @@ const wordTypes = [`gl`, `m`, `w`, `wlt`];
  */
 function createLinesHash(lines, schema) {
   return lines.reduce((hash, line, i) => {
-    const code  = schema[i] || `n`; // treat extra lines as notes
+    const code  = schema[i] || `n-${i}`; // treat extra lines as notes
     const match = line.match(lineDataRegExp);
     const data  = (match ? match.groups.lineData : line).trim();
     hash[code]  = data; // eslint-disable-line no-param-reassign
     return hash;
   }, {});
-}
-
-/**
- * Adjust the codes at the beginning of each line to number the notes lines
- * @param  {Array<String>} lines An array of line strings
- * @return {Array<String>}
- */
-function numberNotes(lines, schema) {
-  return lines.map((line, i) => {
-
-    const code = getCode(line) || schema[i];
-    const type = getLineType(code);
-
-    if (type !== `n`) return line;
-
-    return line.replace(/^n/u, `n-${i}`);
-
-  });
 }
 
 /**
@@ -68,7 +49,7 @@ export default function parseUtterance(utteranceString, schema) {
 
   try {
 
-    let lines = utteranceString
+    const lines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim());
 
@@ -76,7 +57,6 @@ export default function parseUtterance(utteranceString, schema) {
 
     if (codes.length) schema = getSchema(utteranceString); // eslint-disable-line no-param-reassign
 
-    lines           = numberNotes(lines, schema);
     const linesHash = createLinesHash(lines, schema);
     const noData    = !Object.values(linesHash).every(Boolean);
 

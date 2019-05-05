@@ -10,6 +10,8 @@ export default function getLines(types, lines) {
   const wordLineEntries = Object.entries(lines)
   .filter(([code]) => types.includes(getLineType(code)));
 
+  if (!wordLineEntries) return null;
+
   return Object.fromEntries(wordLineEntries);
 
 }

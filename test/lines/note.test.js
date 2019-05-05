@@ -11,7 +11,7 @@ describe(`note`, () => {
     const noteText = `Is this utterance past or present tense?`;
 
     const sampleText = `
-    \\n ${initials} (${lang}): ${noteText}
+    \\n-${lang} ${initials}: ${noteText}
     `;
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
