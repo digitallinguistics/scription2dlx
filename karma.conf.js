@@ -36,8 +36,13 @@ module.exports = function setConfig(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {
+        included: false,
+        pattern:  `*/*.txt`,
+        served:   true,
+      },
       `scription2dlx.*js`,
-      `setup.*js`,
+      `init-browser.*js`,
       `*.test.*js`,
       `*/*.test.*js`,
     ],
@@ -56,6 +61,10 @@ module.exports = function setConfig(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {},
+
+    proxies: {
+      '/data/': '/base/data/',
+    },
 
     // test results reporter to use
     // possible values: `dots`, `progress`

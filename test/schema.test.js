@@ -271,6 +271,7 @@ describe(`interlinear gloss schema`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
+
     expect(utterance.notes.length).toBe(2);
 
   });

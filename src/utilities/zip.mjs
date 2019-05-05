@@ -5,30 +5,21 @@
  */
 export default function zip(hash) {
 
-  try {
+  const numItems = Math.max(...Object.values(hash).map(w => w.length));
+  const items    = [];
 
-    const numItems = Math.max(...Object.values(hash).map(w => w.length));
-    const items    = [];
+  for (let i = 0; i < numItems; i++) {
 
-    for (let i = 0; i < numItems; i++) {
+    const item = Object.entries(hash)
+    .reduce((o, [key, arr]) => {
+      o[key] = arr[i]; // eslint-disable-line no-param-reassign
+      return o;
+    }, {});
 
-      const item = Object.entries(hash)
-      .reduce((o, [key, arr]) => {
-        o[key] = arr[i]; // eslint-disable-line no-param-reassign
-        return o;
-      }, {});
-
-      items.push(item);
-
-    }
-
-    return items;
-
-  } catch (e) {
-
-    e.message = `[zip] ${e.message}`;
-    throw e;
+    items.push(item);
 
   }
+
+  return items;
 
 }

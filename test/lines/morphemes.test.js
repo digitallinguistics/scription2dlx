@@ -106,7 +106,7 @@ describe(`morphemes`, () => {
     const { utterances: [{ words }] } = convert(text);
     const lastWord = words.pop();
 
-    expect(lastWord.transcription).toBe(`Benjamin Paul`);
+    expect(lastWord.analysis).toBe(`[Benjamin Paul]`);
     expect(lastWord.gloss).toBe(`NAME`);
 
   });

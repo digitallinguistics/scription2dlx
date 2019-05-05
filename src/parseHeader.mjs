@@ -11,21 +11,8 @@ function getHeaderString(text) {
   const headerRegExp = /---(?<header>.+?)---/gsu;
   const result       = headerRegExp.exec(text);
 
-  if (!result) return null;
+  return result ? result.groups.header.trim() : null;
 
-  return result.groups.header.trim();
-
-}
-
-/**
- * Parses the header string into a JavaScript object
- * @param  {String} headerString The text of the header, without dashes
- * @return {Object}
- */
-function parseYAML(headerString) {
-  const isEmpty = headerString === ``;
-  if (isEmpty) throw new TypeError(`The metadata header must not be empty.`);
-  return yamlParser.parse(headerString);
 }
 
 /**
@@ -34,6 +21,7 @@ function parseYAML(headerString) {
  */
 function validateHeader(header) {
 
+  if (!header) throw new Error(`The metadata header must not be empty.`);
   if (isString(header)) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
 
   const { title, utterances } = header;
@@ -50,25 +38,15 @@ function validateHeader(header) {
  */
 export default function parseHeader(text) {
 
-  try {
+  const headerString = getHeaderString(text);
+  const isMissing    = headerString === null;
 
-    const headerString = getHeaderString(text);
-    const isMissing    = headerString === null;
+  if (isMissing) return {};
 
-    if (isMissing) return {};
+  const header = yamlParser.parse(headerString);
 
-    const header = parseYAML(headerString);
+  validateHeader(header);
 
-    validateHeader(header);
-
-    return header;
-
-  } catch (e) {
-
-    e.message = `[parseHeader] ${e.message}\n\nError parsing the following header:\n\n${text}`;
-    throw e;
-
-  }
-
+  return header;
 
 }

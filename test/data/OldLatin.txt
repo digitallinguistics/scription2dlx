@@ -1,0 +1,49 @@
+---
+title:
+  en: Duenos Inscription
+abbreviation: duenos
+access:
+  notes: This text is public domain.
+contributors:
+  - abbreviation: DWH
+    familyName:   Hieber
+    givenName:    Daniel William
+    roles:
+      - transcriber
+    notes:
+      - text: DWH transcribed this text from online sources.
+notes:
+  - text: The Duenos inscription is one of the earliest Old Latin texts, dating from the 7th to 5th century BC. It is inscribed on the sides of a _kernos_, a set of three vases attached by struts. It was found by Heinrich Dressel in 1880 on the Quirinal Hill in Rome. See the [Wikipedia page](https://en.wikipedia.org/wiki/Duenos_inscription) about the Duenos inscription for more information.
+media:
+
+  - access:
+      notes: This image is public domain. It was retrieved from Wikipedia at https://en.wikipedia.org/wiki/File:Hermes_16_illustration1.png.
+    content: A stencil drawing of the Duenos inscription.
+    contentType: image/png
+    filename: duenos-2.png
+    link: https://en.wikipedia.org/wiki/File:Hermes_16_illustration1.png
+    mediaURL: https://upload.wikimedia.org/wikipedia/commons/8/8a/Hermes_16_illustration1.png
+    size: 60947
+
+  - access:
+      notes: 'Photo by Nick Thompson. License: Attribution-NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0)'
+    content: Image of the vase on which the Duenos inscription is inscribed.
+    contentType: imae/jpeg
+    filename: duenos-1.jpg
+    link: https://www.flickr.com/photos/pelegrino/42023776182/in/faves-divesgallaecia/
+    mediaURL: https://c1.staticflickr.com/1/971/42023776182_c84e368819_b.jpg
+---
+\trs-prac iovesatdeivosqoimedmitatneitedendocosmisuircosied
+\trs-lat  𐌉𐌏𐌅𐌄𐌔𐌀𐌕𐌃𐌄𐌉𐌅𐌏𐌔𐌒𐌏𐌉𐌌𐌄𐌃𐌌𐌉𐌕𐌀𐌕𐌍𐌄𐌉𐌕𐌄𐌃𐌄𐌍𐌃𐌏𐌂𐌏𐌔𐌌𐌉𐌔V𐌉𐌓𐌂𐌏𐌔𐌉𐌄𐌃
+\tln-lat  Iurat deos qui me mittit, ni [erga te] comis virgo sit
+\tln-eng  The person who sends me prays to the gods, lest the girl be not kind towards thee
+
+astednoisio[pr]etoitesiai[pr]akaiuois
+𐌀𐌔𐌕𐌄𐌃𐌍𐌏𐌉𐌔𐌉𐌏[𐌓𐌐]𐌄𐌕𐌏𐌉𐌕𐌄𐌔𐌉𐌀𐌉[𐌐𐌓]𐌀𐌊𐌀𐌉V𐌏𐌉𐌔
+at te [uncertain] paca rivis
+without thee [...] calm with [these] rivers
+
+dyenosmedvecedenmanomeinomdyenoinemedmalostatod
+𐌃𐌖𐌄𐌍𐌏𐌔𐌌𐌄𐌃𐌅𐌄𐌂𐌄𐌃𐌄𐌍𐌌𐌀𐌍𐌏𐌌𐌄𐌉𐌍𐌏𐌌𐌃𐌖𐌄𐌍𐌏𐌉𐌍𐌄𐌌𐌄𐌃𐌌𐌀𐌋𐌏𐌔𐌕𐌀𐌕𐌏𐌃
+Bonus me fecit in manum [...] bono, ne me malus [clepito]
+A good man made me (in good intention?) for a good man; may I not be stolen by an evil man.

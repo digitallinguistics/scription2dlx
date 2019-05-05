@@ -175,15 +175,70 @@ describe(`glosses`, () => {
   it(`may group multiple words with [square brackets]`, () => {
 
     const text = `
-    waxdungu qasi
+    waxdungu  qasi
     [one day] man
     one day a man
     `;
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.transcription).toBe(`waxdungu`);
-    expect(word.gloss).toBe(`one day`);
+    expect(word.analysis).toBe(`waxdungu`);
+    expect(word.gloss).toBe(`[one day]`);
+
+  });
+
+  /* eslint-disable max-statements */
+  it(`tokenizes words and morphemes correctly`, () => {
+
+    const text = `
+    \\m  a~b     c           [d f]    []
+    \\gl one~two [NAME NAME] compound null
+    `;
+
+    const { utterances: [{ words: [w1, w2, w3, w4] }] } = convert(text);
+
+    // Word 1
+
+    expect(w1.analysis).toBe(`a~b`);
+    expect(w1.gloss).toBe(`one~two`);
+
+    const [w1m1, w1m2] = w1.morphemes;
+
+    expect(w1m1.transcription).toBe(`a`);
+    expect(w1m1.gloss).toBe(`one`);
+
+    expect(w1m2.transcription).toBe(`b`);
+    expect(w1m2.gloss).toBe(`two`);
+
+    // Word 2
+
+    expect(w2.analysis).toBe(`c`);
+    expect(w2.gloss).toBe(`[NAME NAME]`);
+
+    const [w2m] = w2.morphemes;
+
+    expect(w2m.transcription).toBe(`c`);
+    expect(w2m.gloss).toBe(`[NAME NAME]`);
+
+    // Word 3
+
+    expect(w3.analysis).toBe(`[d f]`);
+    expect(w3.gloss).toBe(`compound`);
+
+    const [w3m] = w3.morphemes;
+
+    expect(w3m.transcription).toBe(`[d f]`);
+    expect(w3m.gloss).toBe(`compound`);
+
+    // Word 4
+
+    expect(w4.analysis).toBe(`[]`);
+    expect(w4.gloss).toBe(`null`);
+
+    const [w4m] = w4.morphemes;
+
+    expect(w4m.transcription).toBe(`[]`);
+    expect(w4m.gloss).toBe(`null`);
 
   });
 

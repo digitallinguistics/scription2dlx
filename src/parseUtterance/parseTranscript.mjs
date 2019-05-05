@@ -6,17 +6,6 @@ import { groupLines } from '../utilities/index.mjs';
  * @return {String|Object}
  */
 export default function parseTranscript(lines) {
-
-  try {
-
-    const data = groupLines(`trs`, lines);
-    return data || null;
-
-  } catch (e) {
-
-    e.message = `[parseTranscript] ${e.message}`;
-    throw e;
-
-  }
-
+  const data = groupLines(`trs`, lines);
+  return data || null;
 }

@@ -1,4 +1,4 @@
-import getLineType from './getLineType.mjs';
+import getLines from './getLines.mjs';
 
 /**
  * Takes a hash of line codes and their data and groups lines of a certain type
@@ -8,15 +8,17 @@ import getLineType from './getLineType.mjs';
  */
 export default function groupLines(type, linesHash) {
 
-  const typedLines = Object.entries(linesHash)
-  .filter(([code]) => getLineType(code) === type);
+  const typedLines = getLines([type], linesHash);
 
-  if (!typedLines.length) return null;
+  if (!typedLines) return null;
 
-  const isString = typedLines.length === 1 && typedLines[0][0] === type;
+  const codes    = Object.keys(typedLines);
+  const isString = codes.length === 1 && codes[0] === type;
+
   if (isString) return linesHash[type];
 
-  return typedLines.reduce((hash, [code, data]) => {
+  return Object.entries(typedLines)
+  .reduce((hash, [code, data]) => {
     const subtype = code.replace(`${type}-`, ``);
     hash[subtype] = data; // eslint-disable-line no-param-reassign
     return hash;
