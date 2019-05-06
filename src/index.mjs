@@ -1,4 +1,3 @@
-import './polyfills.mjs';
 import parseHeader     from './parseHeader.mjs';
 import parseUtterances from './parseUtterances.mjs';
 
@@ -7,13 +6,13 @@ import parseUtterances from './parseUtterances.mjs';
  * @param  {String} scription The text of the Scription file to parse
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
-export default function scription2dlx(scription = ``) {
+export default function scription2dlx(scription = ``, { parser } = {}) {
 
   const isEmpty = scription.trim() === ``;
 
   if (isEmpty) return {};
 
-  const header     = parseHeader(scription);
+  const header     = parseHeader(scription, parser);
   const utterances = parseUtterances(scription);
 
   return { ...header, utterances };

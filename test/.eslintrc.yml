@@ -1,5 +1,6 @@
 globals:
   convert: true
+  parser:  true
 rules:
   func-names: off
   prefer-arrow-callback: off

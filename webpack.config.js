@@ -1,10 +1,11 @@
-const babelOptions = require(`./babel.config.js`);
+const babelOptions = require(`./babel.config`);
 const path         = require(`path`);
 
 module.exports = {
-  entry:  path.resolve(__dirname, `./src/index.mjs`),
-  mode:   `production`,
-  module: {
+  // devtool: `inline-source-map`,
+  entry:   path.resolve(__dirname, `./src/index.mjs`),
+  mode:    `production`,
+  module:  {
     rules: [
       {
         test: /\.m?js$/u,
@@ -15,10 +16,7 @@ module.exports = {
       },
     ],
   },
-  node: {
-    fs: `empty`,
-  },
-  output: {
+  output:  {
     filename:      `scription2dlx.js`,
     globalObject:  `this`,
     library:       `scription2dlx`,

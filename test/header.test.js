@@ -3,6 +3,22 @@
  */
 describe(`metadata header`, function() {
 
+  it(`returns a "header" property if no parser is provided`, () => {
+
+    const headerString = `title: How the world began`;
+
+    const text = `
+    ---
+    title: How the world began
+    ---
+    `;
+
+    const { header } = convert(text);
+
+    expect(header).toBe(headerString);
+
+  });
+
   it(`must be in valid YAML (or JSON) format`, () => {
 
     const text = `
@@ -11,7 +27,7 @@ title:
 How the world began
 ---`;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { parser });
 
     expect(test).toThrow();
 
@@ -21,7 +37,7 @@ How the world began
 
     const text = `---\n---`;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { parser });
 
     expect(test).toThrow();
 
@@ -35,7 +51,7 @@ abbreviation: A1
 ---
 `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { parser });
 
     expect(test).toThrow();
 
@@ -52,7 +68,7 @@ utterances:
 ---
 `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { parser });
 
     expect(test).toThrow();
 
@@ -67,7 +83,7 @@ abbreviation: A1
 ---
 `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { parser });
 
     expect(test).not.toThrow();
 

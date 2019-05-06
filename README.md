@@ -20,7 +20,7 @@ Install the library in your project from the command line: `npm i @digitallingui
 **Option 1:** Include the `scription2dlx` library as a script in your HTML from the DLx CDN:
 
 ```html
-<script src=https://cdn.digitallinguistics.io/scripts/scription2dlx-0.1.0.js></script>
+<script src=https://cdn.digitallinguistics.io/scripts/scription2dlx-1.0.0.js></script>
 ```
 
 **Option 2:** Download the `scription2dlx.js` file from the [releases page][releases] and include it in a script tag in your HTML:
@@ -32,10 +32,12 @@ Install the library in your project from the command line: `npm i @digitallingui
 **Option 3:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
 
 ```html
+<!-- Bundled version -->
 <script src=node_modules/@digitallinguistics/scription2dlx/scription2dlx.js></script>
-```
 
-Both options will make a global `scription2dlx` function available in the browser.
+<!-- ES modules -->
+<script src=node_modules/@digitallinguistics/scription2dlx/dist/index.mjs type=module></script>
+```
 
 ## Usage
 
@@ -54,16 +56,36 @@ one day a man
 ```js
 const data = await fetch(`data.txt`);
 const text = scription2dlx(data);
-console.log(text.title); // "How the world began"
+console.log(text.utterances.transcription); // "waxdungu qasi"
 ```
 
-## Using as a Dependency
+You may also pass an options hash as the second option. The available options are shown below.
 
-If you would like to use `scription2dlx` as a dependency in your library, it is recommended that you use the files in the `/src` folder. The source code for the `scription2dlx` library is written using ES modules and the latest JavaScript syntax and features. You will need to bundle and/or transpile the code accordingly.
+```js
+const text = scription2dlx(data, { /* options */ });
+```
 
 ## Notes
 
 * The `scription2dlx` library does **not** perform validation on the text data. You should use another validator like [AJV][AJV] to validate your data against the DLx DaFoDiL format.
+
+* In order to keep this library small and dependency-free, `scription2dlx` does **not** automatically parse the YAML header of a scription document. Instead, the header string is returned as a `header` property on the text object. If you would like `scription2dlx` to parse the header, pass a YAML parser to the `parser` option when calling the `scription2dlx` function:
+
+  ```js
+  import yaml from 'yaml'; // use your preferred YAML parsing library
+
+  const text = scription2dlx(data, { parser: yaml.parse });
+  ```
+
+## Options
+
+Option | Default   | Description
+------ | --------- | -----------
+parser | undefined | A YAML parser to use to parse the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
+
+## Using as a Dependency
+
+If you would like to include `scription2dlx` as a dependency in your own library, you can use the files in the `/src` directory to transpile / bundle `scription2dlx` with your own code. The source code for `scription2dlx` is written using the latest JavaScript syntax and ES modules.
 
 [AJV]:       https://www.npmjs.com/package/ajv
 [DaFoDiL]:   https://format.digitallinguistics.io
