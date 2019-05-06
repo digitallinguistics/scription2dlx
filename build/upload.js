@@ -15,10 +15,14 @@ const {
   uploadFileToBlockBlob,
 } = require(`@azure/storage-blob`);
 
+if (process.env.NODE_ENV === `development`) {
+  require(`./credentials.js`); // eslint-disable-line global-require
+}
+
 const {
-  account,
-  key,
-} = require(`./credentials.js`);
+  AZURE_STORAGE_ACCOUNT: account,
+  AZURE_STORAGE_KEY: key,
+} = process.env;
 
 const containerName = `scripts`;
 
