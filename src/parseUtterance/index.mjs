@@ -21,8 +21,7 @@ import {
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
-
-const wordTypes = [`gl`, `m`, `w`, `wlt`];
+const wordTypes      = [`gl`, `m`, `w`, `wlt`];
 
 /**
  * Create a lines hash from an array of strings and an array of line codes

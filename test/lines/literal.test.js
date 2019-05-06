@@ -52,13 +52,14 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
 });
 
-fdescribe(`literal translation (word: \\wlt)`, () => {
+describe(`literal translation (word: \\wlt)`, () => {
 
   it(`does not allow literal glosses with whitespace (unless bracketed)`, () => {
 
     const text = `
-    \\m waxt-qungu qasi
-    \\wlt one.day  a man
+    \\m   waxt-qungu qasi
+    \\gl  one-day    man
+    \\wlt one.day    a man
     `;
 
     try {
@@ -70,10 +71,54 @@ fdescribe(`literal translation (word: \\wlt)`, () => {
 
   });
 
-  it(`may be in multiple languages`);
+  it(`may be in multiple languages`, () => {
 
-  it(`must have valid ISO language tags`);
+    const en = `one.day`;
+    const es = `un.día`;
 
-  it(`removes brackets`);
+    const text = `
+    \\m      waxt-qungu qasi
+    \\gl     one-day    man
+    \\wlt-en ${en}     [a man]
+    \\wlt-es ${es}     [un hombre]
+    `;
+
+    const { utterances: [{ words: [{ literal }] }] } = convert(text);
+
+    expect(literal.en).toBe(en);
+    expect(literal.es).toBe(es);
+
+  });
+
+  it(`must have valid ISO language tags`, () => {
+
+    const text = `
+    \\m       waxt-qungu qasi
+    \\gl      one-day    man
+    \\wlt-en- one.day    [a man]
+    `;
+
+    try {
+      convert(text);
+      fail(`Error not thrown.`);
+    } catch (e) {
+      expect(e.message.includes(`IETF`)).toBe(true);
+    }
+
+  });
+
+  it(`does not remove brackets`, () => {
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\gl  one-day    man
+    \\wlt [one day]  [a man]
+    `;
+
+    const { utterances: [{ words: [{ literal }] }] } = convert(text);
+
+    expect(literal).toBe(`[one day]`);
+
+  });
 
 });

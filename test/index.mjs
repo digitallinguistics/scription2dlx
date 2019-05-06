@@ -1,10 +1,10 @@
+import bundle            from './scription2dlx.js';
 import config            from './jasmine.json';
-import bundle            from '../src/index.mjs'; // for testing with Node.js v12
 import { fileURLToPath } from 'url';
 import fs                from 'fs';
 import Jasmine           from 'jasmine';
 import path              from 'path';
-import source            from './scription2dlx.js';
+import source            from '../src/index.mjs'; // for testing with Node.js v12
 import yamljs            from 'yamljs';
 
 const convert = process.version.startsWith(`v12`) ? source : bundle;

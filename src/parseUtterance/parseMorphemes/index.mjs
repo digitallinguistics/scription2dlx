@@ -6,7 +6,6 @@ import {
   getMatches,
   groupLines,
   mergeTranscriptions,
-  validateLanguages,
   validateNumItems,
   zip,
 } from '../../utilities/index.mjs';
@@ -62,11 +61,6 @@ export default function parseMorphemes(wordLines) {
   }));
 
   if (!morphemes.length) return [];
-
-  morphemes.forEach(m => {
-    validateLanguages(m.transcription);
-    validateLanguages(m.gloss);
-  });
 
   const duplicateMorphemes = getDuplicateMorphemes(morphemes);
   morphemes                = difference(morphemes, duplicateMorphemes.flat());
