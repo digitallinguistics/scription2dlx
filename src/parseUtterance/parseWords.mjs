@@ -8,6 +8,8 @@ import {
   zip,
 } from '../utilities/index.mjs';
 
+const wordTypes = [`gl`, `m`, `w`, `wlt`];
+
 /**
  * Takes the words line hash and tokenizes the data on each line
  * @param  {Object} wordLines A hash of raw word lines
@@ -23,16 +25,24 @@ function getWordsHash(wordLines) {
 
 /**
  * Parses the word hash into a DLx Word object
- * @param  {Object} data The word hash
- * @return {Object}      Returns a DLx Word object
+ * @param  {Object} codes The hash of line codes
+ * @param  {Object} data  The word hash
+ * @return {Object}       Returns a DLx Word object
  */
-function parseWord(data) {
+function parseWord(codes, data) {
 
-  const transcription = groupLines(`w`, data) || ``;
-  const analysis      = groupLines(`m`, data);
-  const gloss         = groupLines(`gl`, data);
-  const literal       = groupLines(`wlt`, data);
-  const morphemes     = parseMorphemes(getLines([`gl`, `m`], data));
+  const {
+    gl,
+    m,
+    w,
+    wlt,
+  } = codes;
+
+  const transcription = groupLines(w, data) || ``;
+  const analysis      = groupLines(m, data);
+  const gloss         = groupLines(gl, data);
+  const literal       = groupLines(wlt, data);
+  const morphemes     = parseMorphemes(codes, data);
 
   return {
     transcription,
@@ -65,18 +75,23 @@ function tokenizeLine(string) {
 
 /**
  * Extracts word-specific lines from the lines hash and converts them into an array of DLx Word objects
+ * @param  {Object} codes The line codes hash
  * @param  {Object} lines The lines hash
  * @return {Array}        Returns an array of DLx Word objects
  */
-export default function parseWords(lines) {
+export default function parseWords(codesHash, lines) {
 
-  if (!Object.keys(lines).length) return [];
+  const wordLineCodes = wordTypes.map(type => codesHash[type]);
 
-  const wordsHash = getWordsHash(lines);
+  const wordLines = getLines(wordLineCodes, lines);
+
+  if (!wordLines) return [];
+
+  const wordsHash = getWordsHash(wordLines);
 
   validateNumItems(wordsHash);
 
   return zip(wordsHash)
-  .map(parseWord);
+  .map(wordData => parseWord(codesHash, wordData));
 
 }

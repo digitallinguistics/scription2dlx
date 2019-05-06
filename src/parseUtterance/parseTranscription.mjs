@@ -26,15 +26,17 @@ function removeExtraWhiteSpace(txn) {
 
 /**
  * Extracts, validates, and cleans the transcription lines from the lines hash
- * @param  {Object}        lines The lines hash
+ * @param  {String}        lineCode The code to use for transcription lines
+ * @param  {Object}        lines    The lines hash
  * @return {String|Object}
  */
-export default function parseTranscription(lines) {
+export default function parseTranscription(lineCode, lines) {
 
-  let data = groupLines(`txn`, lines);
+  let data = groupLines(lineCode, lines);
 
   if (!data) return null;
 
+  // NB: Do not use lineCode here; cleanBrackets takes an abstract type, not a line code, as its first argument
   data = cleanBrackets(`txn`, data);
   data = removeExtraWhiteSpace(data);
 

@@ -5,22 +5,23 @@ import {
 
 /**
  * Accepts the lines hash and returns an array of DLx Note objects
- * @param  {Object} lines The lines hash
- * @return {Array}        Returns the "notes" property of the utterance (or null)
+ * @param  {String} lineCode The line code to use for notes
+ * @param  {Object} lines    The lines hash
+ * @return {Array}           Returns the "notes" property of the utterance (or null)
  */
-export default function parseNotes(lines) {
+export default function parseNotes(lineCode, lines) {
 
-  const noteLines = getLines(`n`, lines);
+  const noteLines = getLines(lineCode, lines);
 
   if (!noteLines) return [];
 
-  const numberedRegExp = /n-[0-9]/u;
+  const numberedRegExp = new RegExp(`${lineCode}-[0-9]`, `u`);
   const noteRegExp     = /^(?:\s*(?<source>.+?)\s*:\s*)?(?<text>.+)$/u;
 
   return Object.entries(noteLines)
   .map(([rawCode, data]) => {
 
-    const code                = rawCode.replace(numberedRegExp, `n`);
+    const code                = rawCode.replace(numberedRegExp, lineCode);
     const [, language = `en`] = code.split(`-`, 2);
     const { source, text }    = data.match(noteRegExp).groups;
 
