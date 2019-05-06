@@ -1,6 +1,5 @@
 import {
   groupLines,
-  validateLanguages,
 } from '../utilities/index.mjs';
 
 /**
@@ -11,6 +10,5 @@ import {
 export default function parseTranslation(lines) {
   const data = groupLines(`tln`, lines);
   if (!data) return null;
-  validateLanguages(data);
   return data;
 }

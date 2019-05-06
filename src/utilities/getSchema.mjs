@@ -2,6 +2,10 @@ import getCode     from './getCode.mjs';
 import getLineType from './getLineType.mjs';
 import isString    from './isString.mjs';
 import isValidCode from './isValidCode.mjs';
+import isValidTag  from './isValidTag.mjs';
+
+// NB: Does not include `n` - this is tested elsewhere
+const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];
 
 /**
  * Valides an array of backslash codes, without leading slashes
@@ -21,6 +25,7 @@ function validateSchema(rawCodes) {
 
   const codes = rawCodes.filter(Boolean);
   const types = codes.map(getLineType);
+  // NB: Items in the types array may not be unique (and later code depends on this fact)
 
   // Check that codes are valid
 
@@ -52,6 +57,22 @@ function validateSchema(rawCodes) {
   if ((hasMorphemes || hasGlosses) && !(hasMorphemes && hasGlosses)) {
     throw new Error(`If either the morphemes or glosses line is present, the other must be present as well.`);
   }
+
+  // Check that language tags are valid IETF tags
+
+  codes.forEach((code, i) => {
+
+    const type = types[i];
+
+    if (!multiLangTypes.includes(type)) return;
+
+    const lang = code.replace(`${type}-`, ``);
+
+    if (lang && !isValidTag(lang)) {
+      throw new Error(`Language codes must be valid IETF language tags. The tag ${lang} is not valid.`);
+    }
+
+  });
 
 }
 

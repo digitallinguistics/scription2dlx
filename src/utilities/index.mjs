@@ -9,7 +9,6 @@ import groupLines          from './groupLines.mjs';
 import isString            from './isString.mjs';
 import isValidTag          from './isValidTag.mjs';
 import mergeTranscriptions from './mergeTranscriptions.mjs';
-import validateLanguages   from './validateLanguages.mjs';
 import validateNumItems    from './validateNumItems.mjs';
 import zip                 from './zip.mjs';
 
@@ -25,7 +24,6 @@ export {
   isString,
   isValidTag,
   mergeTranscriptions,
-  validateLanguages,
   validateNumItems,
   zip,
 };
