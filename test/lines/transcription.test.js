@@ -52,6 +52,19 @@ describe(`phomemic transcription (utterance)`, () => {
 
   });
 
+  it(`removes extraneous whitespace`, () => {
+
+    const text = `
+    \\txn waxdungu     qasi
+    \\tln one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcription).toBe(`waxdungu qasi`);
+
+  });
+
 });
 
 describe(`phonemic transcription (word)`, () => {
