@@ -37,7 +37,6 @@
     "browser": "cd test && static-server && cd ..",
     "build": "webpack",
     "karma": "karma start",
-    "prepare": "npm run build",
     "pretest": "node --no-warnings test/copy.js",
     "test": "npm run test-node && npm run karma",
     "test-node": "node --experimental-modules --no-warnings test/index.mjs",

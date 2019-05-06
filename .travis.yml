@@ -1,6 +1,5 @@
-before_deploy: 'node build/upload.js'
-before_install:
-  - "npm install"
+before_deploy:
+  - 'node build/upload.js'
 deploy:
   api_key:     $NPM_KEY
   email:       dwhieb@gmail.com
