@@ -4,7 +4,7 @@ const path         = require(`path`);
 module.exports = {
   // devtool: `inline-source-map`,
   entry:   path.resolve(__dirname, `./src/index.mjs`),
-  mode:    process.env.NODE_ENV || `production`,
+  mode:    `production`,
   module:  {
     rules: [
       {
