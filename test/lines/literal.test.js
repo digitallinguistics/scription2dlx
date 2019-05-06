@@ -1,8 +1,8 @@
 /**
- * This file applies tests to the literal translation line (`\lit`)
+ * This file applies tests to the literal translation line (`\lit`) and literal gloss line (`\wlt`)
  */
 
-describe(`literal translation`, () => {
+describe(`literal translation (utterance: "\\lit")`, () => {
 
   it(`removes brackets`, () => {
 
@@ -49,5 +49,31 @@ describe(`literal translation`, () => {
     expect(test).toThrow();
 
   });
+
+});
+
+fdescribe(`literal translation (word: \\wlt)`, () => {
+
+  it(`does not allow literal glosses with whitespace (unless bracketed)`, () => {
+
+    const text = `
+    \\m waxt-qungu qasi
+    \\wlt one.day  a man
+    `;
+
+    try {
+      convert(text);
+      fail(`Error not thrown.`);
+    } catch (e) {
+      expect(e.message.includes(`same number`)).toBe(true);
+    }
+
+  });
+
+  it(`may be in multiple languages`);
+
+  it(`must have valid ISO language tags`);
+
+  it(`removes brackets`);
 
 });

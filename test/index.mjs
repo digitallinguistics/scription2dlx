@@ -1,10 +1,13 @@
 import config            from './jasmine.json';
-import convert           from './scription2dlx.js';
+import bundle            from '../src/index.mjs'; // for testing with Node.js v12
 import { fileURLToPath } from 'url';
 import fs                from 'fs';
 import Jasmine           from 'jasmine';
-import yamljs            from 'yamljs';
 import path              from 'path';
+import source            from './scription2dlx.js';
+import yamljs            from 'yamljs';
+
+const convert = process.version.startsWith(`v12`) ? source : bundle;
 
 const { promises: { readFile } } = fs;
 
