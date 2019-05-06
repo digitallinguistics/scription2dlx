@@ -40,7 +40,7 @@ module.exports = function setConfig(config) {
       },
       `yaml.js`,
       `scription2dlx.*js`,
-      `init-browser.*js`,
+      `setup.*js`,
       `*.test.*js`,
       `*/*.test.*js`,
     ],

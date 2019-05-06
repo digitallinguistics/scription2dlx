@@ -2,7 +2,7 @@ const babelOptions = require(`./babel.config`);
 const path         = require(`path`);
 
 module.exports = {
-  devtool: process.env.NODE_ENV === `development` ? `inline-source-map` : undefined,
+  // devtool: `inline-source-map`,
   entry:   path.resolve(__dirname, `./src/index.mjs`),
   mode:    process.env.NODE_ENV || `production`,
   module:  {

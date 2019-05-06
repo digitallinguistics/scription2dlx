@@ -1,5 +1,5 @@
 {
-  "exec": "npm run build && npm run browser",
+  "exec": "npm run build && npm test && npm run browser",
   "ignore": [
     "scription2dlx.js",
     "test/**"
