@@ -291,4 +291,32 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
+  it(`allows custom backslash codes`, () => {
+
+    const transcription = `waxdungu qasi`;
+    const translation   = `one day a man`;
+
+    const text = `
+    \\t  ${transcription}
+    \\wt ${transcription}
+    \\tl ${translation}
+    `;
+
+    const codes = {
+      tln: `tl`,
+      txn: `t`,
+      w:   `wt`,
+    };
+
+    const { utterances: [utterance] } = convert(text, { codes });
+
+    expect(utterance.transcription).toBe(transcription);
+    expect(utterance.translation).toBe(translation);
+
+    const { words: [word] } = utterance;
+
+    expect(word.transcription).toBe(`waxdungu`);
+
+  });
+
 });

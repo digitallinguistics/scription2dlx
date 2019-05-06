@@ -241,5 +241,23 @@ describe(`glosses`, () => {
     expect(w4m.gloss).toBe(`null`);
 
   });
+  /* eslint-enable max-statements */
+
+  it(`populates both word and morpheme glosses`, () => {
+
+    const text = `
+    \\m  waxt-qungu qasi
+    \\gl day-one    man
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+
+    expect(word.gloss).toBe(`day-one`);
+
+    const { morphemes: [morpheme] } = word;
+
+    expect(morpheme.gloss).toBe(`day`);
+
+  });
 
 });

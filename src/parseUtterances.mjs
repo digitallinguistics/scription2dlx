@@ -18,7 +18,7 @@ function getUtterancesString(text) {
  * @param  {String} scription The scription text
  * @return {Array}
  */
-export default function parseUtterances(scription) {
+export default function parseUtterances(scription, codes) {
 
   const utterancesString = getUtterancesString(scription);
 
@@ -27,7 +27,7 @@ export default function parseUtterances(scription) {
   const blankLinesRegExp  = /(?:[ \t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*\r?\n){2,}/gsu;
   const utterancesStrings = utterancesString.split(blankLinesRegExp);
   const schema            = getSchema(utterancesStrings[0]);
-  const parse             = utteranceString => parseUtterance(utteranceString, schema);
+  const parse             = utteranceString => parseUtterance(utteranceString, schema, codes);
 
   return utterancesString
   .split(blankLinesRegExp)

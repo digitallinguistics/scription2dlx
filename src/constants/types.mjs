@@ -8,4 +8,5 @@ export default [
   `tln`,
   `trs`,
   `txn`,
+  `w`,
 ];

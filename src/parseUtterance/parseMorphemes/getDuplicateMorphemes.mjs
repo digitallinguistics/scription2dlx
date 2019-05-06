@@ -25,30 +25,25 @@ function getDuplicateGlosses(code, morphemes) {
 }
 
 /**
- * Gets the line code of the first gloss line in a morpheme
- * @param  {Object} morpheme The morpheme to get the code for
- * @return {String}
- */
-function getFirstGlossCode({ gloss }) {
-  const isBareString = isString(gloss);
-  return isBareString ? `string` : Object.keys(gloss)[0];
-}
-
-/**
  * Get an array of arrays of morphemes with the same gloss
  * @param  {Array} morphemes The array of morphemes to check for duplicates
  * @return {Array}           Returns an array of arrays of duplicate morphemes
  */
 export default function getDuplicateMorphemes(morphemes) {
 
-  const glossToCheck     = getFirstGlossCode(morphemes[0]);
+  const [{ gloss }] = morphemes;
+
+  if (!gloss) return [];
+
+  const isBareString     = isString(gloss);
+  const glossToCheck     = isBareString ? `string` : Object.keys(gloss)[0];
   const duplicateGlosses = getDuplicateGlosses(glossToCheck, morphemes);
 
   if (!duplicateGlosses) return [];
 
-  return duplicateGlosses.map(gl => morphemes.filter(({ gloss }) => {
-    if (isString(gloss)) return gloss === gl;
-    return gloss[glossToCheck] === gl;
+  return duplicateGlosses.map(gl => morphemes.filter(({ gloss: g }) => {
+    if (isString(g)) return g === gl;
+    return g[glossToCheck] === gl;
   }));
 
 }

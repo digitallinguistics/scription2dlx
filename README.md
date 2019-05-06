@@ -32,11 +32,7 @@ Install the library in your project from the command line: `npm i @digitallingui
 **Option 3:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
 
 ```html
-<!-- Bundled version -->
 <script src=node_modules/@digitallinguistics/scription2dlx/scription2dlx.js></script>
-
-<!-- ES modules -->
-<script src=node_modules/@digitallinguistics/scription2dlx/dist/index.mjs type=module></script>
 ```
 
 ## Usage
@@ -81,11 +77,12 @@ const text = scription2dlx(data, { /* options */ });
 
 Option | Default   | Description
 ------ | --------- | -----------
+codes  | `{}`      | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
 parser | undefined | A YAML parser to use to parse the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
 
 ## Using as a Dependency
 
-If you would like to include `scription2dlx` as a dependency in your own library, you can use the files in the `/src` directory to transpile / bundle `scription2dlx` with your own code. The source code for `scription2dlx` is written using the latest JavaScript syntax and ES modules.
+If you would like to include `scription2dlx` as a dependency in your own library, you can use the files in the `/src` directory to transpile / bundle `scription2dlx` with your own code. The source code for `scription2dlx` is written using ES modules and the latest JavaScript syntax.
 
 [AJV]:       https://www.npmjs.com/package/ajv
 [DaFoDiL]:   https://format.digitallinguistics.io

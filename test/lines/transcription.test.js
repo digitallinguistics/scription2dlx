@@ -2,7 +2,7 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
-describe(`phomemic transcription`, () => {
+describe(`phomemic transcription (utterance)`, () => {
 
   it(`should remove phonemic slashes`, () => {
 
@@ -35,6 +35,56 @@ describe(`phomemic transcription`, () => {
 
     expect(transcription.swad).toBe(SwadeshTranscription);
     expect(transcription.apa).toBe(APATranscription);
+
+  });
+
+  it(`should populate from the word transcriptions line`, () => {
+
+    const text = `
+    \\w  waxdungu   qasi
+    \\m  waxt-qungu qasi
+    \\gl day-one    man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcription).toBe(`waxdungu qasi`);
+
+  });
+
+  it(`removes extraneous whitespace`, () => {
+
+    const text = `
+    \\txn waxdungu     qasi
+    \\tln one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcription).toBe(`waxdungu qasi`);
+
+  });
+
+});
+
+describe(`phonemic transcription (word)`, () => {
+
+  it(`may be in multiple orthographies`, () => {
+
+    const mod  = `waxdungu`;
+    const swad = `wašdungu`;
+
+    const text = `
+    \\w-mod  ${mod}
+    \\w-swad ${swad}
+    \\m      waxt-qungu
+    \\gl     day-one
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+
+    expect(word.transcription.mod).toBe(mod);
+    expect(word.transcription.swad).toBe(swad);
 
   });
 

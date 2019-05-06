@@ -14,14 +14,12 @@ import parseWords         from './parseWords.mjs';
 
 import {
   getCode,
-  getLines,
   getSchema,
   mergeTranscriptions,
 } from '../utilities/index.mjs';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;
-const wordTypes      = [`gl`, `m`, `w`, `wlt`];
 
 /**
  * Create a lines hash from an array of strings and an array of line codes
@@ -43,11 +41,22 @@ function createLinesHash(lines, schema) {
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
  * @param  {String} utteranceString The utterance string to parse
  * @param  {Array}  schema          An interlinear gloss schema, as an array of backslash codes (without leading slashes)
+ * @param  {Object} codes           The line codes to use for each line type
  * @return {Object}                 Returns a DLx Utterance object, or null if there is no data
  */
-export default function parseUtterance(utteranceString, schema) {
+export default function parseUtterance(utteranceString, schema, codesHash) {
 
   try {
+
+    const {
+      lit,
+      n,
+      phon,
+      tln,
+      trs,
+      txn,
+      sp,
+    } = codesHash;
 
     const lines = utteranceString
     .split(newlineRegExp)
@@ -64,18 +73,18 @@ export default function parseUtterance(utteranceString, schema) {
 
     // Extract known utterance properties and populate the utterance
 
-    const speaker     = parseSpeaker(linesHash.sp);
-    const transcript  = parseTranscript(linesHash);
-    let transcription = parseTranscription(linesHash);
-    const phonetic    = parsePhonetic(linesHash.phon);
-    const literal     = parseLiteral(linesHash);
-    const translation = parseTranslation(linesHash) || ``;
-    const notes       = parseNotes(linesHash);
-    const words       = parseWords(getLines(wordTypes, linesHash) || {});
-    const custom      = parseCustom(linesHash);
+    const speaker     = parseSpeaker(linesHash[sp]);
+    const transcript  = parseTranscript(trs, linesHash);
+    let transcription = parseTranscription(txn, linesHash);
+    const phonetic    = parsePhonetic(linesHash[phon]);
+    const literal     = parseLiteral(lit, linesHash);
+    const translation = parseTranslation(tln, linesHash) || ``;
+    const notes       = parseNotes(n, linesHash);
+    const words       = parseWords(codesHash, linesHash);
+    const custom      = parseCustom(codesHash, linesHash);
 
     if (!transcription) {
-      const wordTranscriptions = words.map(({ transcription: txn }) => txn);
+      const wordTranscriptions = words.map(({ transcription: t }) => t);
       transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
     }
 

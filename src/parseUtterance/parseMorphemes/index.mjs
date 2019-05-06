@@ -3,6 +3,7 @@ import separateInfix         from './separateInfix.mjs';
 
 import {
   difference,
+  getLines,
   getMatches,
   groupLines,
   mergeTranscriptions,
@@ -40,25 +41,38 @@ function tokenizeWord(string) {
 
 /**
  * Accepts an lines hash for a word (morpheme and gloss lines) and returns an array of DLx Morpheme objects
- * @param  {Object} wordLines A lines hash for a word
+ * @param  {Object} lineCodes The hash of line codes
+ * @param  {Object} wordLines The lines hash for the word
  * @return {Array}            Returns an array of DLx Morpheme objeccts
  */
-export default function parseMorphemes(wordLines) {
+export default function parseMorphemes(codes, wordHash) {
 
-  const noData = !Object.values(wordLines).every(line => line.length);
+  const {
+    gl,
+    m,
+  } = codes;
 
-  if (noData) return [];
+  const morphemeLines = getLines([gl, m], wordHash);
 
-  const morphemesHash = createMorphemesHash(wordLines);
+  if (!morphemeLines) return [];
+
+  const morphemesHash = createMorphemesHash(morphemeLines);
 
   validateNumItems(morphemesHash);
 
   let morphemes = zip(morphemesHash)
-  .flatMap(separateInfix)
-  .map(data => ({
-    transcription: groupLines(`m`, data),
-    gloss:         groupLines(`gl`, data), // eslint-disable-line sort-keys
-  }));
+  .flatMap(morpheme => separateInfix(gl, morpheme))
+  .map(data => {
+
+    const transcription = groupLines(m, data) || ``;
+    const gloss         = groupLines(gl, data);
+
+    return {
+      transcription,
+      ...gloss ? { gloss } : {},
+    };
+
+  });
 
   if (!morphemes.length) return [];
 
@@ -67,7 +81,8 @@ export default function parseMorphemes(wordLines) {
 
   const discontinuousMorphemes = duplicateMorphemes.map(dups => ({
     transcription: mergeTranscriptions(dups.map(({ transcription }) => transcription), `…`),
-    gloss:         dups[0].gloss, // eslint-disable-line sort-keys
+    analysis:      dups[0].analysis, // eslint-disable-line sort-keys
+    gloss:         dups[0].gloss,
   }));
 
   return [...morphemes, ...discontinuousMorphemes];
