@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
   },
-  "config": {
+  "publishConfig": {
     "access": "public"
   },
   "engines": {
