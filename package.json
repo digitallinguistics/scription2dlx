@@ -34,11 +34,11 @@
     "node": "10.x"
   },
   "scripts": {
-    "build":   "webpack",
-    "karma":   "karma start",
+    "build": "webpack",
+    "karma": "karma start",
     "pretest": "node --no-warnings test/copy.js",
-    "test":    "jasmine --config=test/jasmine.json",
-    "upload":  "node build/upload.js"
+    "test": "jasmine --config=test/jasmine.json",
+    "upload": "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
