@@ -2,8 +2,6 @@
  * This file applies tests for the transcript line
  */
 
-const convert = require(`../scription2dlx`);
-
 describe(`transcript`, () => {
 
   it(`may be in multiple formats`, () => {

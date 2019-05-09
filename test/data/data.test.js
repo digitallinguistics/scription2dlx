@@ -1,26 +1,17 @@
-const convert      = require(`../scription2dlx`);
-const path         = require(`path`);
-const { readFile } = require(`fs`).promises;
-
-const enc = `utf8`;
-
 describe(`data`, () => {
 
-  it(`parses Chitimacha`, async () => {
-    const text = await readFile(path.join(__dirname, `Chitimacha.txt`), enc);
-    const test = () => convert(text);
+  it(`parses Chitimacha`, () => {
+    const test = () => convert(data.Chitimacha);
     expect(test).not.toThrow();
   });
 
-  it(`parses Nuuchahnulth`, async () => {
-    const text = await readFile(path.join(__dirname, `Nuuchahnulth.txt`), enc);
-    const test = () => convert(text);
+  it(`parses Nuuchahnulth`, () => {
+    const test = () => convert(data.Nuuchahnulth);
     expect(test).not.toThrow();
   });
 
-  it(`parses Old Latin`, async () => {
-    const text = await readFile(path.join(__dirname, `OldLatin.txt`), enc);
-    const test = () => convert(text);
+  it(`parses Old Latin`, () => {
+    const test = () => convert(data.OldLatin);
     expect(test).not.toThrow();
   });
 

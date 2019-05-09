@@ -1,3 +1,7 @@
+globals:
+  convert: true
+  data:    true
+  parser:  true
 rules:
-  func-names: off
+  func-names:            off
   prefer-arrow-callback: off

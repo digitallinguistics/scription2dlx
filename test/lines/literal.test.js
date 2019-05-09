@@ -2,8 +2,6 @@
  * This file applies tests to the literal translation line (`\lit`) and literal gloss line (`\wlt`)
  */
 
-const convert = require(`../scription2dlx`);
-
 describe(`literal translation (utterance: "\\lit")`, () => {
 
   it(`removes brackets`, () => {

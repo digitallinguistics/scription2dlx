@@ -2,8 +2,6 @@
  * This file applies tests to the gloses line (`\gl`)
  */
 
-const convert = require(`../scription2dlx`);
-
 describe(`glosses`, () => {
 
   it(`may be in multiple languages`, () => {

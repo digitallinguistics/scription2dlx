@@ -2,8 +2,6 @@
  * This file applies tests to the note line (`\n`)
  */
 
-const convert = require(`../scription2dlx`);
-
 describe(`note`, () => {
 
   it(`may have source, language, and text`, () => {

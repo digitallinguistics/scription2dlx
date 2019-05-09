@@ -2,9 +2,6 @@
  * This test suite applies tests to the metadata header
  */
 
-const convert           = require(`./scription2dlx`);
-const { parse: parser } = require(`yamljs`);
-
 describe(`metadata header`, function() {
 
   it(`returns a "header" property if no parser is provided`, () => {
