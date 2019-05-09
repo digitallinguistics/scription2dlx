@@ -2,6 +2,8 @@
  * This file applies tests for lines (generally)
  */
 
+const convert = require(`../scription2dlx`);
+
 describe(`line`, () => {
 
   it(`is stripped of leading / trailing whitespace`, () => {

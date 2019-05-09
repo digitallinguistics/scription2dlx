@@ -2,6 +2,8 @@
  * This file applies tests to the morphemes line (`\m`)
  */
 
+const convert = require(`../scription2dlx`);
+
 describe(`morphemes`, () => {
 
   it(`may be in multiple orthographies`, () => {

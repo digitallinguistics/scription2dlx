@@ -2,6 +2,8 @@
  * This file applies tests for the interlinear gloss schema
  */
 
+const convert = require(`./scription2dlx`);
+
 describe(`interlinear gloss schema`, () => {
 
   it(`must have valid backslash codes (basic Latin characters and hyphens only)`, () => {

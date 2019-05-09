@@ -2,6 +2,8 @@
  * This file applies tests for the utterances section of the scription file
  */
 
+const convert = require(`./scription2dlx`);
+
 describe(`utterances`, () => {
 
   it(`may be blank`, () => {
