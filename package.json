@@ -35,14 +35,11 @@
   },
   "scripts": {
     "browser": "cd test && static-server && cd ..",
-    "build": "webpack",
-    "jest": "node test/jest.js",
-    "karma": "karma start",
-    "nyc": "nyc --extension=\".mjs\" node --experimental-modules nyc/jasmine.mjs",
+    "build":   "webpack",
+    "karma":   "karma start",
     "pretest": "node --no-warnings test/copy.js",
-    "test": "npm run test-node && npm run karma",
-    "test-node": "node --experimental-modules --no-warnings test/index.mjs",
-    "upload": "node build/upload.js"
+    "test":    "",
+    "upload":  "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
@@ -60,7 +57,6 @@
     "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
-    "nyc": "^14.1.0",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.2",
     "yamljs": "^0.3.0"
