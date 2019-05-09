@@ -37,7 +37,7 @@
     "build": "webpack",
     "karma": "karma start",
     "pretest": "node --no-warnings test/copy.js",
-    "test": "node --experimental-modules --no-warnings test/index.mjs",
+    "test": "node --experimental-modules --no-warnings test/node.mjs",
     "upload": "node build/upload.js"
   },
   "devDependencies": {

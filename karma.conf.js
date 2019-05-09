@@ -39,9 +39,11 @@ module.exports = function setConfig(config) {
         pattern:  `*/*.txt`,
         served:   true,
       },
-      `scription2dlx.*js`,
-      `*.test.*js`,
-      `*/*.test.*js`,
+      `yaml.js`,
+      `scription2dlx.js`,
+      `browser.js`,
+      `*.test.js`,
+      `*/*.test.js`,
     ],
 
     // frameworks to use

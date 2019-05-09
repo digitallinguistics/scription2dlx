@@ -1,3 +1,7 @@
+/**
+ * Initiates Jasmine tests in Node
+ */
+
 /* eslint-disable
   no-shadow,
 */
