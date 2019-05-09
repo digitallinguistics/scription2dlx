@@ -20,8 +20,8 @@
     "email": "dwhieb@gmail.com",
     "url": "https://danielhieber.com"
   },
-  "browser": "src/index.mjs",
-  "main": "dist/index.mjs",
+  "browser": "scription2dlx.js",
+  "main": "scription2dlx.js",
   "module": "src/index.mjs",
   "repository": {
     "type": "git",
