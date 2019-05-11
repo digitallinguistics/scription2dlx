@@ -100,9 +100,11 @@ export default function getSchema(utteranceString) {
 
     const lines = utteranceString
     .split(newlineRegExp)
-    .map(line => line.trim());
+    .map(line => line.trim())
+    .filter(line => !line.startsWith(`#`)); // filter out utterance metadata
 
-    const codes = lines.map(getCode);
+    const codes = lines
+    .map(getCode);
 
     validateSchema(codes);
 
