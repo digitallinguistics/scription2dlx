@@ -40,7 +40,7 @@
     "pretest": "node --no-warnings test/copy.js",
     "smoke-test": "npm run pretest && node --experimental-modules --no-warnings test/node.mjs",
     "test": "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
-    "upload": "node build/upload.js"
+    "upload": "node scripts/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
