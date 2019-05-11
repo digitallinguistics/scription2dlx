@@ -52,4 +52,20 @@ describe(`utterance metadata`, () => {
 
   });
 
+  it(`is not stripped of emphasis`, () => {
+
+    const meta = `*Chitimacha*`;
+
+    const text = `
+    # ${meta}
+    waxdungu qasi
+    one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
+
+    expect(utterance.metadata).toBe(meta);
+
+  });
+
 });

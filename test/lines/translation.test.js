@@ -68,4 +68,17 @@ describe(`free translation`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const text = `
+    waxdungu qasi
+    *one* day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.translation).toBe(`one day a man`);
+
+  });
+
 });

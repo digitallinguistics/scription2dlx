@@ -4,6 +4,7 @@ import {
   getLines,
   getMatches,
   groupLines,
+  removeEmphasis,
   validateNumItems,
   zip,
 } from '../utilities/index.mjs';
@@ -37,6 +38,8 @@ function parseWord(codes, data) {
     w,
     wlt,
   } = codes;
+
+  data = removeEmphasis(data); // eslint-disable-line no-param-reassign
 
   const transcription = groupLines(w, data) || ``;
   const analysis      = groupLines(m, data);

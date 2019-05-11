@@ -1,7 +1,8 @@
 import {
-  cleanBrackets,
   groupLines,
   isString,
+  removeBrackets,
+  removeEmphasis,
 } from '../utilities/index.mjs';
 
 function replaceSpaces(str) {
@@ -36,8 +37,9 @@ export default function parseTranscription(lineCode, lines) {
 
   if (!data) return null;
 
-  // NB: Do not use lineCode here; cleanBrackets takes an abstract type, not a line code, as its first argument
-  data = cleanBrackets(`txn`, data);
+  // NB: Do not use lineCode here; removeBrackets takes an abstract type, not a line code, as its first argument
+  data = removeEmphasis(data);
+  data = removeBrackets(`txn`, data);
   data = removeExtraWhiteSpace(data);
 
   return data;

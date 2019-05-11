@@ -111,4 +111,17 @@ describe(`morphemes`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const text = `
+    \\m  *waxt*-qungu qasi
+    \\gl day-one      man
+    `;
+
+    const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
+
+    expect(morpheme.transcription).toBe(`waxt`);
+
+  });
+
 });

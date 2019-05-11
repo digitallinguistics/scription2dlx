@@ -34,4 +34,18 @@ describe(`phonetic transcription`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const phonetic = `waʃtʼunkʼu *ʔasi*`;
+
+    const text = `
+    \\phon ${phonetic}
+    \\tln  one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.phonetic.includes(`*`)).toBe(false);
+
+  });
+
 });

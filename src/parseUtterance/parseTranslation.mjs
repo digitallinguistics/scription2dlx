@@ -1,6 +1,7 @@
 import {
-  cleanBrackets,
   groupLines,
+  removeBrackets,
+  removeEmphasis,
 } from '../utilities/index.mjs';
 
 /**
@@ -12,6 +13,7 @@ import {
 export default function parseTranslation(lineCode, lines) {
   let data = groupLines(lineCode, lines);
   if (!data) return null;
-  data     = cleanBrackets(`tln`, data);
+  data = removeEmphasis(data);
+  data = removeBrackets(`tln`, data);
   return data;
 }

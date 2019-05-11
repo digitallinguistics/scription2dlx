@@ -82,6 +82,21 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const literal = `one day a man`;
+
+    const text = `
+    \\txn waxdungu qasi
+    \\lit ${literal}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.literal).toBe(literal);
+
+  });
+
 });
 
 describe(`literal translation (word: \\wlt)`, () => {
@@ -150,6 +165,21 @@ describe(`literal translation (word: \\wlt)`, () => {
     const { utterances: [{ words: [{ literal }] }] } = convert(text);
 
     expect(literal).toBe(`[one day]`);
+
+  });
+
+  it(`is stripped of emphasis`, () => {
+
+    const literal = `day.one`;
+
+    const text = `
+    \\w waxdungu qasi
+    \\wlt ${literal} a.man
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+
+    expect(word.literal).toBe(literal);
 
   });
 
