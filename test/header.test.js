@@ -1,6 +1,7 @@
 /**
  * This test suite applies tests to the metadata header
  */
+
 describe(`metadata header`, function() {
 
   it(`returns a "header" property if no parser is provided`, () => {

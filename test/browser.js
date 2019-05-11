@@ -1,3 +1,11 @@
+/**
+ * Initiate Jasmine tests in browser
+ */
+
+/* eslint-disable
+  no-shadow,
+*/
+
 const convert = scription2dlx;
 const parser  = YAML.parse;
 
@@ -19,3 +27,7 @@ async function loadData() {
   };
 
 }
+
+beforeAll(async () => {
+  window.data = await loadData();
+});

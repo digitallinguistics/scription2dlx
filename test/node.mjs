@@ -1,18 +1,26 @@
+/**
+ * Initiates Jasmine tests in Node
+ */
+
+/* eslint-disable
+  no-shadow,
+*/
+
 import bundle            from './scription2dlx.js';
 import config            from './jasmine.json';
 import { fileURLToPath } from 'url';
 import fs                from 'fs';
 import Jasmine           from 'jasmine';
 import path              from 'path';
-import source            from '../src/index.mjs'; // for testing with Node.js v12
+import source            from '../src/scription2dlx.mjs';
 import yamljs            from 'yamljs';
 
-const convert = process.version.startsWith(`v12`) ? source : bundle;
-
+const convert                    = process.version.startsWith(`v12`) ? source : bundle;
+const jasmine                    = new Jasmine;
 const { promises: { readFile } } = fs;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename                 = fileURLToPath(import.meta.url);
+const __dirname                  = path.dirname(__filename);
 
 async function loadData() {
 
@@ -28,12 +36,17 @@ async function loadData() {
 
 }
 
-const jasmine = new Jasmine;
+async function test() {
 
-jasmine.loadConfig(config);
+  const data   = await loadData();
+  const global = jasmine.jasmine.getGlobal();
+  const parser = yamljs.parse;
 
-const global = jasmine.jasmine.getGlobal();
+  Object.assign(global, { convert, data, parser });
 
-Object.assign(global, { convert, loadData, parser: yamljs.parse });
+  jasmine.loadConfig(config);
+  jasmine.execute();
 
-jasmine.execute();
+}
+
+test().catch(console.error);

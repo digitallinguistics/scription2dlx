@@ -1,10 +1,4 @@
-describe(`data`, function() {
-
-  let data;
-
-  beforeAll(async function() {
-    data = await loadData();
-  });
+describe(`data`, () => {
 
   it(`parses Chitimacha`, () => {
     const test = () => convert(data.Chitimacha);

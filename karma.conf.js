@@ -11,6 +11,7 @@ module.exports = function setConfig(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
       `ChromeHeadless`,
+      // `Edge`,
       `FirefoxHeadless`,
     ],
 
@@ -39,10 +40,10 @@ module.exports = function setConfig(config) {
         served:   true,
       },
       `yaml.js`,
-      `scription2dlx.*js`,
-      `setup.*js`,
-      `*.test.*js`,
-      `*/*.test.*js`,
+      `scription2dlx.js`,
+      `browser.js`,
+      `*.test.js`,
+      `*/*.test.js`,
     ],
 
     // frameworks to use

@@ -20,9 +20,9 @@
     "email": "dwhieb@gmail.com",
     "url": "https://danielhieber.com"
   },
-  "browser": "src/index.mjs",
-  "main": "dist/index.mjs",
-  "module": "src/index.mjs",
+  "browser": "scription2dlx.js",
+  "main": "scription2dlx.js",
+  "module": "src/scription2dlx.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
@@ -34,13 +34,12 @@
     "node": "10.x"
   },
   "scripts": {
-    "browser": "cd test && static-server && cd ..",
-    "build": "webpack",
-    "karma": "karma start",
-    "pretest": "node --no-warnings test/copy.js",
-    "test": "npm run test-node && npm run karma",
-    "test-node": "node --experimental-modules --no-warnings test/index.mjs",
-    "upload": "node build/upload.js"
+    "build":    "webpack",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "karma":    "karma start",
+    "pretest":  "node --no-warnings test/copy.js",
+    "test":     "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs",
+    "upload":   "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
@@ -49,6 +48,7 @@
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
     "core-js": "^3.0.1",
+    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "jasmine": "^3.4.0",
     "jasmine-core": "^3.4.0",
@@ -58,6 +58,7 @@
     "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
+    "nyc": "^14.1.0",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.2",
     "yamljs": "^0.3.0"
