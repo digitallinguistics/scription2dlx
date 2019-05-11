@@ -35,11 +35,10 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "karma": "karma start",
     "pretest": "node --no-warnings test/copy.js",
     "smoke-test": "npm run pretest && node --experimental-modules --no-warnings test/node.mjs",
-    "test": "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
+    "test": "node --experimental-modules --no-warnings test/node.mjs && npm run karma",
     "upload": "node scripts/upload.js"
   },
   "devDependencies": {
@@ -49,7 +48,6 @@
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
     "core-js": "^3.0.1",
-    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "jasmine": "^3.4.0",
     "jasmine-core": "^3.4.0",
@@ -59,7 +57,6 @@
     "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
-    "nyc": "^14.1.0",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "yamljs": "^0.3.0"
