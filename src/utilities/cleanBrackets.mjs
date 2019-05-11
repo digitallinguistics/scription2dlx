@@ -5,9 +5,11 @@
 import isString from './isString.mjs';
 
 const bracketTypes = {
-  lit:  [`[`, `]`],
-  phon: [`[`, `]`],
-  txn:  [`/`, `/`],
+  lit:         [`[`, `]`],
+  phon:        [`[`, `]`],
+  tlnCurly:    [`'`, `'`],
+  tlnStraight: [`'`, `'`],
+  txn:         [`/`, `/`],
 };
 
 /**
@@ -34,6 +36,8 @@ function trimBrackets(start, end, str) {
  * @return {String|Object}
  */
 export default function cleanBrackets(type, data) {
+
+  if (type === `tln`) return cleanBrackets(`tlnCurly`, cleanBrackets(`tlnStraight`, data));
 
   const brackets = bracketTypes[type];
 

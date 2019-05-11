@@ -11,7 +11,7 @@ module.exports = function setConfig(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
       `ChromeHeadless`,
-      // `Edge`,
+      `Edge`,
       `FirefoxHeadless`,
     ],
 

@@ -1,4 +1,5 @@
 import {
+  cleanBrackets,
   groupLines,
 } from '../utilities/index.mjs';
 
@@ -9,7 +10,8 @@ import {
  * @return {String|Object}
  */
 export default function parseTranslation(lineCode, lines) {
-  const data = groupLines(lineCode, lines);
+  let data = groupLines(lineCode, lines);
   if (!data) return null;
+  data     = cleanBrackets(`tln`, data);
   return data;
 }

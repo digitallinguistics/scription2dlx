@@ -38,7 +38,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "karma":    "karma start",
     "pretest":  "node --no-warnings test/copy.js",
-    "test":     "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs",
+    "test":     "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
     "upload":   "node build/upload.js"
   },
   "devDependencies": {
