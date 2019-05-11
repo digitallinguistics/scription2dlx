@@ -1,6 +1,6 @@
 after_success: npm run coverage
 before_deploy:
-  - 'node build/upload.js'
+  - 'node scripts/upload.js'
 deploy:
   api_key:     $NPM_KEY
   email:       dwhieb@gmail.com
