@@ -279,4 +279,19 @@ describe(`glosses`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const wordGloss = `waxt-qungu`;
+
+    const text = `
+    \\m ${wordGloss} qasi
+    \\gl *waxt*-qungu qasi
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+
+    expect(word.gloss).toBe(wordGloss);
+
+  });
+
 });

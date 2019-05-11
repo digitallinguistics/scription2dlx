@@ -65,6 +65,20 @@ describe(`phomemic transcription (utterance)`, () => {
 
   });
 
+  it(`is stripped of emphasis`, () => {
+
+    const transcription = `waxdungu qasi`;
+
+    const text = `
+    ${transcription}
+    one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.transcription.includes(`*`)).toBe(false);
+
+  });
+
 });
 
 describe(`phonemic transcription (word)`, () => {
@@ -85,6 +99,19 @@ describe(`phonemic transcription (word)`, () => {
 
     expect(word.transcription.mod).toBe(mod);
     expect(word.transcription.swad).toBe(swad);
+
+  });
+
+  it(`is stripped of emphasis`, () => {
+
+    const text = `
+    \\w *waxdungu* qasi
+    \\tln one day a man
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+
+    expect(word.transcription).toBe(`waxdungu`);
 
   });
 

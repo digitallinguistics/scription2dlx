@@ -35,9 +35,9 @@ function trimBrackets(start, end, str) {
  * @param  {String|Object} data The data to clean
  * @return {String|Object}
  */
-export default function cleanBrackets(type, data) {
+export default function removeBrackets(type, data) {
 
-  if (type === `tln`) return cleanBrackets(`tlnCurly`, cleanBrackets(`tlnStraight`, data));
+  if (type === `tln`) return removeBrackets(`tlnCurly`, removeBrackets(`tlnStraight`, data));
 
   const brackets = bracketTypes[type];
 

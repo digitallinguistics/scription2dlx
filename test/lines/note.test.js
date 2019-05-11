@@ -151,4 +151,20 @@ describe(`note`, () => {
 
   });
 
+  it(`is not stripped of emphasis`, () => {
+
+    const noteText = `This note has *emphasis*.`;
+
+    const text = `
+    \\txn waxdungu qasi
+    \\tln one day a man
+    \\n   DWH: ${noteText}
+    `;
+
+    const { utterances: [{ notes: [note] }] } = convert(text);
+
+    expect(note.text).toBe(noteText);
+
+  });
+
 });

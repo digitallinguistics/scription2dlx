@@ -23,4 +23,19 @@ describe(`transcript`, () => {
 
   });
 
+  it(`is not stripped of emphasis`, () => {
+
+    const transcript = `*waxdungu* qasi`;
+
+    const text = `
+    \\trs ${transcript}
+    \\tln one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcript).toBe(transcript);
+
+  });
+
 });
