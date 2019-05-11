@@ -172,6 +172,25 @@ describe(`glosses`, () => {
 
   });
 
+  it(`parses clitics`, () => {
+
+    const text = `
+    stem=A B=stem=C
+    stem=a b=stem=b
+    translation
+    `;
+
+    const { utterances: [{ words: [w1, w2] }] } = convert(text);
+
+    expect(w1.morphemes[1].transcription).toBe(`A`);
+    expect(w1.morphemes[1].gloss).toBe(`a`);
+
+    const discontinuousMorpheme = w2.morphemes.find(w => w.gloss === `b`);
+
+    expect(discontinuousMorpheme.transcription).toBe(`B…C`);
+
+  });
+
   it(`may group multiple words with [square brackets]`, () => {
 
     const text = `
