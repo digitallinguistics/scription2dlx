@@ -15,5 +15,6 @@ export default function parseLiteral(lineCode, lines) {
   // NB: Do not use the lineCode variable here
   // cleanBrackets accept an abstract type, not a line code, as its first argument
   data = cleanBrackets(`lit`, data);
+  data = cleanBrackets(`tln`, data);
   return data;
 }
