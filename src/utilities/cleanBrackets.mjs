@@ -7,7 +7,7 @@ import isString from './isString.mjs';
 const bracketTypes = {
   lit:         [`[`, `]`],
   phon:        [`[`, `]`],
-  tlnCurly:    [`'`, `'`],
+  tlnCurly:    [`‘`, `’`],
   tlnStraight: [`'`, `'`],
   txn:         [`/`, `/`],
 };

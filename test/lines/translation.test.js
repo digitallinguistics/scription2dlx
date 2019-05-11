@@ -36,7 +36,7 @@ describe(`free translation`, () => {
 
   });
 
-  it(`strips single quotes from start and end of the line`, () => {
+  it(`strips single straight quotes from start and end of the line`, () => {
 
     const translation = `one day a man`;
 
@@ -44,6 +44,22 @@ describe(`free translation`, () => {
     waxt-qungu qasi
     day-one    man
     '${translation}'
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.translation).toBe(translation);
+
+  });
+
+  it(`strips single curly quotes from start and end of the line`, () => {
+
+    const translation = `one day a man`;
+
+    const text = `
+    waxt-qungu qasi
+    day-one    man
+    ‘${translation}’
     `;
 
     const { utterances: [utterance] } = convert(text);

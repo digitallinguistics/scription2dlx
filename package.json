@@ -34,12 +34,13 @@
     "node": "10.x"
   },
   "scripts": {
-    "build": "webpack",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "karma": "karma start",
-    "pretest": "node --no-warnings test/copy.js",
-    "test": "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
-    "upload": "node build/upload.js"
+    "build":      "webpack",
+    "coverage":   "nyc report --reporter=text-lcov | coveralls",
+    "karma":      "karma start",
+    "pretest":    "node --no-warnings test/copy.js",
+    "test":       "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
+    "smoke-test": "npm run pretest && node --experimental-modules --no-warnings test/node.mjs",
+    "upload":     "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
