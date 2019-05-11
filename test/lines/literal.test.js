@@ -50,6 +50,38 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
   });
 
+  it(`strips single straight quotes from start and end of the line`, () => {
+
+    const literal = `one day a man`;
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\gl  day-one    man
+    \\lit '${literal}'
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.literal).toBe(literal);
+
+  });
+
+  it(`strips single curly quotes from start and end of the line`, () => {
+
+    const literal = `one day a man`;
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\gl  day-one    man
+    \\lit ‘${literal}’
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.literal).toBe(literal);
+
+  });
+
 });
 
 describe(`literal translation (word: \\wlt)`, () => {
