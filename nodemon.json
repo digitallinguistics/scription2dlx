@@ -1,5 +1,5 @@
 {
-  "exec": "npm run build && npm run smoke-test",
+  "exec": "npm run smoke-test",
   "ignore": [
     "scription2dlx.js",
     "xtest/**"

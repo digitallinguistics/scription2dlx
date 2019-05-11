@@ -16,9 +16,11 @@ function getUtterancesString(text) {
 /**
  * Isolates the utterances in a scription text string and returns them as an array of DLx Utterance objects
  * @param  {String} scription The scription text
+ * @param  {Object} codes     A hash of codes to use for line types
+ * @param  {Object} [options] An options hash
  * @return {Array}
  */
-export default function parseUtterances(scription, codes) {
+export default function parseUtterances(scription, codes, options) {
 
   const utterancesString = getUtterancesString(scription);
 
@@ -27,7 +29,7 @@ export default function parseUtterances(scription, codes) {
   const blankLinesRegExp  = /(?:[ \t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*\r?\n){2,}/gsu;
   const utterancesStrings = utterancesString.split(blankLinesRegExp);
   const schema            = getSchema(utterancesStrings[0]);
-  const parse             = utteranceString => parseUtterance(utteranceString, schema, codes);
+  const parse             = utteranceString => parseUtterance(utteranceString, schema, codes, options);
 
   return utterancesString
   .split(blankLinesRegExp)

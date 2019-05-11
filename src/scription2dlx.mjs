@@ -26,7 +26,11 @@ const defaultCodes = {
  * @param  {Object} options   An options hash
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
-export default function scription2dlx(scription = ``, { codes: customCodes = {}, parser } = {}) {
+export default function scription2dlx(scription = ``, {
+  codes: customCodes = {},
+  parser,
+  utteranceMetadata = false,
+} = {}) {
 
   const isEmpty = scription.trim() === ``;
 
@@ -41,7 +45,7 @@ export default function scription2dlx(scription = ``, { codes: customCodes = {},
   const codes = Object.assign({}, defaultCodes, customCodes || {});
 
   const header     = parseHeader(scription, parser);
-  const utterances = parseUtterances(scription, codes);
+  const utterances = parseUtterances(scription, codes, { utteranceMetadata });
 
   return { ...header, utterances };
 

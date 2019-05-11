@@ -4,6 +4,7 @@
 
 import parseCustom        from './parseCustom.mjs';
 import parseLiteral       from './parseLiteral.mjs';
+import parseMetadata      from './parseMetadata.mjs';
 import parseNotes         from './parseNotes.mjs';
 import parsePhonetic      from './parsePhonetic.mjs';
 import parseSpeaker       from './parseSpeaker.mjs';
@@ -29,11 +30,15 @@ const newlineRegExp  = /\r?\n/gu;
  */
 function createLinesHash(lines, schema) {
   return lines.reduce((hash, line, i) => {
+
     const code  = schema[i] || `n-${i}`; // treat extra lines as notes
     const match = line.match(lineDataRegExp);
     const data  = (match ? match.groups.lineData : line).trim();
-    hash[code]  = data; // eslint-disable-line no-param-reassign
+
+    hash[code] = data; // eslint-disable-line no-param-reassign
+
     return hash;
+
   }, {});
 }
 
@@ -42,9 +47,10 @@ function createLinesHash(lines, schema) {
  * @param  {String} utteranceString The utterance string to parse
  * @param  {Array}  schema          An interlinear gloss schema, as an array of backslash codes (without leading slashes)
  * @param  {Object} codes           The line codes to use for each line type
+ * @param  {Object} [options]       An options hash
  * @return {Object}                 Returns a DLx Utterance object, or null if there is no data
  */
-export default function parseUtterance(utteranceString, schema, codesHash) {
+export default function parseUtterance(utteranceString, schema, codesHash, { utteranceMetadata }) {
 
   try {
 
@@ -58,10 +64,11 @@ export default function parseUtterance(utteranceString, schema, codesHash) {
       sp,
     } = codesHash;
 
-    const lines = utteranceString
+    const rawLines = utteranceString
     .split(newlineRegExp)
     .map(line => line.trim());
 
+    const lines = rawLines.filter(line => !line.startsWith(`#`));
     const codes = lines.map(getCode).filter(Boolean);
 
     if (codes.length) schema = getSchema(utteranceString); // eslint-disable-line no-param-reassign
@@ -73,6 +80,7 @@ export default function parseUtterance(utteranceString, schema, codesHash) {
 
     // Extract known utterance properties and populate the utterance
 
+    const metadata    = parseMetadata(rawLines);
     const speaker     = parseSpeaker(linesHash[sp]);
     const transcript  = parseTranscript(trs, linesHash);
     let transcription = parseTranscription(txn, linesHash);
@@ -89,6 +97,7 @@ export default function parseUtterance(utteranceString, schema, codesHash) {
     }
 
     return {
+      ...utteranceMetadata && metadata ? { metadata } : {},
       ...speaker ? { speaker } : {},
       ...transcript ? { transcript } : {},
       transcription,

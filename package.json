@@ -34,13 +34,13 @@
     "node": "10.x"
   },
   "scripts": {
-    "build":      "webpack",
-    "coverage":   "nyc report --reporter=text-lcov | coveralls",
-    "karma":      "karma start",
-    "pretest":    "node --no-warnings test/copy.js",
+    "build": "./node_modules/.bin/webpack",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "karma": "karma start",
+    "pretest": "node --no-warnings test/copy.js",
     "smoke-test": "npm run pretest && node --experimental-modules --no-warnings test/node.mjs",
-    "test":       "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
-    "upload":     "node build/upload.js"
+    "test": "nyc --extension=\".mjs\" --reporter=lcov node --experimental-modules --no-warnings test/node.mjs && npm run karma",
+    "upload": "node build/upload.js"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
@@ -60,7 +60,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "nyc": "^14.1.0",
-    "webpack": "^4.30.0",
+    "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "yamljs": "^0.3.0"
   },
