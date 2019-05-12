@@ -19,7 +19,9 @@ export default function parseSpeaker(data) {
   if (!data) return null;
 
   if (!isValidSpeaker(data)) {
-    throw new Error(`${data} is not a valid value for the speaker line.`);
+    const e = new Error(`${data} is not a valid value for the speaker line.`);
+    e.name  = `InvalidSpeakerError`;
+    throw e;
   }
 
   return data;

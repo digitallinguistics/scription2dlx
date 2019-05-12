@@ -46,7 +46,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/IETF/u);
 
   });
 
@@ -109,12 +109,9 @@ describe(`literal translation (word: \\wlt)`, () => {
     \\wlt one.day    a man
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`same number`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/same number/u);
 
   });
 
@@ -145,12 +142,9 @@ describe(`literal translation (word: \\wlt)`, () => {
     \\wlt-en- one.day    [a man]
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`IETF`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/IETF/u);
 
   });
 

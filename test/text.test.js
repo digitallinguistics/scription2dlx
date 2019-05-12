@@ -4,6 +4,10 @@
 
 describe(`text`, () => {
 
+  it(`may be called without any arguments`, () => {
+    expect(JSON.stringify(convert())).toBe(`{}`);
+  });
+
   it(`may be blank`, () => {
 
     const text = ``;

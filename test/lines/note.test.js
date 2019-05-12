@@ -28,12 +28,9 @@ describe(`note`, () => {
     \\n-en2 This is a note.
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`IETF`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/IETF/u);
 
   });
 

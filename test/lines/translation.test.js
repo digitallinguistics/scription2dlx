@@ -32,7 +32,7 @@ describe(`free translation`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/IETF/u);
 
   });
 

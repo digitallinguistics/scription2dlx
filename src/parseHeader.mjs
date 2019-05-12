@@ -20,13 +20,31 @@ function getHeaderString(text) {
  */
 function validateHeader(header) {
 
-  if (!header) throw new Error(`The metadata header must not be empty.`);
-  if (isString(header)) throw new Error(`The metadata header could not be parsed as a JavaScript Object.`);
+  if (!header) {
+    const e = new Error(`The metadata header must not be empty`);
+    e.name = `EmptyHeaderError`;
+    throw e;
+  }
+
+  if (isString(header)) {
+    const e = new Error(`The metadata header could not be parsed as a JavaScript Object.`);
+    e.name = `JSParsingError`;
+    throw e;
+  }
 
   const { title, utterances } = header;
 
-  if (!title) throw new Error(`The metadata header must have a "title" attribute.`);
-  if (utterances) throw new Error(`The metadata header must not have an "utterances" attribute.`);
+  if (!title) {
+    const e = new Error(`The metadata header must have a "title" attribute.`);
+    e.name = `MissingTitleError`;
+    throw e;
+  }
+
+  if (utterances) {
+    const e = new Error(`The metadata header must not have an "utterances" attribute.`);
+    e.name = `HeaderUtterancesError`;
+    throw e;
+  }
 
 }
 
@@ -45,7 +63,15 @@ export default function parseHeader(text, parse) {
 
   if (parse) {
 
-    const header = parse(headerString);
+    let header;
+
+    try {
+      header = parse(headerString);
+    } catch (e) {
+      e.name    = `ParseHeaderError`;
+      e.message = `Error parsing metadata header. Make sure the header is in valid YAML format.\n${e.message}`;
+      throw e;
+    }
 
     validateHeader(header);
 

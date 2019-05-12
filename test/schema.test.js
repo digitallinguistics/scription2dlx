@@ -21,8 +21,8 @@ describe(`interlinear gloss schema`, () => {
     const test1 = () => convert(text1);
     const test2 = () => convert(text2);
 
-    expect(test1).toThrow();
-    expect(test2).toThrow();
+    expect(test1).toThrowError(/valid/u);
+    expect(test2).toThrowError(/code/u);
 
   });
 
@@ -37,7 +37,7 @@ describe(`interlinear gloss schema`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/more than once/u);
 
   });
 
@@ -67,7 +67,7 @@ describe(`interlinear gloss schema`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/all lines/u);
 
   });
 

@@ -26,12 +26,9 @@ describe(`glosses`, () => {
     \\gl-es2 día-uno hombre
     `;
 
-    try {
-      convert(text);
-      fail();
-    } catch (e) {
-      expect(e.message.includes(`IETF`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/IETF/u);
 
   });
 
@@ -55,12 +52,9 @@ describe(`glosses`, () => {
     \\tln one day a man
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`glosses`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/glosses/u);
 
   });
 
