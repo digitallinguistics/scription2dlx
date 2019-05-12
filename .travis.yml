@@ -1,4 +1,3 @@
-after_success: npm run coverage
 before_deploy:
   - 'node scripts/upload.js'
 deploy:
