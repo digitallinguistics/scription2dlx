@@ -1,6 +1,6 @@
 {
   "name": "@digitallinguistics/scription2dlx",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "A JavaScript library for converting linguistic texts in scription format to the DLx JSON format",
   "keywords": [
     "linguistics",
