@@ -54,5 +54,6 @@ describe(`scription2dlx`, () => {
   require(`./lines/transcript.test`);
   require(`./lines/transcription.test`);
   require(`./lines/translation.test`);
+  require(`./lines/source.test`);
 
 });

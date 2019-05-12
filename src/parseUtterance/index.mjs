@@ -7,6 +7,7 @@ import parseLiteral       from './parseLiteral.mjs';
 import parseMetadata      from './parseMetadata.mjs';
 import parseNotes         from './parseNotes.mjs';
 import parsePhonetic      from './parsePhonetic.mjs';
+import parseSource        from './parseSource.mjs';
 import parseSpeaker       from './parseSpeaker.mjs';
 import parseTranscript    from './parseTranscript.mjs';
 import parseTranscription from './parseTranscription.mjs';
@@ -61,6 +62,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
       tln,
       trs,
       txn,
+      s,
       sp,
     } = codesHash;
 
@@ -87,6 +89,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
     const phonetic    = parsePhonetic(linesHash[phon]);
     const literal     = parseLiteral(lit, linesHash);
     const translation = parseTranslation(tln, linesHash) || ``;
+    const source      = parseSource(linesHash[s]);
     const notes       = parseNotes(n, linesHash);
     const words       = parseWords(codesHash, linesHash);
     const custom      = parseCustom(codesHash, linesHash);
@@ -104,6 +107,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
       ...phonetic ? { phonetic } : {},
       ...literal ? { literal } : {},
       translation,
+      ...source ? { source } : {},
       ...notes.length ? { notes } : {},
       ...words.length ? { words } : {},
       ...custom,
