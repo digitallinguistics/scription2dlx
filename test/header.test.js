@@ -30,7 +30,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/YAML/u);
 
   });
 
@@ -40,7 +40,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/empty/u);
 
   });
 
@@ -54,7 +54,7 @@ abbreviation: A1
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/title/u);
 
   });
 
@@ -71,7 +71,7 @@ utterances:
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrow();
+    expect(test).toThrowError(/utterances/u);
 
   });
 

@@ -40,13 +40,9 @@ describe(`morphemes`, () => {
     \\gl day-one  a man
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`same number`)).toBe(true);
-    }
+    const test = () => convert(text);
 
+    expect(test).toThrowError(/same number/u);
 
   });
 
@@ -57,12 +53,9 @@ describe(`morphemes`, () => {
     \\gl day-one  man
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`same number`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/same number/u);
 
   });
 
@@ -86,12 +79,9 @@ describe(`morphemes`, () => {
     \\gl  one.day  man
     `;
 
-    try {
-      convert(text);
-      fail(`Error not thrown.`);
-    } catch (e) {
-      expect(e.message.includes(`morphemes`)).toBe(true);
-    }
+    const test = () => convert(text);
+
+    expect(test).toThrowError(/morphemes/u);
 
   });
 

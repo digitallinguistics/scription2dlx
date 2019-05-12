@@ -38,7 +38,7 @@ export default function scription2dlx(scription = ``, {
 
   if (!(customCodes instanceof Object && Object.values(customCodes).every(isString))) {
     const e = new TypeError(`The "codes" option must be an Object whose values are Strings.`);
-    e.name  = scription2dlx.name;
+    e.name  = `InvalidCodesHashError`;
     throw e;
   }
 

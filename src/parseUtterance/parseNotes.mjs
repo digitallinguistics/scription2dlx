@@ -26,7 +26,9 @@ export default function parseNotes(lineCode, lines) {
     const { source, text }    = data.match(noteRegExp).groups;
 
     if (!isValidTag(language)) {
-      throw new Error(`The ${language} language tag is invalid. It must be a valid IETF language tag.`);
+      const e = new Error(`The ${language} language tag is invalid. It must be a valid IETF language tag.`);
+      e.name  = `InvalidNoteTagError`;
+      throw e;
     }
 
     return {

@@ -116,7 +116,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
     .map(str => str.trim())
     .join(`\n`);
 
-    e.name    = parseUtterance.name;
+    e.name    = `ParseUtterranceError`;
     e.message = `${e.message}\n\nUtterance text:\n\n${utteranceText}`;
     throw e;
 

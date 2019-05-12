@@ -20,7 +20,9 @@ function validateSchema(rawCodes) {
   const allLinesHaveCodes  = rawCodes.every(code => isString(code));
 
   if (someLinesHaveCodes && !allLinesHaveCodes) {
-    throw new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
+    const e = new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
+    e.name = `ConsistentCodesError`;
+    throw e;
   }
 
   const codes = rawCodes.filter(Boolean);
@@ -31,7 +33,9 @@ function validateSchema(rawCodes) {
 
   codes.forEach(code => {
     if (!isValidCode(code)) {
-      throw new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
+      const e = new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
+      e.name = `InvalidSchemaCodesError`;
+      throw e;
     }
   });
 
@@ -45,7 +49,9 @@ function validateSchema(rawCodes) {
 
   codeCounts.forEach((count, code) => {
     if (code !== `n` && count > 1) {
-      throw new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
+      const e = new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
+      e.name = `MultipleCodesError`;
+      throw e;
     }
   });
 
@@ -69,7 +75,9 @@ function validateSchema(rawCodes) {
     const lang = code.replace(`${type}-`, ``);
 
     if (lang && !isValidTag(lang)) {
-      throw new Error(`Language codes must be valid IETF language tags. The tag ${lang} is not valid.`);
+      const e = new Error(`Language codes must be valid IETF language tags. The tag ${lang} is not valid.`);
+      e.name  = `InvalidSchemaLanguageTagsError`;
+      throw e;
     }
 
   });
@@ -120,7 +128,9 @@ export default function getSchema(utteranceString) {
       if (lineCount >= 4)  return [`txn`, `m`, `gl`, `tln`].fill(`n`, 4);
       /* eslint-enable no-magic-numbers */
 
-      throw new Error(`Cannot infer an interlinear gloss schema for utterances with one line.`);
+      const e = new Error(`Cannot infer an interlinear gloss schema for utterances with one line.`);
+      e.name  = `SingleLineSchemaError`;
+      throw e;
 
     }
 
@@ -128,7 +138,7 @@ export default function getSchema(utteranceString) {
 
   } catch (e) {
 
-    e.name    = getSchema.name;
+    e.name    = `GetSchemaError`;
     e.message = `${e.message}\n\nUtterance text:\n\n${utteranceString}`;
     throw e;
 

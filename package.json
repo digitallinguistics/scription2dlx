@@ -35,10 +35,11 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
+    "jasmine": "jasmine test/node.js",
     "karma": "karma start",
     "pretest": "node --no-warnings test/copy.js",
-    "smoke-test": "npm run pretest && node --experimental-modules --no-warnings test/node.mjs",
-    "test": "node --experimental-modules --no-warnings test/node.mjs && npm run karma",
+    "smoke-test": "npm run pretest && npm run jasmine",
+    "test": "npm run jasmine && npm run karma",
     "upload": "node scripts/upload.js"
   },
   "devDependencies": {
