@@ -17,6 +17,7 @@ const defaultCodes = {
   wlt:  `wlt`,
   lit:  `lit`,
   tln:  `tln`,
+  s:    `s`,
   n:    `n`,
 };
 
