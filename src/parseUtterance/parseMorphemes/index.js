@@ -8,7 +8,6 @@ import {
 
 import {
   getLines,
-  getMatches,
   groupLines,
   mergeTranscriptions,
   validateNumItems,
@@ -37,8 +36,8 @@ function tokenizeWord(string) {
   // NOTE: Using the unicode escape \u005D is necessary here for Babel to transpile the regexp correctly
   const morphemeRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^-=~\s]+)/gu;
 
-  return getMatches(morphemeRegExp, string)
-  .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
+  return Array.from(string.matchAll(morphemeRegExp))
+  .map(([result]) => result);
 
 }
 

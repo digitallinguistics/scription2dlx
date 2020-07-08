@@ -4,7 +4,6 @@ import { zip }        from '../utilities/js/index.js';
 
 import {
   getLines,
-  getMatches,
   groupLines,
   removeEmphasis,
   validateNumItems,
@@ -70,8 +69,8 @@ function tokenizeLine(string) {
   // NOTE: Using the unicode escape \u005D is necessary for Babel to transpile the regexp correctly
   const wordRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^\s]+)/gu;
 
-  return getMatches(wordRegExp, string)
-  .map(({ bracketed, unbracketed }) => bracketed || unbracketed);
+  return Array.from(string.matchAll(wordRegExp))
+  .map(([result]) => result);
 
 }
 

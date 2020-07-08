@@ -1,23 +1,9 @@
-import getCode             from './getCode.js';
-import getLines            from './getLines.js';
-import getLineType         from './getLineType.js';
-import getMatches          from './getMatches.js';
-import getSchema           from './getSchema.js';
-import groupLines          from './groupLines.js';
-import mergeTranscriptions from './mergeTranscriptions.js';
-import removeBrackets      from './removeBrackets.js';
-import removeEmphasis      from './removeEmphasis.js';
-import validateNumItems    from './validateNumItems.js';
-
-export {
-  getCode,
-  getLines,
-  getLineType,
-  getMatches,
-  getSchema,
-  groupLines,
-  mergeTranscriptions,
-  removeBrackets,
-  removeEmphasis,
-  validateNumItems,
-};
+export { default as getCode } from './getCode.js';
+export { default as getLines } from './getLines.js';
+export { default as getLineType } from './getLineType.js';
+export { default as getSchema } from './getSchema.js';
+export { default as groupLines } from './groupLines.js';
+export { default as mergeTranscriptions } from './mergeTranscriptions.js';
+export { default as removeBrackets } from './removeBrackets.js';
+export { default as removeEmphasis } from './removeEmphasis.js';
+export { default as validateNumItems } from './validateNumItems.js';
