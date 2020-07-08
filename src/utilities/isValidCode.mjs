@@ -1,4 +1,4 @@
-const codeRegExp      = /^[-A-Za-z0-9]+$/u;
+const codeRegExp = /^[-A-Za-z0-9]+$/u;
 
 /**
  * Checks whether a backslash code is valid
