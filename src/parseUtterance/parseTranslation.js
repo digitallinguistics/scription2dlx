@@ -2,7 +2,7 @@ import {
   groupLines,
   removeBrackets,
   removeEmphasis,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 /**
  * Extracts, validates, and cleans the translation lines from the lines hash

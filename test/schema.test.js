@@ -2,6 +2,9 @@
  * This file applies tests for the interlinear gloss schema
  */
 
+import convert from '../src/index.js';
+import expect  from 'expect.js';
+
 describe(`interlinear gloss schema`, () => {
 
   it(`must have valid backslash codes (basic Latin characters and hyphens only)`, () => {
@@ -21,8 +24,8 @@ describe(`interlinear gloss schema`, () => {
     const test1 = () => convert(text1);
     const test2 = () => convert(text2);
 
-    expect(test1).toThrowError(/valid/u);
-    expect(test2).toThrowError(/code/u);
+    expect(test1).to.throwError(/valid/u);
+    expect(test2).to.throwError(/code/u);
 
   });
 
@@ -37,7 +40,7 @@ describe(`interlinear gloss schema`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/more than once/u);
+    expect(test).to.throwError(/more than once/u);
 
   });
 
@@ -53,8 +56,8 @@ describe(`interlinear gloss schema`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation.en).toBe(EnglishTranslation);
-    expect(utterance.translation.es).toBe(SpanishTranslation);
+    expect(utterance.translation.en).to.be(EnglishTranslation);
+    expect(utterance.translation.es).to.be(SpanishTranslation);
 
   });
 
@@ -67,7 +70,7 @@ describe(`interlinear gloss schema`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/all lines/u);
+    expect(test).to.throwError(/all lines/u);
 
   });
 
@@ -82,7 +85,7 @@ describe(`interlinear gloss schema`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.swad).toBe(Swadesh);
+    expect(utterance.swad).to.be(Swadesh);
 
   });
 
@@ -103,8 +106,8 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [, utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(``);
-    expect(utterance.transcript).toBe(transcript);
+    expect(utterance.transcription).to.be(``);
+    expect(utterance.transcript).to.be(transcript);
 
   });
 
@@ -126,9 +129,9 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [u1, u2] } = convert(text);
 
-    expect(u1.transcript).toBe(transcript);
-    expect(u1.translation).toBe(translation);
-    expect(u2).toBeUndefined();
+    expect(u1.transcript).to.be(transcript);
+    expect(u1.translation).to.be(translation);
+    expect(u2).to.be(undefined);
 
   });
 
@@ -144,8 +147,8 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(transcription);
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -167,9 +170,9 @@ describe(`interlinear gloss schema`, () => {
     const { words: [word] }           = utterance;
     const { morphemes: [morpheme] }   = word;
 
-    expect(morpheme.transcription).toBe(`waxt`);
-    expect(morpheme.gloss).toBe(`day`);
-    expect(utterance.translation).toBe(translation);
+    expect(morpheme.transcription).to.be(`waxt`);
+    expect(morpheme.gloss).to.be(`day`);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -187,9 +190,9 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(transcription);
-    expect(utterance.translation).toBe(translation);
-    expect(utterance.words.length).toBe(2);
+    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.translation).to.be(translation);
+    expect(utterance.words.length).to.be(2);
 
   });
 
@@ -210,11 +213,11 @@ describe(`interlinear gloss schema`, () => {
     const { utterances: [utterance] } = convert(text);
     const { notes: [note] } = utterance;
 
-    expect(utterance.transcription).toBe(transcription);
-    expect(utterance.words.length).toBe(2);
-    expect(utterance.translation).toBe(translation);
-    expect(utterance.notes.length).toBe(1);
-    expect(note.text).toBe(noteText);
+    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.words.length).to.be(2);
+    expect(utterance.translation).to.be(translation);
+    expect(utterance.notes.length).to.be(1);
+    expect(note.text).to.be(noteText);
 
   });
 
@@ -232,8 +235,8 @@ describe(`interlinear gloss schema`, () => {
     `;
 
     const { utterances: [, utterance] } = convert(text);
-    expect(utterance.transcript).toBe(transcript);
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.transcript).to.be(transcript);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -255,7 +258,7 @@ describe(`interlinear gloss schema`, () => {
     const { utterances: [, utterance] } = convert(text);
     const { notes: [note] }             = utterance;
 
-    expect(note.text).toBe(noteText);
+    expect(note.text).to.be(noteText);
 
   });
 
@@ -272,7 +275,7 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.notes.length).toBe(2);
+    expect(utterance.notes.length).to.be(2);
 
   });
 
@@ -287,7 +290,7 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.notes.length).toBe(2);
+    expect(utterance.notes.length).to.be(2);
 
   });
 
@@ -310,12 +313,12 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text, { codes });
 
-    expect(utterance.transcription).toBe(transcription);
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.translation).to.be(translation);
 
     const { words: [word] } = utterance;
 
-    expect(word.transcription).toBe(`waxdungu`);
+    expect(word.transcription).to.be(`waxdungu`);
 
   });
 

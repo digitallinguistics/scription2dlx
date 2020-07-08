@@ -2,9 +2,9 @@
   sort-keys,
 */
 
-import { isString }    from './utilities/index.mjs';
-import parseHeader     from './parseHeader.mjs';
-import parseUtterances from './parseUtterances.mjs';
+import { isString }    from './utilities/index.js';
+import parseHeader     from './parseHeader.js';
+import parseUtterances from './parseUtterances.js';
 
 const defaultCodes = {
   sp:   `sp`,

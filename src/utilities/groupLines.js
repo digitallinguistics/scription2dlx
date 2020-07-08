@@ -1,4 +1,4 @@
-import getLines from './getLines.mjs';
+import getLines from './getLines.js';
 
 /**
  * Takes a hash of line codes and their data and groups lines of a certain type

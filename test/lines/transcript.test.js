@@ -2,6 +2,9 @@
  * This file applies tests for the transcript line
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`transcript`, () => {
 
   it(`may be in multiple formats`, () => {
@@ -18,8 +21,8 @@ describe(`transcript`, () => {
     const { utterances: [utterance] } = convert(text);
     const { transcript }              = utterance;
 
-    expect(transcript.swad).toBe(SwadeshTranscript);
-    expect(transcript.dft).toBe(DFTTranscript);
+    expect(transcript.swad).to.be(SwadeshTranscript);
+    expect(transcript.dft).to.be(DFTTranscript);
 
   });
 
@@ -34,7 +37,7 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript).toBe(transcript);
+    expect(utterance.transcript).to.be(transcript);
 
   });
 

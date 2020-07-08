@@ -1,4 +1,4 @@
-import { isString } from '../../utilities/index.mjs';
+import { isString } from '../../utilities/index.js';
 
 /**
  * Check for duplicate glosses on a specific line in a set of morphemes, and return an array of the duplicates

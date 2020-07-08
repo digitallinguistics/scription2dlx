@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/github/license/digitallinguistics/scription2dlx.svg)][license]
 [![GitHub stars](https://img.shields.io/github/stars/digitallinguistics/scription2dlx.svg?style=social)][GitHub]
 
-A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL]. It runs in recent versions of browsers and Node.js. This library is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
+A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL]. This library is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
 
 ## Quick Links
 
@@ -20,65 +20,65 @@ A JavaScript library that converts linguistic texts in [scription format][script
 
 <!-- TOC -->
 
-- [Installation](#installation)
-  - [Node](#node)
-  - [Browser](#browser)
-- [Usage](#usage)
+- [Basic Usage](#basic-usage)
 - [Notes](#notes)
 - [Options](#options)
-- [Using as a Dependency](#using-as-a-dependency)
 
 <!-- /TOC -->
 
-## Installation
+## Basic Usage
 
-### Node
+1. Install the library using npm or yarn:
 
-Install the library in your project from the command line: `npm i @digitallinguistics/scription2dlx`
+  ```cmd
+  npm i @digitallinguistics/scription2dlx
+  yarn add @digitallinguistics/scription2dlx
+  ```
 
-### Browser
+  Or download the latest release from the [releases page][releases].
 
-**Option 1:** Download the `scription2dlx.js` file from the [releases page][releases] and include it in a script tag in your HTML:
+1. Import the library into your project:
 
-```html
-<script src=scription2dlx.js></script>
-```
+  **Node:**
+  ```js
+  import convert from '@digitallinguistics/scription2dlx';
+  ```
 
-**Option 2:** Install `scription2dlx` in your project using **npm** (see above), and then include the script in your HTML with a script tag. You may choose to use either the bundled distribution or the distribution that supports ES modules:
+  **HTML:**
+  ```html
+  <script src=scription2dlx.js type=module></script>
+  ```
 
-```html
-<script src=node_modules/@digitallinguistics/scription2dlx/scription2dlx.js></script>
-```
+1. The library exports a single function which accepts a string and returns a [DaFoDiL Text Object][Text].
 
-## Usage
+  **data.txt**
+  ```
+  ---
+  title: How the world began
+  ---
+  waxdungu qasi
+  one day a man
+  ```
 
-The library exports a single function, `scription2dlx`, which accepts a String and returns a [DaFoDiL Text Object][Text].
+  **script.js**
+  ```js
+  const data = await fetch(`data.txt`);
+  const text = scription2dlx(data);
 
-**data.txt**
-```
----
-title: How the world began
----
-waxdungu qasi
-one day a man
-```
+  console.log(text.utterances.transcription); // "waxdungu qasi"
+  ```
 
-**script.js**
-```js
-const data = await fetch(`data.txt`);
-const text = scription2dlx(data);
-console.log(text.utterances.transcription); // "waxdungu qasi"
-```
+  You may also pass an options hash as the second option. See the [Options](#options) section below.
 
-You may also pass an options hash as the second option. The available options are shown below.
-
-```js
-const text = scription2dlx(data, { /* options */ });
-```
+  ```js
+  const text = scription2dlx(data, { /* options */ });
+  ```
 
 ## Notes
 
-* The `scription2dlx` library does **not** perform validation on the text data. You should use another validator like [AJV][AJV] to validate your data against the DLx DaFoDiL format.
+* If your project does not support ES modules and/or the latest JavaScript syntax, you may need to transpile this library using tools like [Babel][Babel], and possibly bundle the library using a [JavaScript bundler][bundlers].
+
+* The `scription2dlx` library does **not** perform validation on the text data. You should use another validator like [AJV][AJV] to validate your data against the [DLx DaFoDiL format][DaFoDiL].
 
 * In order to keep this library small and dependency-free, `scription2dlx` does **not** automatically parse the YAML header of a scription document. Instead, the header string is returned as a `header` property on the text object. If you would like `scription2dlx` to parse the header, pass a YAML parser to the `parser` option when calling the `scription2dlx` function:
 
@@ -93,14 +93,12 @@ const text = scription2dlx(data, { /* options */ });
 Option | Default   | Description
 -------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 codes  | `{}`      | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
-parser | undefined | A YAML parser to use to parse the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
-
-## Using as a Dependency
-
-If you would like to include `scription2dlx` as a dependency in your own library, you can use the files in the `/src` directory to transpile / bundle `scription2dlx` with your own code. The source code for `scription2dlx` is written using ES modules and the latest JavaScript syntax.
+parser | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
 
 [actions]:   https://github.com/digitallinguistics/scription2dlx/actions/
 [AJV]:       https://www.npmjs.com/package/ajv
+[Babel]:     https://babeljs.io/
+[bundlers]:  https://blog.bitsrc.io/choosing-the-right-javascript-bundler-in-2020-f9b1eae0d12b
 [DaFoDiL]:   https://format.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx

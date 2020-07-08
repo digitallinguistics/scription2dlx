@@ -2,12 +2,12 @@
   no-param-reassign,
 */
 
-import { types as scriptionTypes } from '../constants/index.mjs';
+import { types as scriptionTypes } from '../constants/index.js';
 
 import {
   getLineType,
   groupLines,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 /**
  * Extracts any custom lines from the lines hash and returns them in an object

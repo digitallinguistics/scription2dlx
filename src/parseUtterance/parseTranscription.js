@@ -3,7 +3,7 @@ import {
   isString,
   removeBrackets,
   removeEmphasis,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 function replaceSpaces(str) {
   return str.replace(/\s+/gu, ` `);

@@ -2,6 +2,9 @@
  * This file applies tests for the phonetic transcription line
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`phonetic transcription`, () => {
 
   it(`should remove phonetic brackets`, () => {
@@ -15,7 +18,7 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).toBe(transcription);
+    expect(utterance.phonetic).to.be(transcription);
 
   });
 
@@ -29,8 +32,8 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).toBeUndefined();
-    expect(utterance[`phon-swad`]).toBeDefined();
+    expect(utterance.phonetic).to.be(undefined);
+    expect(utterance[`phon-swad`]).to.be.ok();
 
   });
 
@@ -44,7 +47,7 @@ describe(`phonetic transcription`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.phonetic.includes(`*`)).toBe(false);
+    expect(utterance.phonetic.includes(`*`)).to.be(false);
 
   });
 

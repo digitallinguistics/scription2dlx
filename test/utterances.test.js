@@ -2,6 +2,9 @@
  * This file applies tests for the utterances section of the scription file
  */
 
+import convert from '../src/index.js';
+import expect  from 'expect.js';
+
 describe(`utterances`, () => {
 
   it(`may be blank`, () => {
@@ -14,7 +17,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).toBe(0);
+    expect(utterances.length).to.be(0);
 
   });
 
@@ -38,7 +41,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).toBe(3);
+    expect(utterances.length).to.be(3);
 
   });
 

@@ -1,3 +1,6 @@
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`source line`, () => {
 
   it(`may only be in 1 language`, () => {
@@ -12,7 +15,7 @@ describe(`source line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.source).toBe(source);
+    expect(utterance.source).to.be(source);
 
   });
 

@@ -2,6 +2,9 @@
  * This file applies tests to the literal translation line (`\lit`) and literal gloss line (`\wlt`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`literal translation (utterance: "\\lit")`, () => {
 
   it(`removes brackets`, () => {
@@ -15,7 +18,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).toBe(literal);
+    expect(utterance.literal).to.be(literal);
 
   });
 
@@ -32,8 +35,8 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal.en).toBe(English);
-    expect(utterance.literal.es).toBe(Spanish);
+    expect(utterance.literal.en).to.be(English);
+    expect(utterance.literal.es).to.be(Spanish);
 
   });
 
@@ -46,7 +49,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/IETF/u);
+    expect(test).to.throwError(/IETF/u);
 
   });
 
@@ -62,7 +65,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).toBe(literal);
+    expect(utterance.literal).to.be(literal);
 
   });
 
@@ -78,7 +81,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).toBe(literal);
+    expect(utterance.literal).to.be(literal);
 
   });
 
@@ -93,7 +96,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).toBe(literal);
+    expect(utterance.literal).to.be(literal);
 
   });
 
@@ -111,7 +114,7 @@ describe(`literal translation (word: \\wlt)`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/same number/u);
+    expect(test).to.throwError(/same number/u);
 
   });
 
@@ -129,8 +132,8 @@ describe(`literal translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [{ literal }] }] } = convert(text);
 
-    expect(literal.en).toBe(en);
-    expect(literal.es).toBe(es);
+    expect(literal.en).to.be(en);
+    expect(literal.es).to.be(es);
 
   });
 
@@ -144,7 +147,7 @@ describe(`literal translation (word: \\wlt)`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/IETF/u);
+    expect(test).to.throwError(/IETF/u);
 
   });
 
@@ -158,7 +161,7 @@ describe(`literal translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [{ literal }] }] } = convert(text);
 
-    expect(literal).toBe(`[one day]`);
+    expect(literal).to.be(`[one day]`);
 
   });
 
@@ -173,7 +176,7 @@ describe(`literal translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.literal).toBe(literal);
+    expect(word.literal).to.be(literal);
 
   });
 

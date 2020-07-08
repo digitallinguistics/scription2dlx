@@ -2,6 +2,9 @@
  * This file applies tests to the free translation line (`\tln`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`free translation`, () => {
 
   it(`may be in multiple languages`, () => {
@@ -18,8 +21,8 @@ describe(`free translation`, () => {
     const { utterances: [utterance] } = convert(text);
     const { translation }              = utterance;
 
-    expect(translation.en).toBe(English);
-    expect(translation.es).toBe(Spanish);
+    expect(translation.en).to.be(English);
+    expect(translation.es).to.be(Spanish);
 
   });
 
@@ -32,7 +35,7 @@ describe(`free translation`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/IETF/u);
+    expect(test).to.throwError(/IETF/u);
 
   });
 
@@ -48,7 +51,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -64,7 +67,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -77,7 +80,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).toBe(`one day a man`);
+    expect(utterance.translation).to.be(`one day a man`);
 
   });
 

@@ -2,6 +2,9 @@
  * This file applies tests to the note line (`\n`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`note`, () => {
 
   it(`may have source, language, and text`, () => {
@@ -16,9 +19,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(source).toBe(initials);
-    expect(language).toBe(lang);
-    expect(text).toBe(noteText);
+    expect(source).to.be(initials);
+    expect(language).to.be(lang);
+    expect(text).to.be(noteText);
 
   });
 
@@ -30,7 +33,7 @@ describe(`note`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/IETF/u);
+    expect(test).to.throwError(/IETF/u);
 
   });
 
@@ -45,9 +48,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
-    expect(source).toBe(initials);
-    expect(text).toBe(noteText);
+    expect(language).to.be(`en`);
+    expect(source).to.be(initials);
+    expect(text).to.be(noteText);
 
   });
 
@@ -61,9 +64,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
-    expect(source).toBeUndefined();
-    expect(text).toBe(noteText);
+    expect(language).to.be(`en`);
+    expect(source).to.be(undefined);
+    expect(text).to.be(noteText);
 
   });
 
@@ -78,9 +81,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(lang);
-    expect(source).toBeUndefined();
-    expect(text).toBe(noteText);
+    expect(language).to.be(lang);
+    expect(source).to.be(undefined);
+    expect(text).to.be(noteText);
 
   });
 
@@ -94,9 +97,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
-    expect(source).toBeUndefined();
-    expect(text).toBe(noteText);
+    expect(language).to.be(`en`);
+    expect(source).to.be(undefined);
+    expect(text).to.be(noteText);
 
   });
 
@@ -112,9 +115,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(lang);
-    expect(source).toBe(initials);
-    expect(text).toBe(noteText);
+    expect(language).to.be(lang);
+    expect(source).to.be(initials);
+    expect(text).to.be(noteText);
 
   });
 
@@ -129,9 +132,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
-    expect(source).toBe(initials);
-    expect(text).toBe(noteText);
+    expect(language).to.be(`en`);
+    expect(source).to.be(initials);
+    expect(text).to.be(noteText);
 
   });
 
@@ -143,8 +146,8 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source }] }] } = convert(sampleText);
 
-    expect(language).toBe(`en`);
-    expect(source).toBe(`What do you think`);
+    expect(language).to.be(`en`);
+    expect(source).to.be(`What do you think`);
 
   });
 
@@ -160,7 +163,7 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [note] }] } = convert(text);
 
-    expect(note.text).toBe(noteText);
+    expect(note.text).to.be(noteText);
 
   });
 
