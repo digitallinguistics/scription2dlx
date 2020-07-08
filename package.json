@@ -39,8 +39,7 @@
     "karma": "karma start",
     "pretest": "node --no-warnings test/copy.js",
     "smoke-test": "npm run pretest && npm run jasmine",
-    "test": "npm run jasmine && npm run karma",
-    "upload": "node scripts/upload.js"
+    "test": "npm run jasmine && npm run karma"
   },
   "devDependencies": {
     "@azure/storage-blob": "^10.3.0",
