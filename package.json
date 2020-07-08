@@ -20,9 +20,7 @@
     "email": "dwhieb@gmail.com",
     "url": "https://danielhieber.com"
   },
-  "browser": "scription2dlx.js",
-  "main": "scription2dlx.js",
-  "module": "src/scription2dlx.mjs",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/digitallinguistics/scription2dlx.git"
@@ -31,13 +29,11 @@
     "access": "public"
   },
   "engines": {
-    "node": "10.x"
+    "node": "14.x"
   },
+  "type": "module",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "jasmine": "jasmine test/node.js",
-    "pretest": "node --no-warnings test/copy.js",
-    "test": "npm run jasmine"
+    "test": "mocha"
   },
   "devDependencies": {
     "eslint": "^7.4.0"
