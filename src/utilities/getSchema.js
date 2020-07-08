@@ -1,8 +1,8 @@
-import getCode     from './getCode.mjs';
-import getLineType from './getLineType.mjs';
-import isString    from './isString.mjs';
-import isValidCode from './isValidCode.mjs';
-import isValidTag  from './isValidTag.mjs';
+import getCode     from './getCode.js';
+import getLineType from './getLineType.js';
+import isString    from './isString.js';
+import isValidCode from './isValidCode.js';
+import isValidTag  from './isValidTag.js';
 
 // NB: Does not include `n` - this is tested elsewhere
 const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];

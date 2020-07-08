@@ -1,7 +1,7 @@
 import {
   removeBrackets,
   removeEmphasis,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 /**
  * Cleans and validates the phonetic line

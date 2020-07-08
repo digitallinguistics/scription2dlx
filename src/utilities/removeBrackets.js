@@ -2,7 +2,7 @@
   no-param-reassign,
 */
 
-import isString from './isString.mjs';
+import isString from './isString.js';
 
 const bracketTypes = {
   lit:         [`[`, `]`],

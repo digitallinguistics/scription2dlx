@@ -2,23 +2,23 @@
   max-statements,
 */
 
-import parseCustom        from './parseCustom.mjs';
-import parseLiteral       from './parseLiteral.mjs';
-import parseMetadata      from './parseMetadata.mjs';
-import parseNotes         from './parseNotes.mjs';
-import parsePhonetic      from './parsePhonetic.mjs';
-import parseSource        from './parseSource.mjs';
-import parseSpeaker       from './parseSpeaker.mjs';
-import parseTranscript    from './parseTranscript.mjs';
-import parseTranscription from './parseTranscription.mjs';
-import parseTranslation   from './parseTranslation.mjs';
-import parseWords         from './parseWords.mjs';
+import parseCustom        from './parseCustom.js';
+import parseLiteral       from './parseLiteral.js';
+import parseMetadata      from './parseMetadata.js';
+import parseNotes         from './parseNotes.js';
+import parsePhonetic      from './parsePhonetic.js';
+import parseSource        from './parseSource.js';
+import parseSpeaker       from './parseSpeaker.js';
+import parseTranscript    from './parseTranscript.js';
+import parseTranscription from './parseTranscription.js';
+import parseTranslation   from './parseTranslation.js';
+import parseWords         from './parseWords.js';
 
 import {
   getCode,
   getSchema,
   mergeTranscriptions,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 const newlineRegExp  = /\r?\n/gu;

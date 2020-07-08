@@ -1,5 +1,5 @@
-import { getSchema }  from './utilities/index.mjs';
-import parseUtterance from './parseUtterance/index.mjs';
+import { getSchema }  from './utilities/index.js';
+import parseUtterance from './parseUtterance/index.js';
 
 /**
  * Finds the text of the utterances portion of a scription text and returns it

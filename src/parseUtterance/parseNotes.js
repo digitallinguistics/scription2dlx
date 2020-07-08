@@ -1,7 +1,7 @@
 import {
   getLines,
   isValidTag,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 /**
  * Accepts the lines hash and returns an array of DLx Note objects

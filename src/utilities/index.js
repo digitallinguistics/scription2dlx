@@ -1,17 +1,17 @@
-import difference          from './difference.mjs';
-import getCode             from './getCode.mjs';
-import getLines            from './getLines.mjs';
-import getLineType         from './getLineType.mjs';
-import getMatches          from './getMatches.mjs';
-import getSchema           from './getSchema.mjs';
-import groupLines          from './groupLines.mjs';
-import isString            from './isString.mjs';
-import isValidTag          from './isValidTag.mjs';
-import mergeTranscriptions from './mergeTranscriptions.mjs';
-import removeBrackets      from './removeBrackets.mjs';
-import removeEmphasis      from './removeEmphasis.mjs';
-import validateNumItems    from './validateNumItems.mjs';
-import zip                 from './zip.mjs';
+import difference          from './difference.js';
+import getCode             from './getCode.js';
+import getLines            from './getLines.js';
+import getLineType         from './getLineType.js';
+import getMatches          from './getMatches.js';
+import getSchema           from './getSchema.js';
+import groupLines          from './groupLines.js';
+import isString            from './isString.js';
+import isValidTag          from './isValidTag.js';
+import mergeTranscriptions from './mergeTranscriptions.js';
+import removeBrackets      from './removeBrackets.js';
+import removeEmphasis      from './removeEmphasis.js';
+import validateNumItems    from './validateNumItems.js';
+import zip                 from './zip.js';
 
 export {
   difference,

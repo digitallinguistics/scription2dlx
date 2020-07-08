@@ -1,5 +1,5 @@
-import getDuplicateMorphemes from './getDuplicateMorphemes.mjs';
-import separateInfix         from './separateInfix.mjs';
+import getDuplicateMorphemes from './getDuplicateMorphemes.js';
+import separateInfix         from './separateInfix.js';
 
 import {
   difference,
@@ -9,7 +9,7 @@ import {
   mergeTranscriptions,
   validateNumItems,
   zip,
-} from '../../utilities/index.mjs';
+} from '../../utilities/index.js';
 
 /**
  * Creates a morphemes hash of line codes and an array of morphemes based on the word lines

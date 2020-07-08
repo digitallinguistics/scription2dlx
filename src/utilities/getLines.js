@@ -1,4 +1,4 @@
-import getLineType from './getLineType.mjs';
+import getLineType from './getLineType.js';
 
 /**
  * Extracts the provided line types from a lines hash, and returns them in a new object

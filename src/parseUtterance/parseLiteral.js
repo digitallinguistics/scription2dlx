@@ -2,7 +2,7 @@ import {
   groupLines,
   removeBrackets,
   removeEmphasis,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 /**
  * Parses, validates, and cleans the literal translation lines

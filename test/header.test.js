@@ -2,6 +2,10 @@
  * This test suite applies tests to the metadata header
  */
 
+import convert             from '../src/index.js';
+import expect              from 'expect.js';
+import { parse as parser } from 'yamljs';
+
 describe(`metadata header`, function() {
 
   it(`returns a "header" property if no parser is provided`, () => {

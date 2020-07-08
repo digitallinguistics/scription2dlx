@@ -1,4 +1,4 @@
-import { getLineType } from '../../utilities/index.mjs';
+import { getLineType } from '../../utilities/index.js';
 
 /**
  * Checks a Morpheme object for infixes, and returns an array of two morphemes if one is present

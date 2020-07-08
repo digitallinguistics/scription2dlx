@@ -1,4 +1,4 @@
-import parseMorphemes from './parseMorphemes/index.mjs';
+import parseMorphemes from './parseMorphemes/index.js';
 
 import {
   getLines,
@@ -7,7 +7,7 @@ import {
   removeEmphasis,
   validateNumItems,
   zip,
-} from '../utilities/index.mjs';
+} from '../utilities/index.js';
 
 const wordTypes = [`gl`, `m`, `w`, `wlt`];
 

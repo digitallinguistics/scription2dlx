@@ -1,4 +1,4 @@
-import { isString } from './utilities/index.mjs';
+import { isString } from './utilities/index.js';
 
 /**
  * Extracts the text of the header metadata, if present
