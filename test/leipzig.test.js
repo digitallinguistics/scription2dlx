@@ -176,4 +176,23 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
+  it(`⟨>⟩ parses right angle brackets (bivalent person markers)`, function() {
+
+    const text = `
+    \\m stem-suffix
+    \\gl gl-1>3
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    const { words: [word] }           = utterance;
+    const { morphemes }               = word;
+    const [m1, m2]                    = morphemes;
+
+    expect(m1.transcription).to.be(`stem`);
+    expect(m1.gloss).to.be(`gl`);
+    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.gloss).to.be(`1>3`);
+
+  });
+
 });
