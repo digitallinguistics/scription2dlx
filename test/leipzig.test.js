@@ -152,4 +152,28 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
+  it(`⟨\\⟩ parses colons (irrelevant morpheme boundaries)`, function() {
+
+    const text = `
+    \\m word morpheme-suffix
+    \\gl a\\gloss a\\gloss-SUFFIX
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    const { words: [w1, w2] } = utterance;
+
+    expect(w1.analysis).to.be(`word`);
+    expect(w1.gloss).to.be(`a\\gloss`);
+    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.gloss).to.be(`a\\gloss-SUFFIX`);
+
+    const { morphemes: [m1, m2] } = w2;
+
+    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.gloss).to.be(`a\\gloss`);
+    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.gloss).to.be(`SUFFIX`);
+
+  });
+
 });
