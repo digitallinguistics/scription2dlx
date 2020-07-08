@@ -1,4 +1,3 @@
-import getCode           from './getCode.js';
 import getLineType       from './getLineType.js';
 import { newlineRegExp } from './regexp/index.js';
 
@@ -10,6 +9,29 @@ import {
 
 // NB: Does not include `n` - this is tested elsewhere
 const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];
+
+/**
+ * Extracts the backslash code for a line, without the leading slash. Returns null if none is found.
+ * @param  {String} line The line of text to find the backslash code in
+ * @return {String}      The backslash code that was found, without a leading slash
+ */
+function getCode(line) {
+  const backslashCodeRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
+  const match = line.match(backslashCodeRegExp);
+  if (!match) return null;
+  return match.groups.code;
+}
+
+/**
+ * Adjust the codes at the beginning of each line to number the notes lines
+ * @param  {Array<String>} lines An array of line strings
+ * @return {Array<String>}
+ */
+function numberNotes(code, i) {
+  const type = getLineType(code);
+  if (type !== `n`) return code;
+  return code.replace(`n`, `n-${i + 1}`);
+}
 
 /**
  * Valides an array of backslash codes, without leading slashes
@@ -86,17 +108,6 @@ function validateSchema(rawCodes) {
 
   });
 
-}
-
-/**
- * Adjust the codes at the beginning of each line to number the notes lines
- * @param  {Array<String>} lines An array of line strings
- * @return {Array<String>}
- */
-function numberNotes(code, i) {
-  const type = getLineType(code);
-  if (type !== `n`) return code;
-  return code.replace(`n`, `n-${i + 1}`);
 }
 
 /**
