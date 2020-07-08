@@ -1,3 +1,4 @@
+export { default as getCode } from './getCode.js';
 export { default as getLines } from './getLines.js';
 export { default as getLineType } from './getLineType.js';
 export { default as getSchema } from './getSchema.js';
