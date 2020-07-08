@@ -224,6 +224,7 @@ describe(`Leipzig glossing rules`, () => {
     light(CL9)
     light
     `;
+
     const { utterances: [utterance] } = convert(text);
     const { words: [word] }           = utterance;
     const { morphemes }               = word;
@@ -236,6 +237,45 @@ describe(`Leipzig glossing rules`, () => {
 
     expect(morpheme.transcription).to.be(`taa`);
     expect(morpheme.gloss).to.be(`light(CL9)`);
+
+  });
+
+  it(`⟨~⟩ parses tildes (reduplication)`, function() {
+
+    const text = `
+    bibili
+    bi~bili
+    IPFV~buy
+    is buying
+
+    bibili
+    DUP~bili
+    IPFV~buy
+    is buying
+    `;
+
+    const { utterances } = convert(text);
+
+    utterances.forEach(u => {
+
+      expect(u.transcription).to.be(`bibili`);
+      expect(u.translation).to.be(`is buying`);
+      expect(u.words).to.have.length(1);
+
+      const [w] = u.words;
+
+      expect(w.morphemes).to.have.length(2);
+
+      const [m1, m2] = w.morphemes;
+
+      expect(m1.gloss).to.be(`IPFV`);
+      expect(m2.transcription).to.be(`bili`);
+      expect(m2.gloss).to.be(`buy`);
+
+    });
+
+    expect(utterances[0].words[0].morphemes[0].transcription).to.be(`bi`);
+    expect(utterances[1].words[0].morphemes[0].transcription).to.be(`DUP`);
 
   });
 
