@@ -2,15 +2,8 @@
   no-param-reassign,
 */
 
-import isString from './isString.js';
-
-const bracketTypes = {
-  lit:         [`[`, `]`],
-  phon:        [`[`, `]`],
-  tlnCurly:    [`‘`, `’`],
-  tlnStraight: [`'`, `'`],
-  txn:         [`/`, `/`],
-};
+import { brackets as bracketTypes } from './constants/index.js';
+import { isString }                 from './types/index.js';
 
 /**
  * Removes leading/trailing brackets/symbols from a string

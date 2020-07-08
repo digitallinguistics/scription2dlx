@@ -2,9 +2,11 @@
   max-statements,
 */
 
-import parseCustom        from './parseCustom.js';
+import { newlineRegExp } from '../utilities/regexp/index.js';
+
 import parseLiteral       from './parseLiteral.js';
 import parseMetadata      from './parseMetadata.js';
+import parseMisc          from './parseMisc.js';
 import parseNotes         from './parseNotes.js';
 import parsePhonetic      from './parsePhonetic.js';
 import parseSource        from './parseSource.js';
@@ -20,8 +22,11 @@ import {
   mergeTranscriptions,
 } from '../utilities/index.js';
 
+/**
+ * A regular expression to match the line data (excludes the leading backslash code)
+ * @type {RegExp}
+ */
 const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
-const newlineRegExp  = /\r?\n/gu;
 
 /**
  * Create a lines hash from an array of strings and an array of line codes
@@ -47,7 +52,7 @@ function createLinesHash(lines, schema) {
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
  * @param  {String} utteranceString The utterance string to parse
  * @param  {Array}  schema          An interlinear gloss schema, as an array of backslash codes (without leading slashes)
- * @param  {Object} codes           The line codes to use for each line type
+ * @param  {Object} codesHash       The line codes to use for each line type
  * @param  {Object} [options]       An options hash
  * @return {Object}                 Returns a DLx Utterance object, or null if there is no data
  */
@@ -92,7 +97,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
     const source      = parseSource(linesHash[s]);
     const notes       = parseNotes(n, linesHash);
     const words       = parseWords(codesHash, linesHash);
-    const custom      = parseCustom(codesHash, linesHash);
+    const misc        = parseMisc(codesHash, linesHash);
 
     if (!transcription) {
       const wordTranscriptions = words.map(({ transcription: t }) => t);
@@ -110,7 +115,7 @@ export default function parseUtterance(utteranceString, schema, codesHash, { utt
       ...source ? { source } : {},
       ...notes.length ? { notes } : {},
       ...words.length ? { words } : {},
-      ...custom,
+      ...misc,
     };
 
   } catch (e) {

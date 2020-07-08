@@ -1,8 +1,12 @@
-import getCode     from './getCode.js';
-import getLineType from './getLineType.js';
-import isString    from './isString.js';
-import isValidCode from './isValidCode.js';
-import isValidTag  from './isValidTag.js';
+import getCode           from './getCode.js';
+import getLineType       from './getLineType.js';
+import { newlineRegExp } from './regexp/index.js';
+
+import {
+  isCode,
+  isLanguageTag,
+  isString,
+} from './types/index.js';
 
 // NB: Does not include `n` - this is tested elsewhere
 const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];
@@ -32,7 +36,7 @@ function validateSchema(rawCodes) {
   // Check that codes are valid
 
   codes.forEach(code => {
-    if (!isValidCode(code)) {
+    if (!isCode(code)) {
       const e = new Error(`The backslash code ${code} is invalid. Only characters A-Z, a-z, 0-9, and hyphens are allowed. Diacritics are not permitted.`);
       e.name = `InvalidSchemaCodesError`;
       throw e;
@@ -74,7 +78,7 @@ function validateSchema(rawCodes) {
 
     const lang = code.replace(`${type}-`, ``);
 
-    if (lang && !isValidTag(lang)) {
+    if (lang && !isLanguageTag(lang)) {
       const e = new Error(`Language codes must be valid IETF language tags. The tag ${lang} is not valid.`);
       e.name  = `InvalidSchemaLanguageTagsError`;
       throw e;
@@ -103,8 +107,6 @@ function numberNotes(code, i) {
 export default function getSchema(utteranceString) {
 
   try {
-
-    const newlineRegExp = /\r?\n/gu;
 
     const lines = utteranceString
     .split(newlineRegExp)

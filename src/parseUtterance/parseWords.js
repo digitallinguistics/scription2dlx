@@ -1,4 +1,6 @@
 import parseMorphemes from './parseMorphemes/index.js';
+import { wordTypes }  from '../utilities/constants/index.js';
+import { zip }        from '../utilities/js/index.js';
 
 import {
   getLines,
@@ -6,10 +8,7 @@ import {
   groupLines,
   removeEmphasis,
   validateNumItems,
-  zip,
 } from '../utilities/index.js';
-
-const wordTypes = [`gl`, `m`, `w`, `wlt`];
 
 /**
  * Takes the words line hash and tokenizes the data on each line

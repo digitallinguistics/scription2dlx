@@ -77,15 +77,18 @@ describe(`interlinear gloss schema`, () => {
   it(`should process unknown backslash codes`, () => {
 
     const Swadesh = `He left his brothers.`;
+    const SwadPhon = `{phonetic transcription}`;
 
     const text = `
     \\txn  wetkš hus na·nča·kamankš wetk hi hokmiʔi
     \\tln  He left his brothers.
     \\swad ${Swadesh}
+    \\swad-phon ${SwadPhon}
     `;
 
     const { utterances: [utterance] } = convert(text);
     expect(utterance.swad).to.be(Swadesh);
+    expect(utterance[`swad-phon`]).to.be(SwadPhon);
 
   });
 

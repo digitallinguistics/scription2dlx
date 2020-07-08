@@ -2,24 +2,10 @@
   sort-keys,
 */
 
-import { isString }    from './utilities/index.js';
-import parseHeader     from './parseHeader.js';
-import parseUtterances from './parseUtterances.js';
-
-const defaultCodes = {
-  sp:   `sp`,
-  trs:  `trs`,
-  txn:  `txn`,
-  w:    `w`,
-  phon: `phon`,
-  m:    `m`,
-  gl:   `gl`,
-  wlt:  `wlt`,
-  lit:  `lit`,
-  tln:  `tln`,
-  s:    `s`,
-  n:    `n`,
-};
+import { lineCodes as defaultCodes } from './utilities/constants/index.js';
+import { isString }                  from './utilities/types/index.js';
+import parseHeader                   from './parseHeader.js';
+import parseUtterances               from './parseUtterances.js';
 
 /**
  * Converts a scription-format text to DLx format

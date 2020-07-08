@@ -1,7 +1,5 @@
-import {
-  getLines,
-  isValidTag,
-} from '../utilities/index.js';
+import { getLines }      from '../utilities/index.js';
+import { isLanguageTag } from '../utilities/types/index.js';
 
 /**
  * Accepts the lines hash and returns an array of DLx Note objects
@@ -25,7 +23,7 @@ export default function parseNotes(lineCode, lines) {
     const [, language = `en`] = code.split(`-`, 2);
     const { source, text }    = data.match(noteRegExp).groups;
 
-    if (!isValidTag(language)) {
+    if (!isLanguageTag(language)) {
       const e = new Error(`The ${language} language tag is invalid. It must be a valid IETF language tag.`);
       e.name  = `InvalidNoteTagError`;
       throw e;
