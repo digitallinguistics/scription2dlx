@@ -24,6 +24,24 @@ describe(`utterance metadata`, () => {
 
   });
 
+  it(`does not need a blackslash code when a schema is provided`, () => {
+
+    const meta = `Swahili`;
+
+    const text = `
+    # ${meta}
+    \\m   ni-na-ku-j-a
+    \\gl  1SG.SUBJ-PRES-INF-come-IND
+    \\tln I’m coming
+    \\t   1.234-5.678
+    `;
+
+    const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
+
+    expect(utterance.metadata).to.be(meta);
+
+  });
+
   it(`may be parsed using the "utteranceMetadata" option`, () => {
 
     const meta = `Chitimacha (isolate; Louisiana)`;
