@@ -1,7 +1,3 @@
-/* eslint-disable
-  sort-keys,
-*/
-
 import { lineCodes as defaultCodes } from './utilities/constants/index.js';
 import { isString }                  from './utilities/types/index.js';
 import parseHeader                   from './parseHeader.js';
@@ -14,25 +10,22 @@ import parseUtterances               from './parseUtterances.js';
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
 export default function scription2dlx(scription = ``, {
-  codes: customCodes = {},
+  codes = {},
   parser,
   utteranceMetadata = false,
 } = {}) {
 
-  const isEmpty = scription.trim() === ``;
+  if (scription.trim() === ``) return {};
 
-  if (isEmpty) return {};
-
-  if (!(customCodes instanceof Object && Object.values(customCodes).every(isString))) {
+  if (!(codes instanceof Object && Object.values(codes).every(isString))) {
     const e = new TypeError(`The "codes" option must be an Object whose values are Strings.`);
     e.name  = `InvalidCodesHashError`;
     throw e;
   }
 
-  const codes = Object.assign({}, defaultCodes, customCodes || {});
-
+  const lineCodes  = Object.assign({}, defaultCodes, codes || {});
   const header     = parseHeader(scription, parser);
-  const utterances = parseUtterances(scription, codes, { utteranceMetadata });
+  const utterances = parseUtterances(scription, lineCodes, { utteranceMetadata });
 
   return { ...header, utterances };
 
