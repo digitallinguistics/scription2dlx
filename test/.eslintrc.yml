@@ -1,9 +1,0 @@
-globals:
-  convert:       true
-  data:          true
-  parser:        true
-  scription2dlx: true
-  YAML:          true
-rules:
-  func-names:            off
-  prefer-arrow-callback: off
