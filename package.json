@@ -33,7 +33,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
