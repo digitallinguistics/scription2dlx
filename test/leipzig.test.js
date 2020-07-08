@@ -3,7 +3,7 @@ import expect  from 'expect.js';
 
 describe(`Leipzig glossing rules`, () => {
 
-  it(`converts spaces`, function() {
+  it(`converts spaces (word separator) ⟨ ⟩`, function() {
 
     const text = `
     \\m  word word
@@ -20,7 +20,7 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
-  it(`converts morpheme separators <->`, function() {
+  it(`converts hyphens (morpheme separator) ⟨-⟩`, function() {
 
     const text = `
     \\m  a-b
@@ -35,6 +35,24 @@ describe(`Leipzig glossing rules`, () => {
     expect(morphemes).to.have.length(2);
     expect(morpheme.transcription).to.be(`a`);
     expect(morpheme.gloss).to.be(`A`);
+
+  });
+
+  it(`converts equal signs (clitic boundary)`, function() {
+
+    const text = `
+    \\m  word=clitic
+    \\gl word=CLITIC
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    const { words: [word] }           = utterance;
+    const { morphemes }               = word;
+    const [, morpheme]                = morphemes;
+
+    expect(morphemes).to.have.length(2);
+    expect(morpheme.transcription).to.be(`clitic`);
+    expect(morpheme.gloss).to.be(`CLITIC`);
 
   });
 
