@@ -1,6 +1,7 @@
+import { isString } from '../utilities/types/index.js';
+
 import {
   groupLines,
-  isString,
   removeBrackets,
   removeEmphasis,
 } from '../utilities/index.js';

@@ -3,12 +3,15 @@ import separateInfix         from './separateInfix.js';
 
 import {
   difference,
+  zip,
+} from '../../utilities/js/index.js';
+
+import {
   getLines,
   getMatches,
   groupLines,
   mergeTranscriptions,
   validateNumItems,
-  zip,
 } from '../../utilities/index.js';
 
 /**

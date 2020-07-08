@@ -1,4 +1,9 @@
-import { isString } from './utilities/index.js';
+import { isString } from './utilities/types/index.js';
+
+/**
+ * A regular expression to match a YAML header
+ */
+const headerRegExp = /---(?<header>.+?)---/su;
 
 /**
  * Extracts the text of the header metadata, if present
@@ -6,12 +11,8 @@ import { isString } from './utilities/index.js';
  * @return {String}
  */
 function getHeaderString(text) {
-
-  const headerRegExp = /---(?<header>.+?)---/gsu;
-  const result       = headerRegExp.exec(text);
-
+  const result = headerRegExp.exec(text);
   return result ? result.groups.header.trim() : null;
-
 }
 
 /**

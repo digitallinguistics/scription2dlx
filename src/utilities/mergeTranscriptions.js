@@ -2,7 +2,7 @@
   no-param-reassign,
 */
 
-import isString from './isString.js';
+import { isString } from './types/index.js';
 
 /**
  * Accepts an array of transcriptions (objects or strings) and merges them into one
