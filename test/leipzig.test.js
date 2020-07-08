@@ -63,7 +63,7 @@ describe(`Leipzig glossing rules`, () => {
     \\gl a.gloss a.gloss-SUFFIX
     `;
 
-    const { utterances: [utterance] }        = convert(text);
+    const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
     expect(w1.analysis).to.be(`word`);
@@ -75,6 +75,30 @@ describe(`Leipzig glossing rules`, () => {
 
     expect(m1.transcription).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a.gloss`);
+    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.gloss).to.be(`SUFFIX`);
+
+  });
+
+  it(`⟨_⟩ parses underscores (non-segmentable multi-word glosses)`, function() {
+
+    const text = `
+    \\m word morpheme-suffix
+    \\gl a_gloss a_gloss-SUFFIX
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    const { words: [w1, w2] } = utterance;
+
+    expect(w1.analysis).to.be(`word`);
+    expect(w1.gloss).to.be(`a_gloss`);
+    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.gloss).to.be(`a_gloss-SUFFIX`);
+
+    const { morphemes: [m1, m2] } = w2;
+
+    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.gloss).to.be(`a_gloss`);
     expect(m2.transcription).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
