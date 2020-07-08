@@ -20,5 +20,22 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
+  it(`converts morpheme separators <->`, function() {
+
+    const text = `
+    \\m  a-b
+    \\gl A-B
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    const { words: [word] }           = utterance;
+    const { morphemes }               = word;
+    const [morpheme]                  = morphemes;
+
+    expect(morphemes).to.have.length(2);
+    expect(morpheme.transcription).to.be(`a`);
+    expect(morpheme.gloss).to.be(`A`);
+
+  });
 
 });
