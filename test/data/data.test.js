@@ -15,22 +15,15 @@ describe(`data`, () => {
     expect(test).not.to.throwError();
   });
 
-  it.only(`parses Nuuchahnulth`, async () => {
+  it(`parses Nuuchahnulth`, async () => {
     const Nuuchahnulth = await readFile(path.join(currentDir, `Nuuchahnulth.txt`), `utf8`);
-
-    try {
-      convert(Nuuchahnulth);
-    } catch (e) {
-      console.error(e);
-    }
-
-
     const test = () => convert(Nuuchahnulth);
     expect(test).not.to.throwError();
   });
 
-  it(`parses Old Latin`, () => {
-    const test = () => convert(data.OldLatin);
+  it(`parses Old Latin`, async () => {
+    const OldLatin = await readFile(path.join(currentDir, `OldLatin.txt`), `utf8`);
+    const test = () => convert(OldLatin);
     expect(test).not.to.throwError();
   });
 
