@@ -217,4 +217,26 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
+  it(`⟨()⟩ parses parentheses (inherent categories)`, function() {
+
+    const text = `
+    taa
+    light(CL9)
+    light
+    `;
+    const { utterances: [utterance] } = convert(text);
+    const { words: [word] }           = utterance;
+    const { morphemes }               = word;
+
+    expect(utterance.translation).to.be(`light`);
+    expect(word.analysis).to.be(`taa`);
+    expect(morphemes).to.have.length(1);
+
+    const [morpheme] = morphemes;
+
+    expect(morpheme.transcription).to.be(`taa`);
+    expect(morpheme.gloss).to.be(`light(CL9)`);
+
+  });
+
 });
