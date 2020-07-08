@@ -62,7 +62,7 @@ describe(`note`, () => {
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
     expect(language).to.be(`en`);
-    expect(source).toBeUndefined();
+    expect(source).to.be(undefined);
     expect(text).to.be(noteText);
 
   });
@@ -79,7 +79,7 @@ describe(`note`, () => {
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
     expect(language).to.be(lang);
-    expect(source).toBeUndefined();
+    expect(source).to.be(undefined);
     expect(text).to.be(noteText);
 
   });
@@ -95,7 +95,7 @@ describe(`note`, () => {
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
     expect(language).to.be(`en`);
-    expect(source).toBeUndefined();
+    expect(source).to.be(undefined);
     expect(text).to.be(noteText);
 
   });

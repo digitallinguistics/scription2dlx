@@ -2,6 +2,9 @@
  * This file applies tests for the interlinear gloss schema
  */
 
+import convert from '../src/index.js';
+import expect  from 'expect.js';
+
 describe(`interlinear gloss schema`, () => {
 
   it(`must have valid backslash codes (basic Latin characters and hyphens only)`, () => {
@@ -128,7 +131,7 @@ describe(`interlinear gloss schema`, () => {
 
     expect(u1.transcript).to.be(transcript);
     expect(u1.translation).to.be(translation);
-    expect(u2).toBeUndefined();
+    expect(u2).to.be(undefined);
 
   });
 

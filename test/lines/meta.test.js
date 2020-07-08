@@ -17,7 +17,7 @@ describe(`utterance metadata`, () => {
     const { utterances: [utterance] } = convert(text);
 
     expect(utterance.transcription).to.be(transcription);
-    expect(utterance.metadata).toBeUndefined();
+    expect(utterance.metadata).to.be(undefined);
 
   });
 

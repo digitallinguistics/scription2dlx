@@ -29,7 +29,7 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).toBeUndefined();
+    expect(utterance.phonetic).to.be(undefined);
     expect(utterance[`phon-swad`]).toBeDefined();
 
   });
