@@ -2,6 +2,9 @@
  * This file applies tests for the phonetic transcription line
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`phonetic transcription`, () => {
 
   it(`should remove phonetic brackets`, () => {

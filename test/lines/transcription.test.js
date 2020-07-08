@@ -2,6 +2,9 @@
  * This file applies tests for the phonemic transcription line (`\txn`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`phomemic transcription (utterance)`, () => {
 
   it(`should remove phonemic slashes`, () => {

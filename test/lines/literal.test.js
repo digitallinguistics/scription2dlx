@@ -2,6 +2,9 @@
  * This file applies tests to the literal translation line (`\lit`) and literal gloss line (`\wlt`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`literal translation (utterance: "\\lit")`, () => {
 
   it(`removes brackets`, () => {

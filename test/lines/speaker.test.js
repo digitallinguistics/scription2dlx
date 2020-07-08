@@ -2,6 +2,9 @@
  * This file applies tests for the speaker line
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`speaker`, () => {
 
   it(`must be a valid abbreviation`, () => {

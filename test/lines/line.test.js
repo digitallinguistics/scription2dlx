@@ -2,6 +2,9 @@
  * This file applies tests for lines (generally)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`line`, () => {
 
   it(`is stripped of leading / trailing whitespace`, () => {

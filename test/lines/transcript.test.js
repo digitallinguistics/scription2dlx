@@ -2,6 +2,9 @@
  * This file applies tests for the transcript line
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`transcript`, () => {
 
   it(`may be in multiple formats`, () => {

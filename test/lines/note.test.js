@@ -2,6 +2,9 @@
  * This file applies tests to the note line (`\n`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`note`, () => {
 
   it(`may have source, language, and text`, () => {

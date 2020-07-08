@@ -2,6 +2,9 @@
  * This file applies tests to the gloses line (`\gl`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`glosses`, () => {
 
   it(`may be in multiple languages`, () => {

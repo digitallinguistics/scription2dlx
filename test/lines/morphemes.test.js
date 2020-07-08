@@ -2,6 +2,9 @@
  * This file applies tests to the morphemes line (`\m`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`morphemes`, () => {
 
   it(`may be in multiple orthographies`, () => {

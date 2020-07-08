@@ -1,3 +1,6 @@
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`source line`, () => {
 
   it(`may only be in 1 language`, () => {

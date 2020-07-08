@@ -2,6 +2,9 @@
  * This file applies tests to the free translation line (`\tln`)
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`free translation`, () => {
 
   it(`may be in multiple languages`, () => {

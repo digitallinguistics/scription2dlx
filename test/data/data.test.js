@@ -1,3 +1,6 @@
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`data`, () => {
 
   it(`parses Chitimacha`, () => {

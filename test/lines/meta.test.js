@@ -2,6 +2,9 @@
  * Tests for utterance-level metadata
  */
 
+import convert from '../../src/index.js';
+import expect  from 'expect.js';
+
 describe(`utterance metadata`, () => {
 
   it(`is ignored by default`, () => {
