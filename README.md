@@ -1,13 +1,34 @@
 # scription2dlx
 
-[![npm (scoped)](https://img.shields.io/npm/v/@digitallinguistics/scription2dlx.svg)][GitHub]
-[![npm](https://img.shields.io/npm/dt/@digitallinguistics/scription2dlx.svg)][npm]
-![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/scription2dlx.svg)
-[![Travis (.org) branch](https://img.shields.io/travis/digitallinguistics/scription2dlx/master.svg)][Travis CI]
-[![GitHub](https://img.shields.io/github/license/digitallinguistics/scription2dlx.svg)][license]
+[![GitHub version](https://img.shields.io/github/v/release/digitallinguistics/scription2dlx?label=version)][releases]
+[![downloads](https://img.shields.io/npm/dt/@digitallinguistics/scription2dlx.svg)][npm]
+[![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/scription2dlx.svg)][issues]
+[![tests status](https://github.com/digitallinguistics/scription2dlx/workflows/tests/badge.svg)][actions]
+[![license](https://img.shields.io/github/license/digitallinguistics/scription2dlx.svg)][license]
 [![GitHub stars](https://img.shields.io/github/stars/digitallinguistics/scription2dlx.svg?style=social)][GitHub]
 
 A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL]. It runs in recent versions of browsers and Node.js. This library is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
+
+## Quick Links
+
+* [Report a bug or request a feature][issues]
+* [View project on GitHub][GitHub]
+* [View project on npm][npm]
+* [Download the latest release][releases]
+
+## Contents
+
+<!-- TOC -->
+
+- [Installation](#installation)
+  - [Node](#node)
+  - [Browser](#browser)
+- [Usage](#usage)
+- [Notes](#notes)
+- [Options](#options)
+- [Using as a Dependency](#using-as-a-dependency)
+
+<!-- /TOC -->
 
 ## Installation
 
@@ -78,13 +99,14 @@ parser | undefined | A YAML parser to use to parse the header of a scription doc
 
 If you would like to include `scription2dlx` as a dependency in your own library, you can use the files in the `/src` directory to transpile / bundle `scription2dlx` with your own code. The source code for `scription2dlx` is written using ES modules and the latest JavaScript syntax.
 
+[actions]:   https://github.com/digitallinguistics/scription2dlx/actions/
 [AJV]:       https://www.npmjs.com/package/ajv
 [DaFoDiL]:   https://format.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx
 [license]:   https://github.com/digitallinguistics/scription2dlx/blob/master/LICENSE.md
+[issues]:    https://github.com/digitallinguistics/scription2dlx/issues
 [npm]:       https://www.npmjs.com/package/@digitallinguistics/scription2dlx
 [releases]:  https://github.com/digitallinguistics/scription2dlx/releases
 [scription]: https://scription.digitallinguistics.io
 [Text]:      https://format.digitallinguistics.io/schemas/Text.html
-[Travis CI]: https://travis-ci.org/digitallinguistics/scription2dlx
