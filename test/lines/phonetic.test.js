@@ -15,7 +15,7 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).toBe(transcription);
+    expect(utterance.phonetic).to.be(transcription);
 
   });
 
@@ -44,7 +44,7 @@ describe(`phonetic transcription`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.phonetic.includes(`*`)).toBe(false);
+    expect(utterance.phonetic.includes(`*`)).to.be(false);
 
   });
 

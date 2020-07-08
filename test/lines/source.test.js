@@ -12,7 +12,7 @@ describe(`source line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.source).toBe(source);
+    expect(utterance.source).to.be(source);
 
   });
 

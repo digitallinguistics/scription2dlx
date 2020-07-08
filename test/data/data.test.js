@@ -2,17 +2,17 @@ describe(`data`, () => {
 
   it(`parses Chitimacha`, () => {
     const test = () => convert(data.Chitimacha);
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
   });
 
   it(`parses Nuuchahnulth`, () => {
     const test = () => convert(data.Nuuchahnulth);
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
   });
 
   it(`parses Old Latin`, () => {
     const test = () => convert(data.OldLatin);
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
   });
 
 });

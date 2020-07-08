@@ -14,7 +14,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).toBe(0);
+    expect(utterances.length).to.be(0);
 
   });
 
@@ -38,7 +38,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).toBe(3);
+    expect(utterances.length).to.be(3);
 
   });
 

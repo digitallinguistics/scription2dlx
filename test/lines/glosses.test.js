@@ -13,8 +13,8 @@ describe(`glosses`, () => {
     `;
 
     const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
-    expect(morpheme.gloss.en).toBe(`day`);
-    expect(morpheme.gloss.es).toBe(`día`);
+    expect(morpheme.gloss.en).to.be(`day`);
+    expect(morpheme.gloss.es).to.be(`día`);
 
   });
 
@@ -28,7 +28,7 @@ describe(`glosses`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/IETF/u);
+    expect(test).to.throwError(/IETF/u);
 
   });
 
@@ -41,7 +41,7 @@ describe(`glosses`, () => {
 
     const test = () => convert(text);
 
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
 
   });
 
@@ -54,7 +54,7 @@ describe(`glosses`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/glosses/u);
+    expect(test).to.throwError(/glosses/u);
 
   });
 
@@ -69,7 +69,7 @@ describe(`glosses`, () => {
     const { words: [word] } = utterance;
     const { morphemes: [, morpheme] } = word;
 
-    expect(morpheme.gloss).toBe(`PRES`);
+    expect(morpheme.gloss).to.be(`PRES`);
 
   });
 
@@ -93,7 +93,7 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [{ morphemes: [, morpheme] }] }] } = convert(text);
 
-    expect(morpheme.gloss).toBe(`ATT`);
+    expect(morpheme.gloss).to.be(`ATT`);
 
   });
 
@@ -115,17 +115,17 @@ describe(`glosses`, () => {
 
     const TagalogMorphemes = Tagalog.words[0].morphemes;
 
-    expect(TagalogMorphemes[0].transcription).toBe(`um`);
-    expect(TagalogMorphemes[0].gloss).toBe(`FOC`);
-    expect(TagalogMorphemes[1].transcription).toBe(`bili`);
-    expect(TagalogMorphemes[1].gloss).toBe(`buy`);
+    expect(TagalogMorphemes[0].transcription).to.be(`um`);
+    expect(TagalogMorphemes[0].gloss).to.be(`FOC`);
+    expect(TagalogMorphemes[1].transcription).to.be(`bili`);
+    expect(TagalogMorphemes[1].gloss).to.be(`buy`);
 
     const LatinMorphemes = Latin.words[0].morphemes;
 
-    expect(LatinMorphemes[0].transcription).toBe(`reliqu`);
-    expect(LatinMorphemes[0].gloss).toBe(`leave`);
-    expect(LatinMorphemes[1].transcription).toBe(`n`);
-    expect(LatinMorphemes[1].gloss).toBe(`PRS`);
+    expect(LatinMorphemes[0].transcription).to.be(`reliqu`);
+    expect(LatinMorphemes[0].gloss).to.be(`leave`);
+    expect(LatinMorphemes[1].transcription).to.be(`n`);
+    expect(LatinMorphemes[1].gloss).to.be(`PRS`);
 
   });
 
@@ -158,11 +158,11 @@ describe(`glosses`, () => {
     const ArabicTransfix = ArabicMorphemes
     .find(({ transcription }) => transcription === `u…u`);
 
-    expect(LakotaMorphemes.length).toBe(3);
-    expect(LakotaStem.gloss).toBe(`hear`);
-    expect(ArabicMorphemes.length).toBe(2);
-    expect(ArabicStem.gloss).toBe(`way`);
-    expect(ArabicTransfix.gloss).toBe(`PL`);
+    expect(LakotaMorphemes.length).to.be(3);
+    expect(LakotaStem.gloss).to.be(`hear`);
+    expect(ArabicMorphemes.length).to.be(2);
+    expect(ArabicStem.gloss).to.be(`way`);
+    expect(ArabicTransfix.gloss).to.be(`PL`);
 
   });
 
@@ -176,12 +176,12 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [w1, w2] }] } = convert(text);
 
-    expect(w1.morphemes[1].transcription).toBe(`A`);
-    expect(w1.morphemes[1].gloss).toBe(`a`);
+    expect(w1.morphemes[1].transcription).to.be(`A`);
+    expect(w1.morphemes[1].gloss).to.be(`a`);
 
     const discontinuousMorpheme = w2.morphemes.find(w => w.gloss === `b`);
 
-    expect(discontinuousMorpheme.transcription).toBe(`B…C`);
+    expect(discontinuousMorpheme.transcription).to.be(`B…C`);
 
   });
 
@@ -195,8 +195,8 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.analysis).toBe(`waxdungu`);
-    expect(word.gloss).toBe(`[one day]`);
+    expect(word.analysis).to.be(`waxdungu`);
+    expect(word.gloss).to.be(`[one day]`);
 
   });
 
@@ -212,46 +212,46 @@ describe(`glosses`, () => {
 
     // Word 1
 
-    expect(w1.analysis).toBe(`a~b`);
-    expect(w1.gloss).toBe(`one~two`);
+    expect(w1.analysis).to.be(`a~b`);
+    expect(w1.gloss).to.be(`one~two`);
 
     const [w1m1, w1m2] = w1.morphemes;
 
-    expect(w1m1.transcription).toBe(`a`);
-    expect(w1m1.gloss).toBe(`one`);
+    expect(w1m1.transcription).to.be(`a`);
+    expect(w1m1.gloss).to.be(`one`);
 
-    expect(w1m2.transcription).toBe(`b`);
-    expect(w1m2.gloss).toBe(`two`);
+    expect(w1m2.transcription).to.be(`b`);
+    expect(w1m2.gloss).to.be(`two`);
 
     // Word 2
 
-    expect(w2.analysis).toBe(`c`);
-    expect(w2.gloss).toBe(`[NAME NAME]`);
+    expect(w2.analysis).to.be(`c`);
+    expect(w2.gloss).to.be(`[NAME NAME]`);
 
     const [w2m] = w2.morphemes;
 
-    expect(w2m.transcription).toBe(`c`);
-    expect(w2m.gloss).toBe(`[NAME NAME]`);
+    expect(w2m.transcription).to.be(`c`);
+    expect(w2m.gloss).to.be(`[NAME NAME]`);
 
     // Word 3
 
-    expect(w3.analysis).toBe(`[d f]`);
-    expect(w3.gloss).toBe(`compound`);
+    expect(w3.analysis).to.be(`[d f]`);
+    expect(w3.gloss).to.be(`compound`);
 
     const [w3m] = w3.morphemes;
 
-    expect(w3m.transcription).toBe(`[d f]`);
-    expect(w3m.gloss).toBe(`compound`);
+    expect(w3m.transcription).to.be(`[d f]`);
+    expect(w3m.gloss).to.be(`compound`);
 
     // Word 4
 
-    expect(w4.analysis).toBe(`[]`);
-    expect(w4.gloss).toBe(`null`);
+    expect(w4.analysis).to.be(`[]`);
+    expect(w4.gloss).to.be(`null`);
 
     const [w4m] = w4.morphemes;
 
-    expect(w4m.transcription).toBe(`[]`);
-    expect(w4m.gloss).toBe(`null`);
+    expect(w4m.transcription).to.be(`[]`);
+    expect(w4m.gloss).to.be(`null`);
 
   });
   /* eslint-enable max-statements */
@@ -265,11 +265,11 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.gloss).toBe(`day-one`);
+    expect(word.gloss).to.be(`day-one`);
 
     const { morphemes: [morpheme] } = word;
 
-    expect(morpheme.gloss).toBe(`day`);
+    expect(morpheme.gloss).to.be(`day`);
 
   });
 
@@ -284,7 +284,7 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.gloss).toBe(wordGloss);
+    expect(word.gloss).to.be(wordGloss);
 
   });
 

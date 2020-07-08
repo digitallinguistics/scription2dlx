@@ -2,9 +2,11 @@
  * This test suite applies tests to the metadata header
  */
 
-import convert             from '../src/index.js';
-import expect              from 'expect.js';
-import { parse as parser } from 'yamljs';
+import convert from '../src/index.js';
+import expect  from 'expect.js';
+import yamljs  from 'yamljs';
+
+const { parse: parser } = yamljs;
 
 describe(`metadata header`, function() {
 
@@ -20,7 +22,7 @@ describe(`metadata header`, function() {
 
     const { header } = convert(text);
 
-    expect(header).toBe(headerString);
+    expect(header).to.be(headerString);
 
   });
 
@@ -34,7 +36,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrowError(/YAML/u);
+    expect(test).to.throwError(/YAML/u);
 
   });
 
@@ -44,7 +46,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrowError(/empty/u);
+    expect(test).to.throwError(/empty/u);
 
   });
 
@@ -58,7 +60,7 @@ abbreviation: A1
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrowError(/title/u);
+    expect(test).to.throwError(/title/u);
 
   });
 
@@ -75,7 +77,7 @@ utterances:
 
     const test = () => convert(text, { parser });
 
-    expect(test).toThrowError(/utterances/u);
+    expect(test).to.throwError(/utterances/u);
 
   });
 
@@ -90,7 +92,7 @@ abbreviation: A1
 
     const test = () => convert(text, { parser });
 
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
 
   });
 

@@ -16,7 +16,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(transcription);
+    expect(utterance.transcription).to.be(transcription);
     expect(utterance.metadata).toBeUndefined();
 
   });
@@ -33,7 +33,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).toBe(meta);
+    expect(utterance.metadata).to.be(meta);
 
   });
 
@@ -48,7 +48,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).toBe(`Chitimacha`);
+    expect(utterance.metadata).to.be(`Chitimacha`);
 
   });
 
@@ -64,7 +64,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).toBe(meta);
+    expect(utterance.metadata).to.be(meta);
 
   });
 

@@ -5,7 +5,7 @@
 describe(`text`, () => {
 
   it(`may be called without any arguments`, () => {
-    expect(JSON.stringify(convert())).toBe(`{}`);
+    expect(JSON.stringify(convert())).to.be(`{}`);
   });
 
   it(`may be blank`, () => {
@@ -14,7 +14,7 @@ describe(`text`, () => {
 
     const result = convert(text);
 
-    expect(JSON.stringify(result)).toBe(`{}`);
+    expect(JSON.stringify(result)).to.be(`{}`);
 
   });
 

@@ -14,7 +14,7 @@ describe(`speaker`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/valid/u);
+    expect(test).to.throwError(/valid/u);
 
   });
 

@@ -13,7 +13,7 @@ describe(`line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation.endsWith(` `)).toBe(false);
+    expect(utterance.translation.endsWith(` `)).to.be(false);
 
   });
 
@@ -28,7 +28,7 @@ describe(`line`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.translation).to.be(translation);
 
   });
 
@@ -43,7 +43,7 @@ describe(`line`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation).toBe(translation);
+    expect(utterance.translation).to.be(translation);
 
   });
 

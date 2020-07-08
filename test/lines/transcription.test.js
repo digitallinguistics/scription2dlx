@@ -15,7 +15,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(transcription);
+    expect(utterance.transcription).to.be(transcription);
 
   });
 
@@ -33,8 +33,8 @@ describe(`phomemic transcription (utterance)`, () => {
     const { utterances: [utterance] } = convert(text);
     const { transcription } = utterance;
 
-    expect(transcription.swad).toBe(SwadeshTranscription);
-    expect(transcription.apa).toBe(APATranscription);
+    expect(transcription.swad).to.be(SwadeshTranscription);
+    expect(transcription.apa).to.be(APATranscription);
 
   });
 
@@ -48,7 +48,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(`waxdungu qasi`);
+    expect(utterance.transcription).to.be(`waxdungu qasi`);
 
   });
 
@@ -61,7 +61,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).toBe(`waxdungu qasi`);
+    expect(utterance.transcription).to.be(`waxdungu qasi`);
 
   });
 
@@ -75,7 +75,7 @@ describe(`phomemic transcription (utterance)`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.transcription.includes(`*`)).toBe(false);
+    expect(utterance.transcription.includes(`*`)).to.be(false);
 
   });
 
@@ -97,8 +97,8 @@ describe(`phonemic transcription (word)`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.transcription.mod).toBe(mod);
-    expect(word.transcription.swad).toBe(swad);
+    expect(word.transcription.mod).to.be(mod);
+    expect(word.transcription.swad).to.be(swad);
 
   });
 
@@ -111,7 +111,7 @@ describe(`phonemic transcription (word)`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.transcription).toBe(`waxdungu`);
+    expect(word.transcription).to.be(`waxdungu`);
 
   });
 

@@ -14,8 +14,8 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes: [, morpheme] }] }] } = convert(text);
 
-    expect(morpheme.transcription.swad).toBe(`ʔungu`);
-    expect(morpheme.transcription.apa).toBe(`ʼunkʼu`);
+    expect(morpheme.transcription.swad).to.be(`ʔungu`);
+    expect(morpheme.transcription.apa).to.be(`ʼunkʼu`);
 
   });
 
@@ -29,7 +29,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).not.toThrow();
+    expect(test).not.to.throwError();
 
   });
 
@@ -42,7 +42,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/same number/u);
+    expect(test).to.throwError(/same number/u);
 
   });
 
@@ -55,7 +55,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/same number/u);
+    expect(test).to.throwError(/same number/u);
 
   });
 
@@ -68,7 +68,7 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes }] }] } = convert(text);
 
-    expect(morphemes.length).toBe(1);
+    expect(morphemes.length).to.be(1);
 
   });
 
@@ -81,7 +81,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).toThrowError(/morphemes/u);
+    expect(test).to.throwError(/morphemes/u);
 
   });
 
@@ -96,8 +96,8 @@ describe(`morphemes`, () => {
     const { utterances: [{ words }] } = convert(text);
     const lastWord = words.pop();
 
-    expect(lastWord.analysis).toBe(`[Benjamin Paul]`);
-    expect(lastWord.gloss).toBe(`NAME`);
+    expect(lastWord.analysis).to.be(`[Benjamin Paul]`);
+    expect(lastWord.gloss).to.be(`NAME`);
 
   });
 
@@ -110,7 +110,7 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
 
-    expect(morpheme.transcription).toBe(`waxt`);
+    expect(morpheme.transcription).to.be(`waxt`);
 
   });
 
