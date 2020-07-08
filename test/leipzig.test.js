@@ -195,4 +195,26 @@ describe(`Leipzig glossing rules`, () => {
 
   });
 
+  it(`⟨[]⟩ parses square brackets (non-overt elements)`, function() {
+
+    const text = `
+    puer
+    boy[NOM.SG]
+    boy
+    `;
+    const { utterances: [utterance] } = convert(text);
+    const { words: [word] }           = utterance;
+    const { morphemes }               = word;
+
+    expect(utterance.translation).to.be(`boy`);
+    expect(word.analysis).to.be(`puer`);
+    expect(morphemes).to.have.length(1);
+
+    const [morpheme] = morphemes;
+
+    expect(morpheme.transcription).to.be(`puer`);
+    expect(morpheme.gloss).to.be(`boy[NOM.SG]`);
+
+  });
+
 });
