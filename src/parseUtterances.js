@@ -2,11 +2,6 @@ import { getSchema }  from './utilities/index.js';
 import parseUtterance from './parseUtterance/index.js';
 
 /**
- * A regular expression to match one or more empty lines
- */
-const blankLinesRegExp = /(?:[ \t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*\r?\n){2,}/gsu;
-
-/**
  * Finds the text of the utterances portion of a scription text and returns it
  * @param  {String} text The scription text
  * @return {String}
@@ -31,12 +26,12 @@ export default function parseUtterances(scription, codes, options) {
 
   if (!utterancesString) return [];
 
-  const utterancesStrings = utterancesString.split(blankLinesRegExp);
-  const schema            = getSchema(utterancesStrings[0]);
-  const parse             = utteranceString => parseUtterance(utteranceString, schema, codes, options);
+  const blankLinesRegExp = /(?:[ \t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*\r?\n){2,}/gsu;
+  const utterances       = utterancesString.split(blankLinesRegExp);
+  const schema           = getSchema(utterances[0]);
+  const parse            = utteranceString => parseUtterance(utteranceString, schema, codes, options);
 
-  return utterancesString
-  .split(blankLinesRegExp)
+  return utterances
   .map(parse)
   .filter(Boolean);
 
