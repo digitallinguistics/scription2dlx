@@ -106,8 +106,8 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
     // construct transcription if not present.
 
     if (!utterance.transcription) {
-      const wordTranscriptions = utterance.words.map(({ transcription: t }) => t);
-      utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
+      const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) ?? [];
+      utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `);
     }
 
     return utterance;

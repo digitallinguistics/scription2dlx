@@ -92,7 +92,7 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  it(`infers the interlinear gloss schema from the first utterance`, () => {
+  it.only(`infers the interlinear gloss schema from the first utterance`, () => {
 
     const transcript = `Waxdungu qasi,`;
 
