@@ -90,7 +90,7 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
     }
 
     if (types.includes(`lit`)) {
-      utterance.literal = parseLiteral(codesHash.li, lines);
+      utterance.literal = parseLiteral(codesHash.lit, lines);
     }
 
     utterance.translation = parseTranslation(codesHash.tln, lines) || ``;
