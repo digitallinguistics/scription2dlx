@@ -10,6 +10,7 @@ import {
  */
 export default function parsePhonetic(line) {
   if (!line) return;
-  // removeBrackets accepts an abstract type, not a line code, as the first argument
+  // NB: Do not use the lineCode variable as the first argument to removeBrackets
+  // removeBrackets accept an abstract type, not a line code, as its first argument
   return removeBrackets(`phon`, removeEmphasis(line));
 }
