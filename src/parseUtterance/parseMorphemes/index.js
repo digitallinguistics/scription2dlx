@@ -43,18 +43,13 @@ function tokenizeWord(string) {
 
 /**
  * Accepts an lines hash for a word (morpheme and gloss lines) and returns an array of DLx Morpheme objects
- * @param  {Object} lineCodes The hash of line codes
- * @param  {Object} wordLines The lines hash for the word
- * @return {Array}            Returns an array of DLx Morpheme objeccts
+ * @param  {Object} codes    The hash of line codes
+ * @param  {Object} wordHash The lines hash for the word
+ * @return {Array}           Returns an array of DLx Morpheme objeccts
  */
 export default function parseMorphemes(codes, wordHash) {
 
-  const {
-    gl,
-    m,
-  } = codes;
-
-  const morphemeLines = getLines([gl, m], wordHash);
+  const morphemeLines = getLines([codes.gl, codes.m], wordHash);
 
   if (!morphemeLines) return [];
 
@@ -75,6 +70,12 @@ export default function parseMorphemes(codes, wordHash) {
     };
 
   });
+  .flatMap(morpheme => separateInfix(codes.gl, morpheme))
+  .map(data => ({
+    // eslint-disable-next-line no-undefined
+    gloss:         groupLines(codes.gl, data) || undefined,
+    transcription: groupLines(codes.m, data) || ``,
+  }));
 
   if (!morphemes.length) return [];
 
