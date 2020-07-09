@@ -7,7 +7,7 @@ import expect  from 'expect.js';
 
 describe(`transcript`, () => {
 
-  it.only(`may be in multiple formats`, () => {
+  it(`may be in multiple formats`, () => {
 
     const SwadeshTranscript = `wetkšˊ husˊ na·nča·kamankšˊ wetkˊ hi hokmiʔiˊ`;
     const DFTTranscript     = `wetkš↗ hus↗ na·nča·kamankš↗ wetkˊ hi hokmiʔiˊ↗`;

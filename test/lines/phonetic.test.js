@@ -22,7 +22,7 @@ describe(`phonetic transcription`, () => {
 
   });
 
-  it(`may not appear in multiple orthographies`, () => {
+  it.only(`may not appear in multiple orthographies`, () => {
 
     const text = `
     \\phon-ipa  wetkʃ hus naːnt͡ʃaːkamankʃ wetk hi hokmiʔi
