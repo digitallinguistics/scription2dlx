@@ -1,11 +1,11 @@
-const emphasisRegExp = /\*/gu;
-
 /**
  * Removes any emphasis (asterisks) from a string
  * @param  {String} data
  * @return {String}
  */
 export default function removeEmphasis(data) {
+
+  const emphasisRegExp = /\*/gu;
 
   if (typeof data === `string`) return data.replace(emphasisRegExp, ``);
 

@@ -5,7 +5,7 @@
  */
 export default function zip(hash) {
 
-  const numItems = Math.max(...Object.values(hash).map(w => w.length));
+  const numItems = Math.max(...Object.values(hash).map(arr => arr.length));
   const items    = [];
 
   for (let i = 0; i < numItems; i++) {
