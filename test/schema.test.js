@@ -199,7 +199,7 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  it.only(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
+  it(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
 
     const transcription = `waxdungu qasi`;
     const translation   = `one day a man`;

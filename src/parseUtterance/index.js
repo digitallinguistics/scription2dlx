@@ -2,8 +2,6 @@
   max-statements,
 */
 
-import { mergeTranscriptions } from '../utilities/index.js';
-
 import parseLiteral       from './parseLiteral.js';
 import parseMetadata      from './parseMetadata.js';
 import parseMisc          from './parseMisc.js';
@@ -15,6 +13,11 @@ import parseTranscript    from './parseTranscript.js';
 import parseTranscription from './parseTranscription.js';
 import parseTranslation   from './parseTranslation.js';
 import parseWords         from './parseWords.js';
+
+import {
+  getLineType,
+  mergeTranscriptions,
+} from '../utilities/index.js';
 
 /**
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
@@ -70,27 +73,29 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
 
     // process individual lines
 
-    if (schema.includes(`sp`)) {
+    const types = schema.map(getLineType);
+
+    if (types.includes(`sp`)) {
       utterance.speaker = parseSpeaker(lines[codesHash.sp]);
     }
 
-    if (schema.includes(`trs`)) {
+    if (types.includes(`trs`)) {
       utterance.transcript  = parseTranscript(codesHash.trs, lines);
     }
 
     utterance.transcription = parseTranscription(codesHash.txn, lines);
 
-    if (schema.includes(`phon`)) {
+    if (types.includes(`phon`)) {
       utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
     }
 
-    if (schema.includes(`lit`)) {
+    if (types.includes(`lit`)) {
       utterance.literal = parseLiteral(codesHash.li, lines);
     }
 
     utterance.translation = parseTranslation(codesHash.tln, lines) || ``;
 
-    if (schema.includes(`s`)) {
+    if (types.includes(`s`)) {
       utterance.source = parseSource(lines[codesHash.s]);
     }
 
