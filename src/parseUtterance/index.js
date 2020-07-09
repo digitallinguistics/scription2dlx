@@ -2,8 +2,6 @@
   max-statements,
 */
 
-import { newlineRegExp } from '../utilities/regexp/index.js';
-
 import parseLiteral       from './parseLiteral.js';
 import parseMetadata      from './parseMetadata.js';
 import parseMisc          from './parseMisc.js';
@@ -17,113 +15,111 @@ import parseTranslation   from './parseTranslation.js';
 import parseWords         from './parseWords.js';
 
 import {
-  getCode,
-  getSchema,
+  getLineType,
   mergeTranscriptions,
 } from '../utilities/index.js';
 
 /**
- * A regular expression to match the line data (excludes the leading backslash code)
- * @type {RegExp}
- */
-const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
-
-/**
- * Create a lines hash from an array of strings and an array of line codes
- * @param  {Array}  lines
- * @param  {Array}  schema
- * @return {Object}
- */
-function createLinesHash(lines, schema) {
-  return lines.reduce((hash, line, i) => {
-
-    const code  = schema[i] || `n-${i}`; // treat extra lines as notes
-    const match = line.match(lineDataRegExp);
-    const data  = (match ? match.groups.lineData : line).trim();
-
-    hash[code] = data; // eslint-disable-line no-param-reassign
-
-    return hash;
-
-  }, {});
-}
-
-/**
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
- * @param  {String} utteranceString The utterance string to parse
- * @param  {Array}  schema          An interlinear gloss schema, as an array of backslash codes (without leading slashes)
- * @param  {Object} codesHash       The line codes to use for each line type
- * @param  {Object} [options]       An options hash
- * @return {Object}                 Returns a DLx Utterance object, or null if there is no data
+ * @param  {String} rawLines  An array of utterance lines to parse
+ * @param  {Array}  schema    An interlinear gloss schema, as an array of backslash codes (without leading slashes)
+ * @param  {Object} codesHash The line codes to use for each line type
+ * @param  {Object} [options] An options hash
+ * @return {Object}           Returns a DLx Utterance object, or null if there is no data
  */
-export default function parseUtterance(utteranceString, schema, codesHash, { utteranceMetadata }) {
+export default function parseUtterance(rawLines, schema, codesHash, { utteranceMetadata }) {
 
   try {
 
-    const {
-      lit,
-      n,
-      phon,
-      tln,
-      trs,
-      txn,
-      s,
-      sp,
-    } = codesHash;
+    const utterance = {};
 
-    const rawLines = utteranceString
-    .split(newlineRegExp)
-    .map(line => line.trim());
+    // metadata
 
-    const lines = rawLines.filter(line => !line.startsWith(`#`));
-    const codes = lines.map(getCode).filter(Boolean);
+    const hasMetadata = rawLines[0].startsWith(`#`);
 
-    if (codes.length) schema = getSchema(utteranceString); // eslint-disable-line no-param-reassign
+    if (hasMetadata) {
 
-    const linesHash = createLinesHash(lines, schema);
-    const noData    = !Object.values(linesHash).every(Boolean);
+      const rawMetadata = rawLines.shift();
+
+      if (utteranceMetadata === true) {
+        const metadata = parseMetadata(rawMetadata);
+        if (metadata) utterance.metadata = metadata;
+      }
+
+    }
+
+    // create lines hash
+
+    const lines = rawLines.reduce((hash, line, i) => {
+
+      // A regular exprssion to match line data (excluding leading backslash code)
+      const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
+
+      const code  = schema[i] ?? `n-${i}`;
+      const match = line.match(lineDataRegExp);
+      const data  = (match ? match.groups.lineData : line).trim();
+
+      hash[code] = data; // eslint-disable-line no-param-reassign
+
+      return hash;
+
+    }, {});
+
+    // check for no data
+
+    const noData = !Object.values(lines).every(Boolean);
 
     if (noData) return null;
 
-    // Extract known utterance properties and populate the utterance
+    // process individual lines
 
-    const metadata    = parseMetadata(rawLines);
-    const speaker     = parseSpeaker(linesHash[sp]);
-    const transcript  = parseTranscript(trs, linesHash);
-    let transcription = parseTranscription(txn, linesHash);
-    const phonetic    = parsePhonetic(linesHash[phon]);
-    const literal     = parseLiteral(lit, linesHash);
-    const translation = parseTranslation(tln, linesHash) || ``;
-    const source      = parseSource(linesHash[s]);
-    const notes       = parseNotes(n, linesHash);
-    const words       = parseWords(codesHash, linesHash);
-    const misc        = parseMisc(codesHash, linesHash);
+    const types = schema.map(getLineType);
 
-    if (!transcription) {
-      const wordTranscriptions = words.map(({ transcription: t }) => t);
-      transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
+    if (types.includes(`sp`)) {
+      utterance.speaker = parseSpeaker(lines[codesHash.sp]);
     }
 
-    return {
-      ...utteranceMetadata && metadata ? { metadata } : {},
-      ...speaker ? { speaker } : {},
-      ...transcript ? { transcript } : {},
-      transcription,
-      ...phonetic ? { phonetic } : {},
-      ...literal ? { literal } : {},
-      translation,
-      ...source ? { source } : {},
-      ...notes.length ? { notes } : {},
-      ...words.length ? { words } : {},
-      ...misc,
-    };
+    if (types.includes(`trs`)) {
+      utterance.transcript  = parseTranscript(codesHash.trs, lines);
+    }
+
+    utterance.transcription = parseTranscription(codesHash.txn, lines);
+
+    if (types.includes(`phon`)) {
+      utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
+    }
+
+    if (types.includes(`lit`)) {
+      utterance.literal = parseLiteral(codesHash.lit, lines);
+    }
+
+    utterance.translation = parseTranslation(codesHash.tln, lines) || ``;
+
+    if (types.includes(`s`)) {
+      utterance.source = parseSource(lines[codesHash.s]);
+    }
+
+    const words = parseWords(codesHash, lines);
+    if (words.length) utterance.words = words;
+
+    const notes = parseNotes(codesHash.n, lines);
+    if (notes.length) utterance.notes = notes;
+
+    const misc = parseMisc(codesHash, lines);
+    Object.assign(utterance, misc);
+
+    // construct transcription if not present
+
+    if (!utterance.transcription) {
+      const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) || [];
+      utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `);
+    }
+
+    return utterance;
 
   } catch (e) {
 
-    const utteranceText = utteranceString
-    .split(newlineRegExp)
-    .map(str => str.trim())
-    .join(`\n`);
+    const utteranceText = rawLines.join(`\n`);
 
     e.name    = `ParseUtterranceError`;
     e.message = `${e.message}\n\nUtterance text:\n\n${utteranceText}`;

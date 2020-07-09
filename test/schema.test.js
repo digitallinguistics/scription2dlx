@@ -203,7 +203,7 @@ describe(`interlinear gloss schema`, () => {
 
     const transcription = `waxdungu qasi`;
     const translation   = `one day a man`;
-    const noteText          = `This is the traditional opening to a story.`;
+    const noteText      = `This is the traditional opening to a story.`;
 
     const text = `
     ${transcription}

@@ -7,17 +7,36 @@ import expect  from 'expect.js';
 
 describe(`utterance metadata`, () => {
 
-  it(`is ignored by default`, () => {
+  it(`is added to the utterance by default`, () => {
 
+    const meta          = `Chitimacha (isolate; Louisiana)`;
     const transcription = `waxdungu qasi`;
 
     const text = `
-    # Chitimacha (isolate; Louisiana)
+    # ${meta}
     ${transcription}
     one day a man
     `;
 
     const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.metadata).to.be(meta);
+
+  });
+
+  it(`option: utteranceMetadata = false`, () => {
+
+    const meta          = `Chitimacha (isolate; Louisiana)`;
+    const transcription = `waxdungu qasi`;
+
+    const text = `
+    # ${meta}
+    ${transcription}
+    one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text, { utteranceMetadata: false });
 
     expect(utterance.transcription).to.be(transcription);
     expect(utterance.metadata).to.be(undefined);

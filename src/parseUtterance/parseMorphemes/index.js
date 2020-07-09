@@ -43,18 +43,15 @@ function tokenizeWord(string) {
 
 /**
  * Accepts an lines hash for a word (morpheme and gloss lines) and returns an array of DLx Morpheme objects
- * @param  {Object} lineCodes The hash of line codes
- * @param  {Object} wordLines The lines hash for the word
- * @return {Array}            Returns an array of DLx Morpheme objeccts
+ * @param  {Object} codes    The hash of line codes
+ * @param  {Object} wordHash The lines hash for the word
+ * @return {Array}           Returns an array of DLx Morpheme objeccts
  */
 export default function parseMorphemes(codes, wordHash) {
 
-  const {
-    gl,
-    m,
-  } = codes;
+  debugger;
 
-  const morphemeLines = getLines([gl, m], wordHash);
+  const morphemeLines = getLines([codes.gl, codes.m], wordHash);
 
   if (!morphemeLines) return [];
 
@@ -63,11 +60,11 @@ export default function parseMorphemes(codes, wordHash) {
   validateNumItems(morphemesHash);
 
   let morphemes = zip(morphemesHash)
-  .flatMap(morpheme => separateInfix(gl, morpheme))
+  .flatMap(morpheme => separateInfix(codes.gl, morpheme))
   .map(data => {
 
-    const transcription = groupLines(m, data) || ``;
-    const gloss         = groupLines(gl, data);
+    const transcription = groupLines(codes.m, data) || ``;
+    const gloss         = groupLines(codes.gl, data);
 
     return {
       transcription,

@@ -90,10 +90,11 @@ A JavaScript library that converts linguistic texts in [scription format][script
 
 ## Options
 
-Option | Default   | Description
--------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-codes  | `{}`      | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
-parser | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
+Option            | Default     | Description
+------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+codes             | `{}`        | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
+parser            | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
+utteranceMetadata | `true`      | Whether to parse the utterance metadata line (the first line when it begins with `#`). If set to `true`, a `metadata` property will be added to each utterance that has it.
 
 [actions]:   https://github.com/digitallinguistics/scription2dlx/actions/
 [AJV]:       https://www.npmjs.com/package/ajv

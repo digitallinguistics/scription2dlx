@@ -9,8 +9,8 @@ import {
  * @return {String}
  */
 export default function parsePhonetic(line) {
-  if (!line) return null;
-  // NB: Do not use the lineCode variable here:
-  // removeBrackets accepts an abstract type, not a line code, as the first argument
+  if (!line) return;
+  // NB: Do not use the lineCode variable as the first argument to removeBrackets
+  // removeBrackets accept an abstract type, not a line code, as its first argument
   return removeBrackets(`phon`, removeEmphasis(line));
 }

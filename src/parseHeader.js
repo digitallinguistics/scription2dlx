@@ -1,17 +1,13 @@
 import { isString } from './utilities/types/index.js';
 
 /**
- * A regular expression to match a YAML header
- */
-const headerRegExp = /---(?<header>.+?)---/su;
-
-/**
  * Extracts the text of the header metadata, if present
  * @param  {String} text The scription text
  * @return {String}
  */
 function getHeaderString(text) {
-  const result = headerRegExp.exec(text);
+  const headerRegExp = /---(?<header>.+?)---/su;
+  const result       = headerRegExp.exec(text);
   return result ? result.groups.header.trim() : null;
 }
 
@@ -58,9 +54,10 @@ function validateHeader(header) {
 export default function parseHeader(text, parse) {
 
   const headerString = getHeaderString(text);
-  const isMissing    = headerString === null;
 
-  if (isMissing) return {};
+  if (headerString === null) return {};
+
+  if (typeof parse !== `function`) return { header: headerString };
 
   if (parse) {
 
@@ -79,7 +76,5 @@ export default function parseHeader(text, parse) {
     return header;
 
   }
-
-  return { header: headerString };
 
 }

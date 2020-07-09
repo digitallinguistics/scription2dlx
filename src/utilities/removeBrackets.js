@@ -1,7 +1,3 @@
-/* eslint-disable
-  no-param-reassign,
-*/
-
 import { brackets as bracketTypes } from './constants/index.js';
 import { isString }                 from './types/index.js';
 

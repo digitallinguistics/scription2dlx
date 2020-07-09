@@ -10,6 +10,7 @@ env:
   mocha:               true
   jasmine:             false
   shared-node-browser: true
+reportUnusedDisableDirectives: true
 rules:
   id-blacklist:
   - error

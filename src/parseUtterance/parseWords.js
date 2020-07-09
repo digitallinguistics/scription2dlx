@@ -10,19 +10,6 @@ import {
 } from '../utilities/index.js';
 
 /**
- * Takes the words line hash and tokenizes the data on each line
- * @param  {Object} wordLines A hash of raw word lines
- * @return {Object}           Returns a hash with the lines tokenized
- */
-function getWordsHash(wordLines) {
-  return Object.entries(wordLines)
-  .reduce((hash, [code, data]) => {
-    hash[code] = tokenizeLine(data); // eslint-disable-line no-param-reassign
-    return hash;
-  }, {});
-}
-
-/**
  * Parses the word hash into a DLx Word object
  * @param  {Object} codes The hash of line codes
  * @param  {Object} data  The word hash
@@ -30,19 +17,12 @@ function getWordsHash(wordLines) {
  */
 function parseWord(codes, data) {
 
-  const {
-    gl,
-    m,
-    w,
-    wlt,
-  } = codes;
-
   data = removeEmphasis(data); // eslint-disable-line no-param-reassign
 
-  const transcription = groupLines(w, data) || ``;
-  const analysis      = groupLines(m, data);
-  const gloss         = groupLines(gl, data);
-  const literal       = groupLines(wlt, data);
+  const transcription = groupLines(codes.w, data) || ``;
+  const analysis      = groupLines(codes.m, data);
+  const gloss         = groupLines(codes.gl, data);
+  const literal       = groupLines(codes.wlt, data);
   const morphemes     = parseMorphemes(codes, data);
 
   return {
@@ -62,12 +42,7 @@ function parseWord(codes, data) {
  */
 function tokenizeLine(string) {
 
-  // NOTE: Leave these here for debugging and development
-  // const bracketsRegExp = /(?<bracketed>\[.*?\])/gu;
-  // const wordsRegExp    = /(?<unbracketed>[^\s]+)/gu;
-
-  // NOTE: Using the unicode escape \u005D is necessary for Babel to transpile the regexp correctly
-  const wordRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^\s]+)/gu;
+  const wordRegExp = /(?<bracketed>\S*\[.*?\]\S*)|(?<unbracketed>\S+)/gu;
 
   return Array.from(string.matchAll(wordRegExp))
   .map(([result]) => result);
@@ -83,12 +58,16 @@ function tokenizeLine(string) {
 export default function parseWords(codesHash, lines) {
 
   const wordLineCodes = wordTypes.map(type => codesHash[type]);
-
-  const wordLines = getLines(wordLineCodes, lines);
+  const wordLines     = getLines(wordLineCodes, lines);
 
   if (!wordLines) return [];
 
-  const wordsHash = getWordsHash(wordLines);
+  // tokenizes the words in each line
+  const wordsHash = Object.entries(wordLines)
+  .reduce((hash, [code, data]) => {
+    hash[code] = tokenizeLine(data); // eslint-disable-line no-param-reassign
+    return hash;
+  }, {});
 
   validateNumItems(wordsHash);
 

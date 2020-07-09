@@ -1,11 +1,10 @@
-const speakerRegExp = /^[A-Za-z0-9]+$/u;
-
 /**
  * Checks whether a speaker abbreviation is validly formatted
  * @param  {Any}     speaker The speaker value to validate
  * @return {Boolean}
  */
 function isValidSpeaker(speaker) {
+  const speakerRegExp = /^[A-Za-z0-9]+$/u;
   return speakerRegExp.test(speaker);
 }
 

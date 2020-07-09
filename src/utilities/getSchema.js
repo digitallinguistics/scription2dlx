@@ -1,6 +1,5 @@
-import getCode           from './getCode.js';
-import getLineType       from './getLineType.js';
-import { newlineRegExp } from './regexp/index.js';
+import { difference } from './js/index.js';
+import getLineType    from './getLineType.js';
 
 import {
   isCode,
@@ -12,16 +11,28 @@ import {
 const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];
 
 /**
- * Valides an array of backslash codes, without leading slashes
- * @param  {Array} codes The array of backslash codes to validate
+ * Extracts the backslash code for a line, without the leading slash. Returns null if none is found.
+ * @param  {String} line The line of text to find the backslash code in
+ * @return {String}      The backslash code that was found, without a leading slash
  */
-function validateSchema(rawCodes) {
+function getCode(line) {
+  if (line.startsWith(`#`)) return `#`;
+  const backslashCodeRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
+  const match = line.match(backslashCodeRegExp);
+  return match?.groups.code ?? null;
+}
+
+/**
+ * Validates an array of backslash codes, without leading slashes
+ * @param  {Array} schema An array of backslash codes to validate
+ */
+function validateSchema(schema) { /* eslint-disable-line max-statements */
 
   // Check that if any line has a backslash code, all lines do
   // NB: This validation must come first
 
-  const someLinesHaveCodes = rawCodes.some(code => isString(code));
-  const allLinesHaveCodes  = rawCodes.every(code => isString(code));
+  const someLinesHaveCodes = schema.some(code => isString(code));
+  const allLinesHaveCodes  = schema.every(code => isString(code));
 
   if (someLinesHaveCodes && !allLinesHaveCodes) {
     const e = new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
@@ -29,7 +40,7 @@ function validateSchema(rawCodes) {
     throw e;
   }
 
-  const codes = rawCodes.filter(Boolean);
+  const codes = schema.filter(Boolean);
   const types = codes.map(getLineType);
   // NB: Items in the types array may not be unique (and later code depends on this fact)
 
@@ -45,21 +56,17 @@ function validateSchema(rawCodes) {
 
   // Check that there are no duplicate codes
 
-  const codeCounts = codes.reduce((counts, code) => {
-    const currentCount = counts.get(code) || 0;
-    counts.set(code, currentCount + 1);
-    return counts;
-  }, new Map);
+  const nonNoteCodes = codes.filter(code => code !== `n`);
+  const uniqueCodes = new Set(nonNoteCodes);
 
-  codeCounts.forEach((count, code) => {
-    if (code !== `n` && count > 1) {
-      const e = new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
-      e.name = `MultipleCodesError`;
-      throw e;
-    }
-  });
+  if (uniqueCodes.size < nonNoteCodes.length) {
+    const duplicateCode = difference(nonNoteCodes, Array.from(uniqueCodes))[0];
+    const e = new Error(`The ${duplicateCode} code appears more than once in the utterance. Each backslash code may only appear once.`);
+    e.name = `MultipleCodesError`;
+    throw e;
+  }
 
-  // Check that morphemes and glosses lines are bidependent
+  // Check that morphemes and glosses lines are codependent
 
   const hasMorphemes = types.some(type => type === `m`);
   const hasGlosses   = types.some(type => type === `gl`);
@@ -89,40 +96,25 @@ function validateSchema(rawCodes) {
 }
 
 /**
- * Adjust the codes at the beginning of each line to number the notes lines
- * @param  {Array<String>} lines An array of line strings
- * @return {Array<String>}
- */
-function numberNotes(code, i) {
-  const type = getLineType(code);
-  if (type !== `n`) return code;
-  return code.replace(`n`, `n-${i + 1}`);
-}
-
-/**
  * Accepts the text of a scription utterance and returns an array representing its interlinear gloss schema, where each item in the array is a backslash code (without the leading slash)
- * @param  {String} utteranceString The scription utterance to get the interlinear schema for
- * @return {Array}                  Returns an array of backslash codes (without the leading slash)
+ * @param  {String} lines An array of raw lines to get the schema for
+ * @return {Array}        Returns an array of backslash codes (without the leading slash)
  */
-export default function getSchema(utteranceString) {
+export default function getSchema(lines) {
 
   try {
 
-    const lines = utteranceString
-    .split(newlineRegExp)
-    .map(line => line.trim())
-    .filter(line => !line.startsWith(`#`)); // filter out utterance metadata
+    const schema = lines
+    .map(getCode)
+    .filter(code => code !== `#`);
 
-    const codes = lines
-    .map(getCode);
+    validateSchema(schema);
 
-    validateSchema(codes);
-
-    const hasCodes = codes.filter(Boolean).length;
+    const hasCodes = schema.filter(Boolean).length;
 
     if (!hasCodes) {
 
-      const lineCount = lines.length;
+      const lineCount = schema.length;
 
       /* eslint-disable no-magic-numbers */
       if (lineCount === 2) return [`txn`, `tln`];
@@ -136,12 +128,16 @@ export default function getSchema(utteranceString) {
 
     }
 
-    return codes.map(numberNotes);
+    return schema.map((code, i) => {
+      const type = getLineType(code);
+      if (type !== `n`) return code;
+      return code.replace(`n`, `n-${i + 1}`);
+    });
 
   } catch (e) {
 
     e.name    = `GetSchemaError`;
-    e.message = `${e.message}\n\nUtterance text:\n\n${utteranceString}`;
+    e.message = `${e.message}\n\nUtterance text:\n\n${JSON.stringify(lines, null, 2)}`;
     throw e;
 
   }

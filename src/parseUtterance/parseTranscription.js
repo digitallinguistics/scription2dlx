@@ -20,7 +20,7 @@ function removeExtraWhiteSpace(txn) {
   if (isString(txn)) return replaceSpaces(txn);
 
   return Object.entries(txn).reduce((hash, [lang, data]) => {
-    hash[lang] = data.replace(/\s+/gu, ` `); // eslint-disable-line no-param-reassign
+    hash[lang] = replaceSpaces(data); // eslint-disable-line no-param-reassign
     return hash;
   }, {});
 
@@ -38,7 +38,8 @@ export default function parseTranscription(lineCode, lines) {
 
   if (!data) return null;
 
-  // NB: Do not use lineCode here; removeBrackets takes an abstract type, not a line code, as its first argument
+  // NB: Do not use lineCode for removeBrackets here
+  // removeBrackets takes an abstract type, not a line code, as its first argument
   data = removeEmphasis(data);
   data = removeBrackets(`txn`, data);
   data = removeExtraWhiteSpace(data);
