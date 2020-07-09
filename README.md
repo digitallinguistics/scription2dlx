@@ -90,11 +90,12 @@ A JavaScript library that converts linguistic texts in [scription format][script
 
 ## Options
 
-Option            | Default     | Description
-------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-codes             | `{}`        | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
-parser            | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
-utteranceMetadata | `true`      | Whether to parse the utterance metadata line (the first line when it begins with `#`). If set to `true`, a `metadata` property will be added to each utterance that has it.
+Option              | Default     | Description
+--------------------|-------------|------------
+`alignmentError`    | `"warn"`    | This option specifies whether the library should throw an error when it encounters an utterance which has a different number of words on each line, or a different number of morphemes in each word. The [Leipzig glossing rules][Leipzig] state that each line in an interlinear example must have the same number of words and morphemes on each line. By default, this option is set to `"warn"`, which displays a warning if an alignment problem is encountered. To turn off warnings entirely, set this option to `false`; to throw an error, set this option to `true`.
+`codes`             | `{}`        | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
+`parser`            | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
+`utteranceMetadata` | `true`      | Whether to parse the utterance metadata line (the first line when it begins with `#`). If set to `true`, a `metadata` property will be added to each utterance that has it.
 
 [actions]:   https://github.com/digitallinguistics/scription2dlx/actions/
 [AJV]:       https://www.npmjs.com/package/ajv
@@ -103,6 +104,7 @@ utteranceMetadata | `true`      | Whether to parse the utterance metadata line (
 [DaFoDiL]:   https://format.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx
+[Leipzig]:   https://www.eva.mpg.de/lingua/resources/glossing-rules.php
 [license]:   https://github.com/digitallinguistics/scription2dlx/blob/master/LICENSE.md
 [issues]:    https://github.com/digitallinguistics/scription2dlx/issues
 [npm]:       https://www.npmjs.com/package/@digitallinguistics/scription2dlx
