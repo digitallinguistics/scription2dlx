@@ -92,7 +92,7 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  it.only(`infers the interlinear gloss schema from the first utterance`, () => {
+  it(`infers the interlinear gloss schema from the first utterance`, () => {
 
     const transcript = `Waxdungu qasi,`;
 
@@ -199,11 +199,11 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
-  it(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
+  it.only(`5-line utterances default to transcription + morphemes + glosses + translation + note`, () => {
 
     const transcription = `waxdungu qasi`;
     const translation   = `one day a man`;
-    const noteText          = `This is the traditional opening to a story.`;
+    const noteText      = `This is the traditional opening to a story.`;
 
     const text = `
     ${transcription}

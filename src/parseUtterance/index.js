@@ -52,7 +52,7 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
       // A regular exprssion to match line data (excluding leading backslash code)
       const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 
-      const code  = schema[i];
+      const code  = schema[i] ?? `n-${i}`;
       const match = line.match(lineDataRegExp);
       const data  = (match ? match.groups.lineData : line).trim();
 
@@ -103,10 +103,10 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
     const misc = parseMisc(codesHash, lines);
     Object.assign(utterance, misc);
 
-    // construct transcription if not present.
+    // construct transcription if not present
 
     if (!utterance.transcription) {
-      const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) ?? [];
+      const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) || [];
       utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `);
     }
 
