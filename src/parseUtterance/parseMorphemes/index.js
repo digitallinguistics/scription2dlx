@@ -49,8 +49,6 @@ function tokenizeWord(string) {
  */
 export default function parseMorphemes(codes, wordHash) {
 
-  debugger;
-
   const morphemeLines = getLines([codes.gl, codes.m], wordHash);
 
   if (!morphemeLines) return [];

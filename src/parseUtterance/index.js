@@ -24,14 +24,15 @@ import {
  * @param  {String} rawLines  An array of utterance lines to parse
  * @param  {Array}  schema    An interlinear gloss schema, as an array of backslash codes (without leading slashes)
  * @param  {Object} codesHash The line codes to use for each line type
- * @param  {Object} [options] An options hash
+ * @param  {Object} options   The options hash
  * @return {Object}           Returns a DLx Utterance object, or null if there is no data
  */
-export default function parseUtterance(rawLines, schema, codesHash, { utteranceMetadata }) {
+export default function parseUtterance(rawLines, schema, codesHash, options) {
+
+  const { alignmentError, utteranceMetadata } = options;
+  const utterance = {};
 
   try {
-
-    const utterance = {};
 
     // metadata
 
@@ -120,6 +121,16 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
   } catch (e) {
 
     const utteranceText = rawLines.join(`\n`);
+
+    if (e.name === `AlignmentError`) {
+
+      if (alignmentError === false) return;
+
+      if (alignmentError === `warn`) {
+        return console.warn(`${e.message} Skipping the following utterance:\n\n${utteranceText}`);
+      }
+
+    }
 
     e.name    = `ParseUtterranceError`;
     e.message = `${e.message}\n\nUtterance text:\n\n${utteranceText}`;
