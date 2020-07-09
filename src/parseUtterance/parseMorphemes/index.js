@@ -58,18 +58,18 @@ export default function parseMorphemes(codes, wordHash) {
   validateNumItems(morphemesHash);
 
   let morphemes = zip(morphemesHash)
-  .flatMap(morpheme => separateInfix(gl, morpheme))
+  .flatMap(morpheme => separateInfix(codes.gl, morpheme))
   .map(data => {
 
-    const transcription = groupLines(m, data) || ``;
-    const gloss         = groupLines(gl, data);
+    const transcription = groupLines(codes.m, data) || ``;
+    const gloss         = groupLines(codes.gl, data);
 
     return {
       transcription,
       ...gloss ? { gloss } : {},
     };
 
-  });
+  })
   .flatMap(morpheme => separateInfix(codes.gl, morpheme))
   .map(data => ({
     // eslint-disable-next-line no-undefined
