@@ -10,6 +10,7 @@ import parseUtterances               from './parseUtterances.js';
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
 export default function scription2dlx(scription = ``, {
+  alignmentError = `warn`,
   codes = {},
   parser,
   utteranceMetadata = true,
@@ -23,9 +24,14 @@ export default function scription2dlx(scription = ``, {
     throw e;
   }
 
+  const options = {
+    alignmentError,
+    utteranceMetadata,
+  };
+
   const lineCodes  = Object.assign({}, defaultCodes, codes || {});
   const header     = parseHeader(scription, parser);
-  const utterances = parseUtterances(scription, lineCodes, { utteranceMetadata });
+  const utterances = parseUtterances(scription, lineCodes, options);
 
   return { ...header, utterances };
 

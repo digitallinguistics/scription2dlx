@@ -36,14 +36,41 @@ describe(`morphemes`, () => {
 
   });
 
-  it(`must have the same number of words as the glosses line`, () => {
+  // alignmentError = "warn" OR false
+  it(`skips utterances with alignment errors by default`, function() {
 
     const text = `
     \\m  waxdungu qasi
     \\gl day-one  a man
     `;
 
-    const test = () => convert(text);
+    const { utterances } = convert(text);
+
+    expect(utterances).not.to.have.length();
+
+  });
+
+  it(`option: alignmentError = false`, function() {
+
+    const text = `
+    \\m  waxdungu qasi
+    \\gl day-one  a man
+    `;
+
+    const { utterances } = convert(text, { alignmentError: false });
+
+    expect(utterances).not.to.have.length();
+
+  });
+
+  it(`option: alignmentError = true`, () => {
+
+    const text = `
+    \\m  waxdungu qasi
+    \\gl day-one  a man
+    `;
+
+    const test = () => convert(text, { alignmentError: true });
 
     expect(test).to.throwError(/same number/u);
 
