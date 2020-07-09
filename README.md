@@ -5,6 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/scription2dlx.svg)][issues]
 [![tests status](https://github.com/digitallinguistics/scription2dlx/workflows/tests/badge.svg)][actions]
 [![license](https://img.shields.io/github/license/digitallinguistics/scription2dlx.svg)][license]
+[![DOI](https://zenodo.org/badge/175907357.svg)][Zenodo]
 [![GitHub stars](https://img.shields.io/github/stars/digitallinguistics/scription2dlx.svg?style=social)][GitHub]
 
 A JavaScript library that converts linguistic texts in [scription format][scription] to the [Data Format for Digital Linguistics (DaFoDiL)][DaFoDiL]. This library is useful for language researchers who want to work with their data in text formats that are simple to type and read ([scription][scription]), but want to convert their data for use in other [Digital Linguistics][DLx] tools.
@@ -111,3 +112,4 @@ Option              | Default     | Description
 [releases]:  https://github.com/digitallinguistics/scription2dlx/releases
 [scription]: https://scription.digitallinguistics.io
 [Text]:      https://format.digitallinguistics.io/schemas/Text.html
+[Zenodo]:    https://zenodo.org/badge/latestdoi/175907357
