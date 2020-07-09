@@ -8,7 +8,6 @@ import { getLineType } from '../../utilities/index.js';
  */
 export default function separateInfix(glossLineCode, morpheme) {
 
-
   const infixRegExp = /(?<pre>.*)<(?<infix>.+)>(?<post>.*)/u;
   const entries     = Object.entries(morpheme);
   const glossLines  = entries.find(([code]) => getLineType(code) === glossLineCode);

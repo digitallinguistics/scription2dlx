@@ -1,4 +1,5 @@
-import getLineType from './getLineType.js';
+import { difference } from './js/index.js';
+import getLineType    from './getLineType.js';
 
 import {
   isCode,
@@ -16,17 +17,16 @@ const multiLangTypes = [`gl`, `lit`, `tln`, `wlt`];
  */
 function getCode(line) {
   if (line.startsWith(`#`)) return `#`;
-  const backslashRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
-  const match = line.match(backslashRegExp);
-  if (!match) return null;
-  return match.groups.code;
+  const backslashCodeRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
+  const match = line.match(backslashCodeRegExp);
+  return match?.groups.code ?? null;
 }
 
 /**
  * Validates an array of backslash codes, without leading slashes
  * @param  {Array} schema An array of backslash codes to validate
  */
-function validateSchema(schema) {
+function validateSchema(schema) { /* eslint-disable-line max-statements */
 
   // Check that if any line has a backslash code, all lines do
   // NB: This validation must come first
@@ -56,19 +56,15 @@ function validateSchema(schema) {
 
   // Check that there are no duplicate codes
 
-  const codeCounts = codes.reduce((counts, code) => {
-    const currentCount = counts.get(code) || 0;
-    counts.set(code, currentCount + 1);
-    return counts;
-  }, new Map);
+  const nonNoteCodes = codes.filter(code => code !== `n`);
+  const uniqueCodes = new Set(nonNoteCodes);
 
-  codeCounts.forEach((count, code) => {
-    if (code !== `n` && count > 1) {
-      const e = new Error(`The ${code} code appears more than once in the utterance. Each backslash code may only appear once.`);
-      e.name = `MultipleCodesError`;
-      throw e;
-    }
-  });
+  if (uniqueCodes.size < nonNoteCodes.length) {
+    const duplicateCode = difference(nonNoteCodes, Array.from(uniqueCodes))[0];
+    const e = new Error(`The ${duplicateCode} code appears more than once in the utterance. Each backslash code may only appear once.`);
+    e.name = `MultipleCodesError`;
+    throw e;
+  }
 
   // Check that morphemes and glosses lines are codependent
 
