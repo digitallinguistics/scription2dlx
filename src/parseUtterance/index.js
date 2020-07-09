@@ -28,24 +28,31 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
 
   try {
 
-    // TODO: Is this the best way to do this? Can you do this inline?
-    const {
-      lit,
-      n,
-      phon,
-      tln,
-      trs,
-      txn,
-      s,
-      sp,
-    } = codesHash;
+    const utterance = {};
+
+    // metadata
+
+    const hasMetadata = rawLines[0].startsWith(`#`);
+
+    if (hasMetadata) {
+
+      const rawMetadata = rawLines.shift();
+
+      if (utteranceMetadata === true) {
+        const metadata = parseMetadata(rawMetadata);
+        if (metadata) utterance.metadata = metadata;
+      }
+
+    }
+
+    // create lines hash
 
     const lines = rawLines.reduce((hash, line, i) => {
 
       // A regular exprssion to match line data (excluding leading backslash code)
       const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
 
-      const code  = schema[i] || `n-${i}`; // treat extra lines as notes; index is removed later
+      const code  = schema[i];
       const match = line.match(lineDataRegExp);
       const data  = (match ? match.groups.lineData : line).trim();
 
@@ -55,42 +62,55 @@ export default function parseUtterance(rawLines, schema, codesHash, { utteranceM
 
     }, {});
 
+    // check for no data
+
     const noData = !Object.values(lines).every(Boolean);
 
     if (noData) return null;
 
-    // Extract known utterance properties and populate the utterance
+    // process individual lines
 
-    const metadata    = parseMetadata(rawLines);
-    const speaker     = parseSpeaker(lines[sp]);
-    const transcript  = parseTranscript(trs, lines);
-    let transcription = parseTranscription(txn, lines);
-    const phonetic    = parsePhonetic(lines[phon]);
-    const literal     = parseLiteral(lit, lines);
-    const translation = parseTranslation(tln, lines) || ``;
-    const source      = parseSource(lines[s]);
-    const notes       = parseNotes(n, lines);
-    const words       = parseWords(codesHash, lines);
-    const misc        = parseMisc(codesHash, lines);
-
-    if (!transcription) {
-      const wordTranscriptions = words.map(({ transcription: t }) => t);
-      transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
+    if (schema.includes(`sp`)) {
+      utterance.speaker = parseSpeaker(lines[codesHash.sp]);
     }
 
-    return {
-      ...utteranceMetadata && metadata ? { metadata } : {},
-      ...speaker ? { speaker } : {},
-      ...transcript ? { transcript } : {},
-      transcription,
-      ...phonetic ? { phonetic } : {},
-      ...literal ? { literal } : {},
-      translation,
-      ...source ? { source } : {},
-      ...notes.length ? { notes } : {},
-      ...words.length ? { words } : {},
-      ...misc,
-    };
+    if (schema.includes(`trs`)) {
+      utterance.transcript  = parseTranscript(codesHash.trs, lines);
+    }
+
+    utterance.transcription = parseTranscription(codesHash.txn, lines);
+
+    if (schema.includes(`phon`)) {
+      utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
+    }
+
+    if (schema.includes(`lit`)) {
+      utterance.literal = parseLiteral(codesHash.li, lines);
+    }
+
+    utterance.translation = parseTranslation(codesHash.tln, lines) || ``;
+
+    if (schema.includes(`s`)) {
+      utterance.source = parseSource(lines[codesHash.s]);
+    }
+
+    const words = parseWords(codesHash, lines);
+    if (words.length) utterance.words = words;
+
+    const notes = parseNotes(codesHash.n, lines);
+    if (notes.length) utterance.notes = notes;
+
+    const misc = parseMisc(codesHash, lines);
+    Object.assign(utterance, misc);
+
+    // construct transcription if not present.
+
+    if (!utterance.transcription) {
+      const wordTranscriptions = utterance.words.map(({ transcription: t }) => t);
+      utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `) || ``;
+    }
+
+    return utterance;
 
   } catch (e) {
 

@@ -12,7 +12,7 @@ import parseUtterances               from './parseUtterances.js';
 export default function scription2dlx(scription = ``, {
   codes = {},
   parser,
-  utteranceMetadata = false,
+  utteranceMetadata = true,
 } = {}) {
 
   if (scription.trim() === ``) return {};
