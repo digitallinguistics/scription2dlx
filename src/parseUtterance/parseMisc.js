@@ -5,7 +5,7 @@
 import { lineCodes as scriptionCodes } from '../utilities/constants/index.js';
 
 /**
- * Extracts any custom lines from the lines hash and returns them in an object
+ * Extracts any unspecified lines from the lines hash and returns them in an object
  * @param  {Object} customCodes A hash of scription codes => custom codes
  * @param  {Object} lines       The lines hash
  * @return {Object}
