@@ -49,6 +49,8 @@ function tokenizeWord(string) {
  */
 export default function parseMorphemes(codes, wordHash) {
 
+  debugger;
+
   const morphemeLines = getLines([codes.gl, codes.m], wordHash);
 
   if (!morphemeLines) return [];
@@ -69,13 +71,7 @@ export default function parseMorphemes(codes, wordHash) {
       ...gloss ? { gloss } : {},
     };
 
-  })
-  .flatMap(morpheme => separateInfix(codes.gl, morpheme))
-  .map(data => ({
-    // eslint-disable-next-line no-undefined
-    gloss:         groupLines(codes.gl, data) || undefined,
-    transcription: groupLines(codes.m, data) || ``,
-  }));
+  });
 
   if (!morphemes.length) return [];
 
