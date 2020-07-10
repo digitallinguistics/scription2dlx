@@ -100,7 +100,7 @@ describe(`glosses`, () => {
 
   });
 
-  it.only(`parses infixes`, () => {
+  it(`parses infixes`, () => {
 
     // Tagalog, Latin
 
