@@ -41,4 +41,17 @@ describe(`transcript`, () => {
 
   });
 
+  it(`removes extra white space`, function() {
+
+    const text = `
+    \\trs we  qasi
+    \\wlt DET a.man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.transcript).to.be(`we qasi`);
+
+  });
+
 });

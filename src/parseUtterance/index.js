@@ -54,13 +54,16 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     const lines = rawLines.reduce((hash, line, i) => {
 
       // A regular exprssion to match line data (excluding leading backslash code)
-      const lineDataRegExp = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
+      const lineDataRegExp   = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;
+      const whiteSpaceRegExp = /\s+/gu;
 
       const code  = schema[i] ?? `n-${i}`;
       const match = line.match(lineDataRegExp);
       const data  = (match ? match.groups.lineData : line).trim();
 
-      hash[code] = data; // eslint-disable-line no-param-reassign
+      // replace a sequence of white space with a single space
+      // eslint-disable-next-line no-param-reassign
+      hash[code] = data.replace(whiteSpaceRegExp, ` `);
 
       return hash;
 
