@@ -108,7 +108,7 @@ describe(`utterance metadata`, () => {
 
   });
 
-  it.only(`includes metadata in error messages`, function() {
+  it(`includes metadata in error messages`, function() {
 
     const text = `
     # metadata
