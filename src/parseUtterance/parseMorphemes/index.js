@@ -10,6 +10,7 @@ import {
   getLines,
   groupLines,
   mergeTranscriptions,
+  removeBrackets,
   validateNumItems,
 } from '../../utilities/index.js';
 
@@ -61,8 +62,9 @@ export default function parseMorphemes(codes, wordHash) {
   .flatMap(morpheme => separateInfix(codes.gl, morpheme))
   .map(data => {
 
-    const transcription = groupLines(codes.m, data) || ``;
-    const gloss         = groupLines(codes.gl, data);
+    const gloss       = groupLines(codes.gl, data);
+    let transcription = groupLines(codes.m, data) || ``;
+    transcription     = removeBrackets(`infix`, transcription);
 
     return {
       transcription,

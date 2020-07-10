@@ -105,16 +105,24 @@ describe(`glosses`, () => {
     // Tagalog, Latin
 
     const text = `
+    # Tagalog
     b<um>ili
     <FOC>buy
     buy
 
+    # Latin
     reli<n>qu-ere
     leave<PRS>-INF
     to leave
+
+    # Nuuchahnulth
+    \\txn č̓aaxstimcm̓it
+    \\m   č̓aːstimc-<x>-m̓i·t
+    \\gl  mink-MINK-son.of
+    \\tln Son of Mink
     `;
 
-    const { utterances: [Tagalog, Latin] } = convert(text);
+    const { utterances: [Tagalog, Latin, Nuuchahnulth] } = convert(text);
 
     const TagalogMorphemes = Tagalog.words[0].morphemes;
 
@@ -129,6 +137,11 @@ describe(`glosses`, () => {
     expect(LatinMorphemes[0].gloss).to.be(`leave`);
     expect(LatinMorphemes[1].transcription).to.be(`n`);
     expect(LatinMorphemes[1].gloss).to.be(`PRS`);
+
+    const NuuchahnulthMorphemes = Nuuchahnulth.words[0].morphemes;
+    const [, m2] = NuuchahnulthMorphemes;
+
+    expect(m2.transcription).to.be(`x`);
 
   });
 
