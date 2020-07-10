@@ -167,4 +167,36 @@ describe(`note`, () => {
 
   });
 
+  it.only(`may have a backslash even when other lines do not`, function() {
+
+    const noteText = `This is a note.`;
+
+    const text = `
+    waxdungu qasi
+    one day a man
+    \\n ${noteText}
+    `;
+
+    const { utterances: [{ notes: [note] }] } = convert(text);
+
+    expect(note.text).to.be(noteText);
+
+  });
+
+  it.only(`may lack a backslash even when other lines have it`, function() {
+
+    const noteText = `This is a note.`;
+
+    const text = `
+    \\txn waxdungu qasi
+    \\tln one day a man
+    ${noteText}
+    `;
+
+    const { utterances: [{ notes: [note] }] } = convert(text);
+
+    expect(note.text).to.be(noteText);
+
+  });
+
 });
