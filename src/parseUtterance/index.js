@@ -31,16 +31,17 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
   const { alignmentError, utteranceMetadata } = options;
   const utterance = {};
+  let lines = [...rawLines];
 
   try {
 
     // metadata
 
-    const hasMetadata = rawLines[0].startsWith(`#`);
+    const hasMetadata = lines[0].startsWith(`#`);
 
     if (hasMetadata) {
 
-      const rawMetadata = rawLines.shift();
+      const rawMetadata = lines.shift();
 
       if (utteranceMetadata === true) {
         const metadata = parseMetadata(rawMetadata);
@@ -51,7 +52,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     // create lines hash
 
-    const lines = rawLines.reduce((hash, line, i) => {
+    lines = lines.reduce((hash, line, i) => {
 
       // A regular exprssion to match line data (excluding leading backslash code)
       const lineDataRegExp   = /^\\(?:(?:\w|-)+)(?<lineData>.*)$/u;

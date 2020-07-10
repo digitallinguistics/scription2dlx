@@ -108,4 +108,18 @@ describe(`utterance metadata`, () => {
 
   });
 
+  it(`includes metadata in error messages`, function() {
+
+    const text = `
+    # metadata
+    \\m waxt-qungu qasi
+    \\gl one.day
+    `;
+
+    const test = () => convert(text, { alignmentError: true });
+
+    expect(test).to.throwError(/metadata/u);
+
+  });
+
 });
