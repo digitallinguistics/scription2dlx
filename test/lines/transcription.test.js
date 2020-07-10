@@ -55,7 +55,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
   });
 
-  it.only(`removes extraneous whitespace`, () => {
+  it(`removes extraneous whitespace`, () => {
 
     const text = `
     \\txn waxdungu     qasi
