@@ -41,7 +41,7 @@ describe(`transcript`, () => {
 
   });
 
-  it.only(`removes extra white space`, function() {
+  it(`removes extra white space`, function() {
 
     const text = `
     \\trs we  qasi
