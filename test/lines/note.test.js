@@ -43,6 +43,7 @@ describe(`note`, () => {
     const noteText = `Is this utterance past or present tense?`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n ${initials}: ${noteText}
     `;
 
@@ -59,6 +60,7 @@ describe(`note`, () => {
     const noteText = `Is this utterance past or present tense?`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n ${noteText}
     `;
 
@@ -76,6 +78,7 @@ describe(`note`, () => {
     const noteText = `Is this utterance past or present tense?`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n-${lang} ${noteText}
     `;
 
@@ -92,6 +95,7 @@ describe(`note`, () => {
     const noteText = `This is a note.`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n ${noteText}
     `;
 
@@ -110,6 +114,7 @@ describe(`note`, () => {
     const noteText = `This is a note.`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n-${lang} ${initials} : ${noteText}
     `;
 
@@ -127,6 +132,7 @@ describe(`note`, () => {
     const noteText = `This is a note.`;
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n ${initials}:\t \t${noteText}
     `;
 
@@ -141,6 +147,7 @@ describe(`note`, () => {
   it(`does not recognize colons in the note text`, () => {
 
     const sampleText = `
+    \\trs This is a transcript.
     \\n What do you think: choice one or choice two?
     `;
 
@@ -167,7 +174,7 @@ describe(`note`, () => {
 
   });
 
-  it.only(`may have a backslash even when other lines do not`, function() {
+  it(`may have a backslash even when other lines do not`, function() {
 
     const noteText = `This is a note.`;
 
@@ -183,19 +190,22 @@ describe(`note`, () => {
 
   });
 
-  it.only(`may lack a backslash even when other lines have it`, function() {
+  it(`may not lack a backslash when other lines have it`, function() {
 
     const noteText = `This is a note.`;
 
     const text = `
     \\txn waxdungu qasi
     \\tln one day a man
+
+    \\txn waxdungu qasi
+    \\tln one day a man
     ${noteText}
     `;
 
-    const { utterances: [{ notes: [note] }] } = convert(text);
+    const test = () => convert(text);
 
-    expect(note.text).to.be(noteText);
+    expect(test).to.throwError(`GetSchemaError`);
 
   });
 

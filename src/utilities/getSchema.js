@@ -28,21 +28,22 @@ function getCode(line) {
  */
 function validateSchema(schema) { /* eslint-disable-line max-statements */
 
+  const codes = schema.filter(Boolean);
+  const types = codes.map(getLineType);
+  // NB: Items in the types array may not be unique (and later code depends on this fact)
+
   // Check that if any line has a backslash code, all lines do
   // NB: This validation must come first
 
   const someLinesHaveCodes = schema.some(code => isString(code));
+  const codeLinesAreNotes  = types.every(type => type === `n`);
   const allLinesHaveCodes  = schema.every(code => isString(code));
 
-  if (someLinesHaveCodes && !allLinesHaveCodes) {
+  if (someLinesHaveCodes && !allLinesHaveCodes && !codeLinesAreNotes) {
     const e = new Error(`If one line in an utterance has a backslash code, all lines in the utterance must have backslash codes.`);
     e.name = `ConsistentCodesError`;
     throw e;
   }
-
-  const codes = schema.filter(Boolean);
-  const types = codes.map(getLineType);
-  // NB: Items in the types array may not be unique (and later code depends on this fact)
 
   // Check that codes are valid
 
@@ -104,17 +105,23 @@ export default function getSchema(lines) {
 
   try {
 
-    const schema = lines
+    let schema = lines
     .map(getCode)
     .filter(code => code !== `#`);
 
     validateSchema(schema);
 
-    const hasCodes = schema.filter(Boolean).length;
+    const lineCount = schema
+    .filter(code => code !== `n`)
+    .length;
+
+    schema = schema
+    .filter(Boolean)
+    .filter(code => code !== `n`);
+
+    const hasCodes = schema.length;
 
     if (!hasCodes) {
-
-      const lineCount = schema.length;
 
       /* eslint-disable no-magic-numbers */
       if (lineCount === 2) return [`txn`, `tln`];
