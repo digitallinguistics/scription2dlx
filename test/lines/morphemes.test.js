@@ -36,20 +36,6 @@ describe(`morphemes`, () => {
 
   });
 
-  // alignmentError = "warn" OR false
-  it(`skips utterances with alignment errors by default`, function() {
-
-    const text = `
-    \\m  waxdungu qasi
-    \\gl day-one  a man
-    `;
-
-    const { utterances } = convert(text);
-
-    expect(utterances).not.to.have.length();
-
-  });
-
   it(`option: alignmentError = false`, function() {
 
     const text = `

@@ -263,6 +263,11 @@ describe(`interlinear gloss schema`, () => {
 
     expect(note.text).to.be(noteText);
 
+    const props = Object.keys(utterance);
+    const hasNoteProp = props.some(prop => /^n-[0-9]/u.test(prop));
+
+    expect(hasNoteProp).to.be(false);
+
   });
 
   it(`treats any additional unknown lines as note lines`, () => {

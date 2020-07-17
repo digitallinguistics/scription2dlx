@@ -35,7 +35,9 @@ export default function parseUtterances(scription, codes, options) {
 
     // NOTE: This isn't a precise check, but this is fine because
     // the only consequence is that getSchema() is called unnecessarily below
-    const hasOwnSchema = utterance.some(line => line.startsWith(`\\`));
+    const hasOwnSchema = utterance
+    .filter(line => !line.startsWith(`\\n`))
+    .some(line => line.startsWith(`\\`));
 
     const utteranceSchema = hasOwnSchema ? getSchema(utterance) : textSchema;
 
