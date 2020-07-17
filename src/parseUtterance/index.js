@@ -2,6 +2,7 @@
   max-statements,
 */
 
+import parseDuration      from './parseDuration.js';
 import parseLiteral       from './parseLiteral.js';
 import parseMetadata      from './parseMetadata.js';
 import parseMisc          from './parseMisc.js';
@@ -90,7 +91,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     utterance.transcription = parseTranscription(codesHash.txn, lines);
 
-    if (types.includes(`phon`)) {
+    if (types.includes(`phon`) && schema.includes(`phon`)) {
       utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
     }
 
@@ -102,6 +103,12 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     if (types.includes(`s`)) {
       utterance.source = parseSource(lines[codesHash.s]);
+    }
+
+    if (types.includes(`t`)) {
+      const { startTime, endTime } = parseDuration(lines[codesHash.t]);
+      utterance.startTime = startTime;
+      utterance.endTime   = endTime;
     }
 
     const words = parseWords(codesHash, lines);

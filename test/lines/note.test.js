@@ -56,7 +56,7 @@ describe(`note`, () => {
 
   });
 
-  it.only(`may have only text`, () => {
+  it(`may have only text`, () => {
 
     const noteText = `Is this utterance past or present tense?`;
 

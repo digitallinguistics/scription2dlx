@@ -18,5 +18,6 @@ export default {
   lit:  `lit`,
   tln:  `tln`,
   s:    `s`,
+  t:    `t`,
   n:    `n`,
 };
