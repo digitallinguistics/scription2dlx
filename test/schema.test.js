@@ -308,14 +308,14 @@ describe(`interlinear gloss schema`, () => {
     const translation   = `one day a man`;
 
     const text = `
-    \\t  ${transcription}
-    \\wt ${transcription}
-    \\tl ${translation}
+    \\trans ${transcription}
+    \\wt    ${transcription}
+    \\tl    ${translation}
     `;
 
     const codes = {
       tln: `tl`,
-      txn: `t`,
+      txn: `trans`,
       w:   `wt`,
     };
 

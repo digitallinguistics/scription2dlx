@@ -73,7 +73,9 @@ function validateSchema(schema) { /* eslint-disable-line max-statements */
   const hasGlosses   = types.some(type => type === `gl`);
 
   if ((hasMorphemes || hasGlosses) && !(hasMorphemes && hasGlosses)) {
-    throw new Error(`If either the morphemes or glosses line is present, the other must be present as well.`);
+    const e = new Error(`If either the morphemes or glosses line is present, the other must be present as well.`);
+    e.name = `MorphemeGlossDependencyError`;
+    throw e;
   }
 
   // Check that language tags are valid IETF tags
