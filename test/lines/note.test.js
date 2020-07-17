@@ -19,7 +19,6 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-
     expect(source).to.be(initials);
     expect(language).to.be(lang);
     expect(text).to.be(noteText);
@@ -56,7 +55,7 @@ describe(`note`, () => {
 
   });
 
-  it(`may have only text`, () => {
+  it.only(`may have only text`, () => {
 
     const noteText = `Is this utterance past or present tense?`;
 
@@ -65,10 +64,13 @@ describe(`note`, () => {
     \\n ${noteText}
     `;
 
-    const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
+    const { utterances: [{ notes }] } = convert(sampleText);
+    const [note] = notes;
+    const { language, text } = note;
 
+    expect(notes).to.have.length(1);
+    expect(`source` in note).to.be(false);
     expect(language).to.be(`en`);
-    expect(source).to.be(undefined);
     expect(text).to.be(noteText);
 
   });

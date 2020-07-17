@@ -31,7 +31,7 @@ export default function parseNotes(lineCode, lines) {
 
     return {
       language,
-      source,
+      ...source ? { source } : {},
       text,
     };
 
