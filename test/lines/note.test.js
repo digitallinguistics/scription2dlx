@@ -19,6 +19,7 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
+
     expect(source).to.be(initials);
     expect(language).to.be(lang);
     expect(text).to.be(noteText);
