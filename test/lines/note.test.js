@@ -19,6 +19,7 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
+
     expect(source).to.be(initials);
     expect(language).to.be(lang);
     expect(text).to.be(noteText);
@@ -206,6 +207,33 @@ describe(`note`, () => {
     const test = () => convert(text);
 
     expect(test).to.throwError(`GetSchemaError`);
+
+  });
+
+  it(`explicit final notes do not break schema`, function() {
+
+    const translation = `He might have said, “you corpse.”`;
+
+    const text = `
+    \\trs
+    \\m
+    \\gl
+    \\wlt
+    \\tln
+
+    # 249
+    waamitii           tušaakitʔi.
+    wa·-mit-(y)iː      tušaːk-it-ʔi·
+    say-PAST-INDF.3    dead?-PAST-DEF
+    he.might.have.said corpse
+    ${translation}
+    \\n DWH: Corpse is used as a curse word here.
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+
+    expect(utterance.notes).to.have.length(1);
+    expect(utterance.translation).to.be(translation);
 
   });
 
