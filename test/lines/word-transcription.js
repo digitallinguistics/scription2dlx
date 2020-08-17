@@ -22,4 +22,8 @@ describe(`phonemic transcription (word)`, () => {
 
   });
 
+  it(`default orthography`);
+
+  it(`option: orthography`);
+
 });

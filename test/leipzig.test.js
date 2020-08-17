@@ -15,7 +15,7 @@ describe(`Leipzig glossing rules`, () => {
     const [word]                      = words;
 
     expect(words).to.have.length(2);
-    expect(word.analysis).to.be(`word`);
+    expect(word.analysis.default).to.be(`word`);
     expect(word.gloss).to.be(`gloss`);
 
   });
@@ -33,7 +33,7 @@ describe(`Leipzig glossing rules`, () => {
     const [morpheme]                  = morphemes;
 
     expect(morphemes).to.have.length(2);
-    expect(morpheme.transcription).to.be(`a`);
+    expect(morpheme.transcription.default).to.be(`a`);
     expect(morpheme.gloss).to.be(`A`);
 
   });
@@ -51,7 +51,7 @@ describe(`Leipzig glossing rules`, () => {
     const [, morpheme]                = morphemes;
 
     expect(morphemes).to.have.length(2);
-    expect(morpheme.transcription).to.be(`clitic`);
+    expect(morpheme.transcription.default).to.be(`clitic`);
     expect(morpheme.gloss).to.be(`CLITIC`);
 
   });
@@ -66,16 +66,16 @@ describe(`Leipzig glossing rules`, () => {
     const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
-    expect(w1.analysis).to.be(`word`);
+    expect(w1.analysis.default).to.be(`word`);
     expect(w1.gloss).to.be(`a.gloss`);
-    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.analysis.default).to.be(`morpheme-suffix`);
     expect(w2.gloss).to.be(`a.gloss-SUFFIX`);
 
     const { morphemes: [m1, m2] } = w2;
 
-    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.transcription.default).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a.gloss`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
   });
@@ -90,16 +90,16 @@ describe(`Leipzig glossing rules`, () => {
     const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
-    expect(w1.analysis).to.be(`word`);
+    expect(w1.analysis.default).to.be(`word`);
     expect(w1.gloss).to.be(`a_gloss`);
-    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.analysis.default).to.be(`morpheme-suffix`);
     expect(w2.gloss).to.be(`a_gloss-SUFFIX`);
 
     const { morphemes: [m1, m2] } = w2;
 
-    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.transcription.default).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a_gloss`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
   });
@@ -114,16 +114,16 @@ describe(`Leipzig glossing rules`, () => {
     const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
-    expect(w1.analysis).to.be(`word`);
+    expect(w1.analysis.default).to.be(`word`);
     expect(w1.gloss).to.be(`a;gloss`);
-    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.analysis.default).to.be(`morpheme-suffix`);
     expect(w2.gloss).to.be(`a;gloss-SUFFIX`);
 
     const { morphemes: [m1, m2] } = w2;
 
-    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.transcription.default).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a;gloss`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
   });
@@ -138,16 +138,16 @@ describe(`Leipzig glossing rules`, () => {
     const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
-    expect(w1.analysis).to.be(`word`);
+    expect(w1.analysis.default).to.be(`word`);
     expect(w1.gloss).to.be(`a:gloss`);
-    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.analysis.default).to.be(`morpheme-suffix`);
     expect(w2.gloss).to.be(`a:gloss-SUFFIX`);
 
     const { morphemes: [m1, m2] } = w2;
 
-    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.transcription.default).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a:gloss`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
   });
@@ -162,16 +162,16 @@ describe(`Leipzig glossing rules`, () => {
     const { utterances: [utterance] } = convert(text);
     const { words: [w1, w2] } = utterance;
 
-    expect(w1.analysis).to.be(`word`);
+    expect(w1.analysis.default).to.be(`word`);
     expect(w1.gloss).to.be(`a\\gloss`);
-    expect(w2.analysis).to.be(`morpheme-suffix`);
+    expect(w2.analysis.default).to.be(`morpheme-suffix`);
     expect(w2.gloss).to.be(`a\\gloss-SUFFIX`);
 
     const { morphemes: [m1, m2] } = w2;
 
-    expect(m1.transcription).to.be(`morpheme`);
+    expect(m1.transcription.default).to.be(`morpheme`);
     expect(m1.gloss).to.be(`a\\gloss`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`SUFFIX`);
 
   });
@@ -188,9 +188,9 @@ describe(`Leipzig glossing rules`, () => {
     const { morphemes }               = word;
     const [m1, m2]                    = morphemes;
 
-    expect(m1.transcription).to.be(`stem`);
+    expect(m1.transcription.default).to.be(`stem`);
     expect(m1.gloss).to.be(`gl`);
-    expect(m2.transcription).to.be(`suffix`);
+    expect(m2.transcription.default).to.be(`suffix`);
     expect(m2.gloss).to.be(`1>3`);
 
   });
@@ -207,12 +207,12 @@ describe(`Leipzig glossing rules`, () => {
     const { morphemes }               = word;
 
     expect(utterance.translation).to.be(`boy`);
-    expect(word.analysis).to.be(`puer`);
+    expect(word.analysis.default).to.be(`puer`);
     expect(morphemes).to.have.length(1);
 
     const [morpheme] = morphemes;
 
-    expect(morpheme.transcription).to.be(`puer`);
+    expect(morpheme.transcription.default).to.be(`puer`);
     expect(morpheme.gloss).to.be(`boy[NOM.SG]`);
 
   });
@@ -230,12 +230,12 @@ describe(`Leipzig glossing rules`, () => {
     const { morphemes }               = word;
 
     expect(utterance.translation).to.be(`light`);
-    expect(word.analysis).to.be(`taa`);
+    expect(word.analysis.default).to.be(`taa`);
     expect(morphemes).to.have.length(1);
 
     const [morpheme] = morphemes;
 
-    expect(morpheme.transcription).to.be(`taa`);
+    expect(morpheme.transcription.default).to.be(`taa`);
     expect(morpheme.gloss).to.be(`light(CL9)`);
 
   });
@@ -258,7 +258,7 @@ describe(`Leipzig glossing rules`, () => {
 
     utterances.forEach(u => {
 
-      expect(u.transcription).to.be(`bibili`);
+      expect(u.transcription.default).to.be(`bibili`);
       expect(u.translation).to.be(`is buying`);
       expect(u.words).to.have.length(1);
 
@@ -269,13 +269,13 @@ describe(`Leipzig glossing rules`, () => {
       const [m1, m2] = w.morphemes;
 
       expect(m1.gloss).to.be(`IPFV`);
-      expect(m2.transcription).to.be(`bili`);
+      expect(m2.transcription.default).to.be(`bili`);
       expect(m2.gloss).to.be(`buy`);
 
     });
 
-    expect(utterances[0].words[0].morphemes[0].transcription).to.be(`bi`);
-    expect(utterances[1].words[0].morphemes[0].transcription).to.be(`DUP`);
+    expect(utterances[0].words[0].morphemes[0].transcription.default).to.be(`bi`);
+    expect(utterances[1].words[0].morphemes[0].transcription.default).to.be(`DUP`);
 
   });
 

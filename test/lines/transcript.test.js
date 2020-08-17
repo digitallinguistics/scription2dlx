@@ -37,7 +37,7 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript).to.be(transcript);
+    expect(utterance.transcript.default).to.be(transcript);
 
   });
 
@@ -50,8 +50,12 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript).to.be(`we qasi`);
+    expect(utterance.transcript.default).to.be(`we qasi`);
 
   });
+
+  it(`default orthography`);
+
+  it(`option: orthography`);
 
 });

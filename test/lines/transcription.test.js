@@ -18,7 +18,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.transcription.default).to.be(transcription);
 
   });
 
@@ -51,7 +51,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).to.be(`waxdungu qasi`);
+    expect(utterance.transcription.default).to.be(`waxdungu qasi`);
 
   });
 
@@ -67,8 +67,8 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [u1, u2] } = convert(text);
 
-    expect(u1.transcription).to.be(`waxdungu qasi`);
-    expect(u2.transcription).to.be(``);
+    expect(u1.transcription.default).to.be(`waxdungu qasi`);
+    expect(u2.transcription.default).to.be(``);
 
   });
 
@@ -82,8 +82,12 @@ describe(`phomemic transcription (utterance)`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.transcription.includes(`*`)).to.be(false);
+    expect(utterance.transcription.default.includes(`*`)).to.be(false);
 
   });
+
+  it(`default orthography`);
+
+  it(`option: orthography`);
 
 });

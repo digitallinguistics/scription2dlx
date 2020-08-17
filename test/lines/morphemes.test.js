@@ -112,7 +112,7 @@ describe(`morphemes`, () => {
     const { utterances: [{ words }] } = convert(text);
     const lastWord = words.pop();
 
-    expect(lastWord.analysis).to.be(`[Benjamin Paul]`);
+    expect(lastWord.analysis.default).to.be(`[Benjamin Paul]`);
     expect(lastWord.gloss).to.be(`NAME`);
 
   });
@@ -126,7 +126,7 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
 
-    expect(morpheme.transcription).to.be(`waxt`);
+    expect(morpheme.transcription.default).to.be(`waxt`);
 
   });
 
