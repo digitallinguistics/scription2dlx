@@ -86,8 +86,28 @@ describe(`phomemic transcription (utterance)`, () => {
 
   });
 
-  it(`default orthography`);
+  it(`default orthography`, () => {
 
-  it(`option: orthography`);
+    const text = `
+    waxdungu qasi
+    one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(Object.keys(utterance.transcription)[0]).to.be(`default`);
+
+  });
+
+  it(`option: orthography`, () => {
+
+    const text = `
+    waxdungu qasi
+    one day a man
+    `;
+
+    const { utterances: [utterance] } = convert(text, { orthography: `Mod` });
+    expect(Object.keys(utterance.transcription)[0]).to.be(`Mod`);
+
+  });
 
 });

@@ -22,8 +22,30 @@ describe(`phonemic transcription (word)`, () => {
 
   });
 
-  it(`default orthography`);
+  it(`default orthography`, () => {
 
-  it(`option: orthography`);
+    const text = `
+    \\w  waxdungu
+    \\m  waxt-qungu
+    \\gl day-one
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text);
+    expect(Object.keys(word.transcription)[0]).to.be(`default`);
+
+  });
+
+  it(`option: orthography`, () => {
+
+    const text = `
+    \\w  waxdungu
+    \\m  waxt-qungu
+    \\gl day-one
+    `;
+
+    const { utterances: [{ words: [word] }] } = convert(text, { orthography: `Mod` });
+    expect(Object.keys(word.transcription)[0]).to.be(`Mod`);
+
+  });
 
 });
