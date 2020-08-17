@@ -3,7 +3,7 @@ import expect  from 'expect.js';
 
 describe(`Leipzig glossing rules`, () => {
 
-  it.only(`⟨ ⟩ parses spaces (word separator)`, function() {
+  it(`⟨ ⟩ parses spaces (word separator)`, function() {
 
     const text = `
     \\m  word word

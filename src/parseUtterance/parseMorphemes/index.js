@@ -44,11 +44,12 @@ function tokenizeWord(string) {
 
 /**
  * Accepts an lines hash for a word (morpheme and gloss lines) and returns an array of DLx Morpheme objects
- * @param  {Object} codes    The hash of line codes
- * @param  {Object} wordHash The lines hash for the word
- * @return {Array}           Returns an array of DLx Morpheme objeccts
+ * @param  {Object} codes       The hash of line codes
+ * @param  {Object} wordHash    The lines hash for the word
+ * @param  {String} orthogrpahy The abbreviation to use for the default orthography, if none is provided.
+ * @return {Array}              Returns an array of DLx Morpheme objeccts
  */
-export default function parseMorphemes(codes, wordHash) {
+export default function parseMorphemes(codes, wordHash, orthography) {
 
   const morphemeLines = getLines([codes.gl, codes.m], wordHash);
 
@@ -65,6 +66,8 @@ export default function parseMorphemes(codes, wordHash) {
     const gloss       = groupLines(codes.gl, data);
     let transcription = groupLines(codes.m, data) || ``;
     transcription     = removeBrackets(`infix`, transcription);
+
+    if (typeof transcription === `string`) transcription = { [orthography]: transcription };
 
     return {
       transcription,

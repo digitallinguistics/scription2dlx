@@ -193,7 +193,7 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription.deafult).to.be(transcription);
+    expect(utterance.transcription.default).to.be(transcription);
     expect(utterance.translation).to.be(translation);
     expect(utterance.words.length).to.be(2);
 

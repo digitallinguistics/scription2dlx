@@ -12,6 +12,7 @@ import parseUtterances               from './parseUtterances.js';
 export default function scription2dlx(scription = ``, {
   alignmentError = `warn`,
   codes = {},
+  orthography = `default`,
   parser,
   utteranceMetadata = true,
 } = {}) {
@@ -26,10 +27,11 @@ export default function scription2dlx(scription = ``, {
 
   const options = {
     alignmentError,
+    orthography,
     utteranceMetadata,
   };
 
-  const lineCodes  = Object.assign({}, defaultCodes, codes || {});
+  const lineCodes  = Object.assign({}, defaultCodes, codes);
   const header     = parseHeader(scription, parser);
   const utterances = parseUtterances(scription, lineCodes, options);
 

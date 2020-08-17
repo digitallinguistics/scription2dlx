@@ -30,9 +30,14 @@ import {
  */
 export default function parseUtterance(rawLines, schema, codesHash, options) {
 
-  const { alignmentError, utteranceMetadata } = options;
   const utterance = {};
-  let lines = [...rawLines];
+  let lines       = [...rawLines];
+
+  const {
+    alignmentError,
+    orthography,
+    utteranceMetadata,
+  } = options;
 
   try {
 
@@ -86,10 +91,10 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     }
 
     if (types.includes(`trs`)) {
-      utterance.transcript  = parseTranscript(codesHash.trs, lines);
+      utterance.transcript  = parseTranscript(codesHash.trs, lines, orthography);
     }
 
-    utterance.transcription = parseTranscription(codesHash.txn, lines);
+    utterance.transcription = parseTranscription(codesHash.txn, lines, orthography);
 
     if (types.includes(`phon`) && schema.includes(`phon`)) {
       utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
@@ -111,7 +116,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
       utterance.endTime   = endTime;
     }
 
-    const words = parseWords(codesHash, lines);
+    const words = parseWords(codesHash, lines, orthography);
     if (words.length) utterance.words = words;
 
     const notes = parseNotes(codesHash.n, lines);
@@ -125,6 +130,10 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     if (!utterance.transcription) {
       const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) || [];
       utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `);
+    }
+
+    if (typeof utterance.transcription === `string`) {
+      utterance.transcription = { [orthography]: utterance.transcription };
     }
 
     return utterance;
