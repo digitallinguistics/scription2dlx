@@ -37,7 +37,7 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript).to.be(transcript);
+    expect(utterance.transcript.default).to.be(transcript);
 
   });
 
@@ -50,7 +50,31 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript).to.be(`we qasi`);
+    expect(utterance.transcript.default).to.be(`we qasi`);
+
+  });
+
+  it(`default orthography`, () => {
+
+    const text = `
+    \\trs waxdungu qasi
+    \\wlt one.day  a.man
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(Object.keys(utterance.transcript)[0]).to.be(`default`);
+
+  });
+
+  it(`option: orthography`, () => {
+
+    const text = `
+    \\trs waxdungu qasi
+    \\wlt one.day  a.man
+    `;
+
+    const { utterances: [utterance] } = convert(text, { orthography: `Mod` });
+    expect(Object.keys(utterance.transcript)[0]).to.be(`Mod`);
 
   });
 

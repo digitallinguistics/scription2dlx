@@ -20,7 +20,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.transcription.default).to.be(transcription);
     expect(utterance.metadata).to.be(meta);
 
   });
@@ -38,7 +38,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: false });
 
-    expect(utterance.transcription).to.be(transcription);
+    expect(utterance.transcription.default).to.be(transcription);
     expect(utterance.metadata).to.be(undefined);
 
   });

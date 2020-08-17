@@ -126,22 +126,22 @@ describe(`glosses`, () => {
 
     const TagalogMorphemes = Tagalog.words[0].morphemes;
 
-    expect(TagalogMorphemes[0].transcription).to.be(`um`);
+    expect(TagalogMorphemes[0].transcription.default).to.be(`um`);
     expect(TagalogMorphemes[0].gloss).to.be(`FOC`);
-    expect(TagalogMorphemes[1].transcription).to.be(`bili`);
+    expect(TagalogMorphemes[1].transcription.default).to.be(`bili`);
     expect(TagalogMorphemes[1].gloss).to.be(`buy`);
 
     const LatinMorphemes = Latin.words[0].morphemes;
 
-    expect(LatinMorphemes[0].transcription).to.be(`reliqu`);
+    expect(LatinMorphemes[0].transcription.default).to.be(`reliqu`);
     expect(LatinMorphemes[0].gloss).to.be(`leave`);
-    expect(LatinMorphemes[1].transcription).to.be(`n`);
+    expect(LatinMorphemes[1].transcription.default).to.be(`n`);
     expect(LatinMorphemes[1].gloss).to.be(`PRS`);
 
     const NuuchahnulthMorphemes = Nuuchahnulth.words[0].morphemes;
     const [, m2] = NuuchahnulthMorphemes;
 
-    expect(m2.transcription).to.be(`x`);
+    expect(m2.transcription.default).to.be(`x`);
 
   });
 
@@ -164,15 +164,15 @@ describe(`glosses`, () => {
     const LakotaMorphemes = Lakota.words[0].morphemes;
 
     const LakotaStem = LakotaMorphemes
-    .find(({ transcription }) => transcription === `na…xʔu̧`);
+    .find(({ transcription }) => transcription.default === `na…xʔu̧`);
 
     const ArabicMorphemes = Arabic.words[0].morphemes;
 
     const ArabicStem = ArabicMorphemes
-    .find(({ transcription }) => transcription === `t…r…g`);
+    .find(({ transcription }) => transcription.default === `t…r…g`);
 
     const ArabicTransfix = ArabicMorphemes
-    .find(({ transcription }) => transcription === `u…u`);
+    .find(({ transcription }) => transcription.default === `u…u`);
 
     expect(LakotaMorphemes.length).to.be(3);
     expect(LakotaStem.gloss).to.be(`hear`);
@@ -192,12 +192,12 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [w1, w2] }] } = convert(text);
 
-    expect(w1.morphemes[1].transcription).to.be(`A`);
+    expect(w1.morphemes[1].transcription.default).to.be(`A`);
     expect(w1.morphemes[1].gloss).to.be(`a`);
 
     const discontinuousMorpheme = w2.morphemes.find(w => w.gloss === `b`);
 
-    expect(discontinuousMorpheme.transcription).to.be(`B…C`);
+    expect(discontinuousMorpheme.transcription.default).to.be(`B…C`);
 
   });
 
@@ -211,7 +211,7 @@ describe(`glosses`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.analysis).to.be(`waxdungu`);
+    expect(word.analysis.default).to.be(`waxdungu`);
     expect(word.gloss).to.be(`[one day]`);
 
   });
@@ -228,45 +228,45 @@ describe(`glosses`, () => {
 
     // Word 1
 
-    expect(w1.analysis).to.be(`a~b`);
+    expect(w1.analysis.default).to.be(`a~b`);
     expect(w1.gloss).to.be(`one~two`);
 
     const [w1m1, w1m2] = w1.morphemes;
 
-    expect(w1m1.transcription).to.be(`a`);
+    expect(w1m1.transcription.default).to.be(`a`);
     expect(w1m1.gloss).to.be(`one`);
 
-    expect(w1m2.transcription).to.be(`b`);
+    expect(w1m2.transcription.default).to.be(`b`);
     expect(w1m2.gloss).to.be(`two`);
 
     // Word 2
 
-    expect(w2.analysis).to.be(`c`);
+    expect(w2.analysis.default).to.be(`c`);
     expect(w2.gloss).to.be(`[NAME NAME]`);
 
     const [w2m] = w2.morphemes;
 
-    expect(w2m.transcription).to.be(`c`);
+    expect(w2m.transcription.default).to.be(`c`);
     expect(w2m.gloss).to.be(`[NAME NAME]`);
 
     // Word 3
 
-    expect(w3.analysis).to.be(`[d f]`);
+    expect(w3.analysis.default).to.be(`[d f]`);
     expect(w3.gloss).to.be(`compound`);
 
     const [w3m] = w3.morphemes;
 
-    expect(w3m.transcription).to.be(`[d f]`);
+    expect(w3m.transcription.default).to.be(`[d f]`);
     expect(w3m.gloss).to.be(`compound`);
 
     // Word 4
 
-    expect(w4.analysis).to.be(`[]`);
+    expect(w4.analysis.default).to.be(`[]`);
     expect(w4.gloss).to.be(`null`);
 
     const [w4m] = w4.morphemes;
 
-    expect(w4m.transcription).to.be(`[]`);
+    expect(w4m.transcription.default).to.be(`[]`);
     expect(w4m.gloss).to.be(`null`);
 
   });

@@ -17,10 +17,12 @@ export default function mergeTranscriptions(transcriptions, separator = ``) {
 
   return transcriptions.reduce((txn, part) => {
 
+
     if (isString(part)) return `${txn}${separator}${part}`.trim();
 
-    Object.entries(part).forEach(([lang, data]) => {
-      txn[lang] += `${separator}${data}`.trim();
+    Object.entries(part).forEach(([ortho, data]) => {
+      txn[ortho] += `${separator}${data}`;
+      txn[ortho] = txn[ortho].trim();
     });
 
     return txn;
