@@ -2,10 +2,10 @@
   max-statements,
 */
 
+import parseCustom        from './parseCustom.js';
 import parseDuration      from './parseDuration.js';
 import parseLiteral       from './parseLiteral.js';
 import parseMetadata      from './parseMetadata.js';
-import parseMisc          from './parseMisc.js';
 import parseNotes         from './parseNotes.js';
 import parsePhonetic      from './parsePhonetic.js';
 import parseSource        from './parseSource.js';
@@ -86,46 +86,57 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     const types = schema.map(getLineType);
 
+    // Speaker
     if (types.includes(`sp`)) {
       utterance.speaker = parseSpeaker(lines[codesHash.sp]);
     }
 
+    // Transcript
     if (types.includes(`trs`)) {
       utterance.transcript  = parseTranscript(codesHash.trs, lines, orthography);
     }
 
+    // Transcription
     utterance.transcription = parseTranscription(codesHash.txn, lines, orthography);
 
+    // Phonetic
     if (types.includes(`phon`) && schema.includes(`phon`)) {
       utterance.phonetic = parsePhonetic(lines[codesHash.phon]);
     }
 
+    // Literal Translation
     if (types.includes(`lit`)) {
       utterance.literal = parseLiteral(codesHash.lit, lines);
     }
 
+    // Free Translation
     utterance.translation = parseTranslation(codesHash.tln, lines) || ``;
 
+    // Source
     if (types.includes(`s`)) {
       utterance.source = parseSource(lines[codesHash.s]);
     }
 
+    // Time
     if (types.includes(`t`)) {
       const { startTime, endTime } = parseDuration(lines[codesHash.t]);
       utterance.startTime = startTime;
       utterance.endTime   = endTime;
     }
 
+    // Words
     const words = parseWords(codesHash, lines, orthography);
     if (words.length) utterance.words = words;
 
+    // Notes
     const notes = parseNotes(codesHash.n, lines);
     if (notes.length) utterance.notes = notes;
 
-    const misc = parseMisc(codesHash, lines);
+    // Custom Lines
+    const misc = parseCustom(codesHash, lines);
     Object.assign(utterance, misc);
 
-    // construct transcription if not present
+    // Construct transcription if not already present
 
     if (!utterance.transcription) {
       const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) || [];

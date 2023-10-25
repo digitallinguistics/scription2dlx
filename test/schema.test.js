@@ -330,4 +330,17 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
+  it(`does not duplicate lines in the output`, () => {
+
+    const text = `
+    # 039
+    \\trs-en What features do you look for when selecting…
+    \\tln What features do you look for when selecting…
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance[`trs-en`]).to.be(undefined);
+
+  });
+
 });
