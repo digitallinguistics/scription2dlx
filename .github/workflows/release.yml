@@ -12,12 +12,12 @@ jobs:
     steps:
 
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: set up Node for npm
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: latest
           registry-url: https://registry.npmjs.org/
 
       - name: install dependencies
@@ -32,9 +32,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: set up Node for GitHub
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: latest
           registry-url: https://npm.pkg.github.com
           scope:        '@digitallinguistics'
 
