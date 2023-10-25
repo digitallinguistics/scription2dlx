@@ -343,4 +343,19 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
+  it(`allows undefined backslash codes`, () => {
+
+    const lineText = `This is an undefined line.`;
+
+    const text = `
+    \\txn jambo dunia
+    \\tln hello world
+    \\undef ${lineText}
+    `;
+
+    const { utterances: [utterance] } = convert(text);
+    expect(utterance.undef).to.be(lineText);
+
+  });
+
 });
