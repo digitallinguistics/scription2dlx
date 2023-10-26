@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`free translation`, () => {
 
@@ -21,8 +21,8 @@ describe(`free translation`, () => {
     const { utterances: [utterance] } = convert(text);
     const { translation }              = utterance;
 
-    expect(translation.en).to.be(English);
-    expect(translation.es).to.be(Spanish);
+    expect(translation.en).to.equal(English);
+    expect(translation.es).to.equal(Spanish);
 
   });
 
@@ -35,7 +35,7 @@ describe(`free translation`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/IETF/u);
+    expect(test).to.throw(/IETF/u);
 
   });
 
@@ -51,7 +51,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).to.be(translation);
+    expect(utterance.translation).to.equal(translation);
 
   });
 
@@ -67,7 +67,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).to.be(translation);
+    expect(utterance.translation).to.equal(translation);
 
   });
 
@@ -80,7 +80,7 @@ describe(`free translation`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation).to.be(`one day a man`);
+    expect(utterance.translation).to.equal(`one day a man`);
 
   });
 

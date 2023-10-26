@@ -1,5 +1,5 @@
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`source line`, () => {
 
@@ -15,7 +15,7 @@ describe(`source line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.source).to.be(source);
+    expect(utterance.source).to.equal(source);
 
   });
 

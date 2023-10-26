@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`note`, () => {
 
@@ -20,9 +20,9 @@ describe(`note`, () => {
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
 
-    expect(source).to.be(initials);
-    expect(language).to.be(lang);
-    expect(text).to.be(noteText);
+    expect(source).to.equal(initials);
+    expect(language).to.equal(lang);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -34,7 +34,7 @@ describe(`note`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/IETF/u);
+    expect(test).to.throw(/IETF/u);
 
   });
 
@@ -50,9 +50,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).to.be(`en`);
-    expect(source).to.be(initials);
-    expect(text).to.be(noteText);
+    expect(language).to.equal(`en`);
+    expect(source).to.equal(initials);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -70,9 +70,9 @@ describe(`note`, () => {
     const { language, text } = note;
 
     expect(notes).to.have.length(1);
-    expect(`source` in note).to.be(false);
-    expect(language).to.be(`en`);
-    expect(text).to.be(noteText);
+    expect(`source` in note).to.equal(false);
+    expect(language).to.equal(`en`);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -88,9 +88,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).to.be(lang);
-    expect(source).to.be(undefined);
-    expect(text).to.be(noteText);
+    expect(language).to.equal(lang);
+    expect(source).to.equal(undefined);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -105,9 +105,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).to.be(`en`);
-    expect(source).to.be(undefined);
-    expect(text).to.be(noteText);
+    expect(language).to.equal(`en`);
+    expect(source).to.equal(undefined);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -124,9 +124,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).to.be(lang);
-    expect(source).to.be(initials);
-    expect(text).to.be(noteText);
+    expect(language).to.equal(lang);
+    expect(source).to.equal(initials);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -142,9 +142,9 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source, text }] }] } = convert(sampleText);
 
-    expect(language).to.be(`en`);
-    expect(source).to.be(initials);
-    expect(text).to.be(noteText);
+    expect(language).to.equal(`en`);
+    expect(source).to.equal(initials);
+    expect(text).to.equal(noteText);
 
   });
 
@@ -157,8 +157,8 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [{ language, source }] }] } = convert(sampleText);
 
-    expect(language).to.be(`en`);
-    expect(source).to.be(`What do you think`);
+    expect(language).to.equal(`en`);
+    expect(source).to.equal(`What do you think`);
 
   });
 
@@ -174,7 +174,7 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [note] }] } = convert(text);
 
-    expect(note.text).to.be(noteText);
+    expect(note.text).to.equal(noteText);
 
   });
 
@@ -190,7 +190,7 @@ describe(`note`, () => {
 
     const { utterances: [{ notes: [note] }] } = convert(text);
 
-    expect(note.text).to.be(noteText);
+    expect(note.text).to.equal(noteText);
 
   });
 
@@ -209,7 +209,7 @@ describe(`note`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(`GetSchemaError`);
+    expect(test).to.throw(`backslash`);
 
   });
 
@@ -236,7 +236,7 @@ describe(`note`, () => {
     const { utterances: [utterance] } = convert(text);
 
     expect(utterance.notes).to.have.length(1);
-    expect(utterance.translation).to.be(translation);
+    expect(utterance.translation).to.equal(translation);
 
   });
 

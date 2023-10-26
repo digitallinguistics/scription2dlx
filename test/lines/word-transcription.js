@@ -1,5 +1,5 @@
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`phonemic transcription (word)`, () => {
 
@@ -17,8 +17,8 @@ describe(`phonemic transcription (word)`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.transcription.mod).to.be(mod);
-    expect(word.transcription.swad).to.be(swad);
+    expect(word.transcription.mod).to.equal(mod);
+    expect(word.transcription.swad).to.equal(swad);
 
   });
 
@@ -31,7 +31,7 @@ describe(`phonemic transcription (word)`, () => {
     `;
 
     const { utterances: [{ words: [word] }] } = convert(text);
-    expect(Object.keys(word.transcription)[0]).to.be(`default`);
+    expect(Object.keys(word.transcription)[0]).to.equal(`default`);
 
   });
 
@@ -44,7 +44,7 @@ describe(`phonemic transcription (word)`, () => {
     `;
 
     const { utterances: [{ words: [word] }] } = convert(text, { orthography: `Mod` });
-    expect(Object.keys(word.transcription)[0]).to.be(`Mod`);
+    expect(Object.keys(word.transcription)[0]).to.equal(`Mod`);
 
   });
 

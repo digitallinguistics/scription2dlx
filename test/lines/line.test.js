@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`line`, () => {
 
@@ -16,7 +16,7 @@ describe(`line`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.translation.endsWith(` `)).to.be(false);
+    expect(utterance.translation.endsWith(` `)).to.equal(false);
 
   });
 
@@ -31,7 +31,7 @@ describe(`line`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation).to.be(translation);
+    expect(utterance.translation).to.equal(translation);
 
   });
 
@@ -46,7 +46,7 @@ describe(`line`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.translation).to.be(translation);
+    expect(utterance.translation).to.equal(translation);
 
   });
 

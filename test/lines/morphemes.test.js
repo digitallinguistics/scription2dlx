@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`morphemes`, () => {
 
@@ -17,8 +17,8 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes: [, morpheme] }] }] } = convert(text);
 
-    expect(morpheme.transcription.swad).to.be(`ʔungu`);
-    expect(morpheme.transcription.apa).to.be(`ʼunkʼu`);
+    expect(morpheme.transcription.swad).to.equal(`ʔungu`);
+    expect(morpheme.transcription.apa).to.equal(`ʼunkʼu`);
 
   });
 
@@ -32,7 +32,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).not.to.throwError();
+    expect(test).not.to.throw();
 
   });
 
@@ -58,7 +58,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text, { alignmentError: true });
 
-    expect(test).to.throwError(/same number/u);
+    expect(test).to.throw(/same number/u);
 
   });
 
@@ -71,7 +71,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text, { alignmentError: true });
 
-    expect(test).to.throwError(/same number/u);
+    expect(test).to.throw(/same number/u);
 
   });
 
@@ -84,7 +84,7 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes }] }] } = convert(text);
 
-    expect(morphemes.length).to.be(1);
+    expect(morphemes.length).to.equal(1);
 
   });
 
@@ -97,7 +97,7 @@ describe(`morphemes`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/morphemes/u);
+    expect(test).to.throw(/morphemes/u);
 
   });
 
@@ -112,8 +112,8 @@ describe(`morphemes`, () => {
     const { utterances: [{ words }] } = convert(text);
     const lastWord = words.pop();
 
-    expect(lastWord.analysis.default).to.be(`[Benjamin Paul]`);
-    expect(lastWord.gloss).to.be(`NAME`);
+    expect(lastWord.analysis.default).to.equal(`[Benjamin Paul]`);
+    expect(lastWord.gloss).to.equal(`NAME`);
 
   });
 
@@ -126,7 +126,7 @@ describe(`morphemes`, () => {
 
     const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text);
 
-    expect(morpheme.transcription.default).to.be(`waxt`);
+    expect(morpheme.transcription.default).to.equal(`waxt`);
 
   });
 

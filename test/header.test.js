@@ -3,7 +3,7 @@
  */
 
 import convert from '../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 import yamljs  from 'yamljs';
 
 const { parse: parser } = yamljs;
@@ -22,7 +22,7 @@ describe(`metadata header`, function() {
 
     const { header } = convert(text);
 
-    expect(header).to.be(headerString);
+    expect(header).to.equal(headerString);
 
   });
 
@@ -36,7 +36,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).to.throwError(/YAML/u);
+    expect(test).to.throw(/YAML/u);
 
   });
 
@@ -46,7 +46,7 @@ How the world began
 
     const test = () => convert(text, { parser });
 
-    expect(test).to.throwError(/empty/u);
+    expect(test).to.throw(/empty/u);
 
   });
 
@@ -60,7 +60,7 @@ abbreviation: A1
 
     const test = () => convert(text, { parser });
 
-    expect(test).to.throwError(/title/u);
+    expect(test).to.throw(/title/u);
 
   });
 
@@ -77,7 +77,7 @@ utterances:
 
     const test = () => convert(text, { parser });
 
-    expect(test).to.throwError(/utterances/u);
+    expect(test).to.throw(/utterances/u);
 
   });
 
@@ -92,7 +92,7 @@ abbreviation: A1
 
     const test = () => convert(text, { parser });
 
-    expect(test).not.to.throwError();
+    expect(test).not.to.throw();
 
   });
 

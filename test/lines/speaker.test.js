@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`speaker`, () => {
 
@@ -17,7 +17,7 @@ describe(`speaker`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/valid/u);
+    expect(test).to.throw(/valid/u);
 
   });
 

@@ -3,7 +3,7 @@
  */
 
 import convert from '../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`utterances`, () => {
 
@@ -17,7 +17,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).to.be(0);
+    expect(utterances.length).to.equal(0);
 
   });
 
@@ -41,7 +41,7 @@ describe(`utterances`, () => {
 
     const { utterances } = convert(text);
 
-    expect(utterances.length).to.be(3);
+    expect(utterances.length).to.equal(3);
 
   });
 

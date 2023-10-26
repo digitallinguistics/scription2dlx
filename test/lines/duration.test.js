@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`duration`, function() {
 
@@ -20,8 +20,8 @@ describe(`duration`, function() {
 
     const { utterances: [{ startTime, endTime }] } = convert(text);
 
-    expect(startTime).to.be(start);
-    expect(endTime).to.be(end);
+    expect(startTime).to.equal(start);
+    expect(endTime).to.equal(end);
 
   });
 
@@ -38,8 +38,8 @@ describe(`duration`, function() {
 
     const { utterances: [{ startTime, endTime }] } = convert(text);
 
-    expect(startTime).to.be(start);
-    expect(endTime).to.be(end);
+    expect(startTime).to.equal(start);
+    expect(endTime).to.equal(end);
 
   });
 
@@ -53,7 +53,7 @@ describe(`duration`, function() {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/timestamp/u);
+    expect(test).to.throw(/timestamp/u);
 
   });
 

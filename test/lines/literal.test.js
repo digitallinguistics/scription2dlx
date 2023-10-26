@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`literal translation (utterance: "\\lit")`, () => {
 
@@ -18,7 +18,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).to.be(literal);
+    expect(utterance.literal).to.equal(literal);
 
   });
 
@@ -35,8 +35,8 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal.en).to.be(English);
-    expect(utterance.literal.es).to.be(Spanish);
+    expect(utterance.literal.en).to.equal(English);
+    expect(utterance.literal.es).to.equal(Spanish);
 
   });
 
@@ -49,7 +49,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/IETF/u);
+    expect(test).to.throw(/IETF/u);
 
   });
 
@@ -65,7 +65,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).to.be(literal);
+    expect(utterance.literal).to.equal(literal);
 
   });
 
@@ -81,7 +81,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).to.be(literal);
+    expect(utterance.literal).to.equal(literal);
 
   });
 
@@ -96,7 +96,7 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.literal).to.be(literal);
+    expect(utterance.literal).to.equal(literal);
 
   });
 

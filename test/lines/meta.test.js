@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`utterance metadata`, () => {
 
@@ -20,8 +20,8 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcription.default).to.be(transcription);
-    expect(utterance.metadata).to.be(meta);
+    expect(utterance.transcription.default).to.equal(transcription);
+    expect(utterance.metadata).to.equal(meta);
 
   });
 
@@ -38,8 +38,8 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: false });
 
-    expect(utterance.transcription.default).to.be(transcription);
-    expect(utterance.metadata).to.be(undefined);
+    expect(utterance.transcription.default).to.equal(transcription);
+    expect(utterance.metadata).to.equal(undefined);
 
   });
 
@@ -57,7 +57,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).to.be(meta);
+    expect(utterance.metadata).to.equal(meta);
 
   });
 
@@ -73,7 +73,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).to.be(meta);
+    expect(utterance.metadata).to.equal(meta);
 
   });
 
@@ -88,7 +88,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).to.be(`Chitimacha`);
+    expect(utterance.metadata).to.equal(`Chitimacha`);
 
   });
 
@@ -104,7 +104,7 @@ describe(`utterance metadata`, () => {
 
     const { utterances: [utterance] } = convert(text, { utteranceMetadata: true });
 
-    expect(utterance.metadata).to.be(meta);
+    expect(utterance.metadata).to.equal(meta);
 
   });
 
@@ -118,7 +118,7 @@ describe(`utterance metadata`, () => {
 
     const test = () => convert(text, { alignmentError: true });
 
-    expect(test).to.throwError(/metadata/u);
+    expect(test).to.throw(/metadata/u);
 
   });
 

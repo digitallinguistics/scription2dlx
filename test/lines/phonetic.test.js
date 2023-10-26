@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`phonetic transcription`, () => {
 
@@ -18,7 +18,7 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).to.be(transcription);
+    expect(utterance.phonetic).to.equal(transcription);
 
   });
 
@@ -32,8 +32,8 @@ describe(`phonetic transcription`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.phonetic).to.be(undefined);
-    expect(utterance[`phon-swad`]).to.be(undefined);
+    expect(utterance.phonetic).to.equal(undefined);
+    expect(utterance[`phon-swad`]).to.equal(undefined);
 
   });
 
@@ -47,7 +47,7 @@ describe(`phonetic transcription`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(utterance.phonetic.includes(`*`)).to.be(false);
+    expect(utterance.phonetic.includes(`*`)).to.equal(false);
 
   });
 

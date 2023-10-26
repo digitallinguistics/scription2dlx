@@ -989,7 +989,7 @@ I took two, three children, a grandchild, and my wife.
 ƛ̓upaaʔaƛquu          Toronto, ƛ̓upnit,           ƛ̓upnit
 ƛ̓up-(y)a·-ʼaƛ-quː    ~        ƛ̓up-nit           ƛ̓up-nit
 warm-CONT-FIN-COND.3 ~        warm-place.having warm-place.having
-it.used.to.be.hot    ~        hot.place         hot.place
+it.used.to.equal.hot    ~        hot.place         hot.place
 Toronto used to be hot, a hot place.
 
 # 145

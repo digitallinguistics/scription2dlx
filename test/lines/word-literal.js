@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`literal word translation (word: \\wlt)`, () => {
 
@@ -17,7 +17,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const test = () => convert(text, { alignmentError: true });
 
-    expect(test).to.throwError(/same number/u);
+    expect(test).to.throw(/same number/u);
 
   });
 
@@ -35,8 +35,8 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [{ literal }] }] } = convert(text);
 
-    expect(literal.en).to.be(en);
-    expect(literal.es).to.be(es);
+    expect(literal.en).to.equal(en);
+    expect(literal.es).to.equal(es);
 
   });
 
@@ -50,7 +50,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const test = () => convert(text);
 
-    expect(test).to.throwError(/IETF/u);
+    expect(test).to.throw(/IETF/u);
 
   });
 
@@ -64,7 +64,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [{ literal }] }] } = convert(text);
 
-    expect(literal).to.be(`[one day]`);
+    expect(literal).to.equal(`[one day]`);
 
   });
 
@@ -79,7 +79,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [word] }] } = convert(text);
 
-    expect(word.literal).to.be(literal);
+    expect(word.literal).to.equal(literal);
 
   });
 

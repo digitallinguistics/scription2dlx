@@ -3,7 +3,7 @@
  */
 
 import convert from '../../src/index.js';
-import expect  from 'expect.js';
+import { expect }  from 'chai';
 
 describe(`transcript`, () => {
 
@@ -21,8 +21,8 @@ describe(`transcript`, () => {
     const { utterances: [utterance] } = convert(text);
     const { transcript }              = utterance;
 
-    expect(transcript.swad).to.be(SwadeshTranscript);
-    expect(transcript.dft).to.be(DFTTranscript);
+    expect(transcript.swad).to.equal(SwadeshTranscript);
+    expect(transcript.dft).to.equal(DFTTranscript);
 
   });
 
@@ -37,7 +37,7 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript.default).to.be(transcript);
+    expect(utterance.transcript.default).to.equal(transcript);
 
   });
 
@@ -50,7 +50,7 @@ describe(`transcript`, () => {
 
     const { utterances: [utterance] } = convert(text);
 
-    expect(utterance.transcript.default).to.be(`we qasi`);
+    expect(utterance.transcript.default).to.equal(`we qasi`);
 
   });
 
@@ -62,7 +62,7 @@ describe(`transcript`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text);
-    expect(Object.keys(utterance.transcript)[0]).to.be(`default`);
+    expect(Object.keys(utterance.transcript)[0]).to.equal(`default`);
 
   });
 
@@ -74,7 +74,7 @@ describe(`transcript`, () => {
     `;
 
     const { utterances: [utterance] } = convert(text, { orthography: `Mod` });
-    expect(Object.keys(utterance.transcript)[0]).to.be(`Mod`);
+    expect(Object.keys(utterance.transcript)[0]).to.equal(`Mod`);
 
   });
 
