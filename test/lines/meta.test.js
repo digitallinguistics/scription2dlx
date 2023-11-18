@@ -116,9 +116,9 @@ describe(`utterance metadata`, () => {
     \\gl one.day
     `;
 
-    const test = () => convert(text, { alignmentError: true });
+    const { utterances: [e] } = convert(text, { errors: `object` });
 
-    expect(test).to.throw(/metadata/u);
+    expect(e.text).to.include(`metadata`);
 
   });
 

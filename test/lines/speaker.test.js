@@ -15,7 +15,7 @@ describe(`speaker`, () => {
     \\tln He left his brothers.
     `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { errors: true });
 
     expect(test).to.throw(/valid/u);
 

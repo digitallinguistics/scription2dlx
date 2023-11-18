@@ -10,8 +10,8 @@ import parseUtterances               from './parseUtterances.js';
  * @return {Object}           Returns a plain JavaScript object formatted according to the DLx Text format
  */
 export default function scription2dlx(scription = ``, {
-  alignmentError = `warn`,
   codes = {},
+  errors = `warn`,
   orthography = `default`,
   parser,
   utteranceMetadata = true,
@@ -26,7 +26,7 @@ export default function scription2dlx(scription = ``, {
   }
 
   const options = {
-    alignmentError,
+    errors,
     orthography,
     utteranceMetadata,
   };

@@ -9,11 +9,9 @@ export default function validateNumItems(lines) {
   const sameNumItems = itemLists.every(list => list.length === numItems);
 
   if (!sameNumItems) {
-
     const e = new Error(`All morpheme and gloss lines must have the same number of words on each line, and each word must have the same number of morphemes.`);
     e.name  = `AlignmentError`;
     throw e;
-
   }
 
 }

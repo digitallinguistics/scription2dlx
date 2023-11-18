@@ -36,32 +36,6 @@ describe(`morphemes`, () => {
 
   });
 
-  it(`option: alignmentError = false`, function() {
-
-    const text = `
-    \\m  waxdungu qasi
-    \\gl day-one  a man
-    `;
-
-    const { utterances } = convert(text, { alignmentError: false });
-
-    expect(utterances).not.to.have.length();
-
-  });
-
-  it(`option: alignmentError = true`, () => {
-
-    const text = `
-    \\m  waxdungu qasi
-    \\gl day-one  a man
-    `;
-
-    const test = () => convert(text, { alignmentError: true });
-
-    expect(test).to.throw(/same number/u);
-
-  });
-
   it(`must have the same number of morphemes in each word as the glosses line`, () => {
 
     const text = `
@@ -69,7 +43,7 @@ describe(`morphemes`, () => {
     \\gl day-one  man
     `;
 
-    const test = () => convert(text, { alignmentError: true });
+    const test = () => convert(text, { errors: true });
 
     expect(test).to.throw(/same number/u);
 

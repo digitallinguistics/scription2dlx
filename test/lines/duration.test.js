@@ -51,7 +51,7 @@ describe(`duration`, function() {
     \\t   1.23-5
     `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { errors: true });
 
     expect(test).to.throw(/timestamp/u);
 

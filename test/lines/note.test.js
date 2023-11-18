@@ -32,7 +32,7 @@ describe(`note`, () => {
     \\n-en2 This is a note.
     `;
 
-    const test = () => convert(text);
+    const test = () => convert(text, { errors: true });
 
     expect(test).to.throw(/IETF/u);
 

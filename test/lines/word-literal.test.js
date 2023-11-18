@@ -15,7 +15,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
     \\wlt one.day    a man
     `;
 
-    const test = () => convert(text, { alignmentError: true });
+    const test = () => convert(text, { errors: true });
 
     expect(test).to.throw(/same number/u);
 

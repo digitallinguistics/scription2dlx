@@ -21,9 +21,9 @@ A JavaScript library that converts linguistic texts in [scription format][script
 
 <!-- TOC -->
 
-- [Basic Usage](#basic-usage)
-- [Notes](#notes)
-- [Options](#options)
+* [Basic Usage](#basic-usage)
+* [Notes](#notes)
+* [Options](#options)
 
 <!-- /TOC -->
 
@@ -41,11 +41,13 @@ A JavaScript library that converts linguistic texts in [scription format][script
 1. Import the library into your project:
 
   **Node:**
+
   ```js
   import convert from '@digitallinguistics/scription2dlx';
   ```
 
   **HTML:**
+
   ```html
   <script src=scription2dlx.js type=module></script>
   ```
@@ -53,6 +55,7 @@ A JavaScript library that converts linguistic texts in [scription format][script
 1. The library exports a single function which accepts a string and returns a [DaFoDiL Text Object][Text].
 
   **data.txt**
+
   ```
   ---
   title: How the world began
@@ -62,6 +65,7 @@ A JavaScript library that converts linguistic texts in [scription format][script
   ```
 
   **script.js**
+
   ```js
   const data = await fetch(`data.txt`);
   const text = scription2dlx(data);
@@ -93,8 +97,8 @@ A JavaScript library that converts linguistic texts in [scription format][script
 
 Option              | Default     | Description
 --------------------|-------------|----------------------------------------------------------------------------------------------------------------------
-`alignmentError`    | `"warn"`    | This option specifies whether the library should throw an error when it encounters an utterance which has a different number of words on each line, or a different number of morphemes in each word. The [Leipzig glossing rules][Leipzig] state that each line in an interlinear example must have the same number of words and morphemes on each line. By default, this option is set to `"warn"`, which displays a warning if an alignment problem is encountered. To turn off warnings entirely, set this option to `false`; to throw an error, set this option to `true`.
 `codes`             | `{}`        | This option allows you to use custom backslash codes in your interlinear glosses. It should be a hash containing the scription code as a key (without a leading backslash), and the custom code as the value; ex: `"txn": "t"` will allow you to write `\t` instead of `\txn` for transcription lines.
+`errors`            | `"warn"`    | This option allows you to specify how to handle errors. If set to `"warn""` (the default), an utterance which throws an error is skipped and a warning is logged to the console. If set to `"object"`, an error object with information is returned in the results array. If set to `false`, utterances with errors will be skipped silently. If set to `true`, utterances with errors will throw and stop further processing.
 `orthography`       | `"default"` | An abbreviation for the default orthography to use for transcriptions when one is not specified.
 `parser`            | `undefined` | A YAML parser to use in parsing the header of a scription document. If none is present, the header will be provided as a string in the `header` property of the returned object.
 `utteranceMetadata` | `true`      | Whether to parse the utterance metadata line (the first line when it begins with `#`). If set to `true`, a `metadata` property will be added to each utterance that has it.
@@ -106,7 +110,6 @@ Option              | Default     | Description
 [DaFoDiL]:   https://format.digitallinguistics.io
 [DLx]:       https://digitallinguistics.io
 [GitHub]:    https://github.com/digitallinguistics/scription2dlx
-[Leipzig]:   https://www.eva.mpg.de/lingua/resources/glossing-rules.php
 [license]:   https://github.com/digitallinguistics/scription2dlx/blob/master/LICENSE.md
 [issues]:    https://github.com/digitallinguistics/scription2dlx/issues
 [npm]:       https://www.npmjs.com/package/@digitallinguistics/scription2dlx

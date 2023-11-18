@@ -34,7 +34,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
   let lines       = [...rawLines];
 
   const {
-    alignmentError,
+    errors,
     orthography,
     utteranceMetadata,
   } = options;
@@ -151,20 +151,19 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
   } catch (e) {
 
-    const utteranceText = rawLines.join(`\n`);
+    if (!errors) return;
 
-    if (e.name === `AlignmentError`) {
+    e.text = rawLines.join(`\n`);
 
-      if (alignmentError === false) return;
-
-      if (alignmentError === `warn`) {
-        return console.warn(`${e.message} Skipping the following utterance:\n\n${utteranceText}`);
-      }
-
+    if (errors === `warn`) {
+      console.warn(e);
+      return;
     }
 
-    e.name    = `ParseUtterranceError`;
-    e.message = `${e.message}\n\nUtterance text:\n\n${utteranceText}`;
+    if (errors === `object`) {
+      return e;
+    }
+
     throw e;
 
   }
