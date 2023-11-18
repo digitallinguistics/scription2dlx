@@ -1,10 +1,6 @@
 import getDuplicateMorphemes from './getDuplicateMorphemes.js';
 import separateInfix         from './separateInfix.js';
-
-import {
-  difference,
-  zip,
-} from '../../utilities/js/index.js';
+import zip                   from '../../utilities/js/zip.js';
 
 import {
   getLines,
@@ -25,6 +21,17 @@ function createMorphemesHash(wordLines) {
     hash[code] = tokenizeWord(data); // eslint-disable-line no-param-reassign
     return hash;
   }, {});
+}
+
+/**
+ * Returns the difference between two arrays (filters the first array for values not contained in the second)
+ * @param  {Array} a
+ * @param  {Array} b
+ * @return {Array}
+ */
+function difference(a, b) {
+  const s = new Set(b);
+  return a.filter(x => !s.has(x));
 }
 
 /**
@@ -79,7 +86,8 @@ export default function parseMorphemes(codes, wordHash, orthography) {
   if (!morphemes.length) return [];
 
   const duplicateMorphemes = getDuplicateMorphemes(morphemes);
-  morphemes                = difference(morphemes, duplicateMorphemes.flat());
+
+  morphemes = difference(morphemes, duplicateMorphemes.flat());
 
   const discontinuousMorphemes = duplicateMorphemes.map(dups => ({
     transcription: mergeTranscriptions(dups.map(({ transcription }) => transcription), `…`),

@@ -358,4 +358,20 @@ describe(`interlinear gloss schema`, () => {
 
   });
 
+  it(`throws a helpful error message`, function() {
+
+    const text = `# Menominee
+    \\txn pemētaehkipew
+    \\m   paemet-aehkw-ape
+    \\gl  crosswise-face-sit
+    \\gl  initial-medial-final
+    \\tln S/he sits sideways.
+    \\s   (Bloomfield 1975: 208)`;
+
+    const test = () => convert(text, { errors: true });
+
+    expect(test).to.throw(`The "\\gl" code`);
+
+  });
+
 });

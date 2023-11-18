@@ -1,6 +1,6 @@
 import parseMorphemes from './parseMorphemes/index.js';
 import { wordTypes }  from '../utilities/constants/index.js';
-import { zip }        from '../utilities/js/index.js';
+import zip            from '../utilities/js/zip.js';
 
 import {
   getLines,

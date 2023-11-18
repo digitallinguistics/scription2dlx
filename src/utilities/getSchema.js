@@ -1,5 +1,4 @@
-import { difference } from './js/index.js';
-import getLineType    from './getLineType.js';
+import getLineType from './getLineType.js';
 
 import {
   isCode,
@@ -20,6 +19,10 @@ function getCode(line) {
   const backslashCodeRegExp = /^\\(?<code>\S+)(?:\s|$)/u;
   const match = line.match(backslashCodeRegExp);
   return match?.groups.code ?? null;
+}
+
+function getDuplicates(array) {
+  return array.filter((item, i, arr) => arr.indexOf(item) !== i)
 }
 
 /**
@@ -58,11 +61,11 @@ function validateSchema(schema) { /* eslint-disable-line max-statements */
   // Check that there are no duplicate codes
 
   const nonNoteCodes = codes.filter(code => code !== `n`);
-  const uniqueCodes = new Set(nonNoteCodes);
+  const uniqueCodes  = new Set(nonNoteCodes);
 
   if (uniqueCodes.size < nonNoteCodes.length) {
-    const duplicateCode = difference(nonNoteCodes, Array.from(uniqueCodes))[0];
-    const e = new Error(`The ${duplicateCode} code appears more than once in the utterance. Each backslash code may only appear once.`);
+    const duplicateCode = getDuplicates(nonNoteCodes)[0]
+    const e             = new Error(`The "\\${duplicateCode}" code appears more than once in the utterance. Each backslash code may only appear once.`);
     e.name = `MultipleCodesError`;
     throw e;
   }
@@ -145,8 +148,8 @@ export default function getSchema(lines) {
 
   } catch (e) {
 
-    e.name    = `GetSchemaError`;
-    e.message = `${e.message}\n\nUtterance text:\n\n${JSON.stringify(lines, null, 2)}`;
+    e.name ??= `GetSchemaError`;
+    e.text   = JSON.stringify(lines, null, 2)
     throw e;
 
   }
