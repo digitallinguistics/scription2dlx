@@ -92,7 +92,7 @@ describe(`utterance metadata`, () => {
 
   })
 
-  it(`is not stripped of emphasis`, () => {
+  it(`retains emphasis`, () => {
 
     const meta = `*Chitimacha*`
 

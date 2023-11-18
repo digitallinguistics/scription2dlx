@@ -26,7 +26,7 @@ describe(`transcript`, () => {
 
   })
 
-  it(`is not stripped of emphasis`, () => {
+  it(`retains emphasis`, () => {
 
     const transcript = `*waxdungu* qasi`
 

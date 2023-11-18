@@ -91,7 +91,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
+  it(`retains emphasis`, function() {
 
     const text = `
     \\m  *waxt*-qungu qasi
@@ -99,6 +99,19 @@ describe(`morphemes`, () => {
     `
 
     const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text)
+
+    expect(morpheme.transcription.default).to.equal(`*waxt*`)
+
+  })
+
+  it(`strips emphasis`, function() {
+
+    const text = `
+    \\m  *waxt*-qungu qasi
+    \\gl day-one      man
+    `
+
+    const { utterances: [{ words: [{ morphemes: [morpheme] }] }] } = convert(text, { emphasis: false })
 
     expect(morpheme.transcription.default).to.equal(`waxt`)
 

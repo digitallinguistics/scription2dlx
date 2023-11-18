@@ -216,7 +216,7 @@ describe(`glosses`, () => {
 
   })
 
-   
+
   it(`tokenizes words and morphemes correctly`, () => {
 
     const text = `
@@ -270,7 +270,7 @@ describe(`glosses`, () => {
     expect(w4m.gloss).to.equal(`null`)
 
   })
-   
+
 
   it(`populates both word and morpheme glosses`, () => {
 
@@ -289,18 +289,35 @@ describe(`glosses`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
+  it(`retains emphasis`, function() {
 
-    const wordGloss = `waxt-qungu`
+    const withEmphasis    = `*waxt*-qungu`
+    const withoutEmphasis = `waxt-qungu`
 
     const text = `
-    \\m ${ wordGloss } qasi
-    \\gl *waxt*-qungu qasi
+    \\m  ${ withoutEmphasis } qasi
+    \\gl ${ withEmphasis } qasi
     `
 
-    const { utterances: [{ words: [word] }] } = convert(text)
+    const { utterances: [{ words: [word] }] } = convert(text, { emphasis: true })
 
-    expect(word.gloss).to.equal(wordGloss)
+    expect(word.gloss).to.equal(withEmphasis)
+
+  })
+
+  it(`strips emphasis`, () => {
+
+    const withEmphasis    = `*waxt*-qungu`
+    const withoutEmphasis = `waxt-qungu`
+
+    const text = `
+    \\m  ${ withoutEmphasis } qasi
+    \\gl ${ withEmphasis } qasi
+    `
+
+    const { utterances: [{ words: [word] }] } = convert(text, { emphasis: false })
+
+    expect(word.gloss).to.equal(withoutEmphasis)
 
   })
 

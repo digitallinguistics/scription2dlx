@@ -162,7 +162,7 @@ describe(`note`, () => {
 
   })
 
-  it(`is not stripped of emphasis`, () => {
+  it(`retains emphasis`, () => {
 
     const noteText = `This note has *emphasis*.`
 

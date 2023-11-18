@@ -26,12 +26,6 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
   const utterance = {}
   let lines       = [...rawLines]
 
-  const {
-    errors,
-    orthography,
-    utteranceMetadata,
-  } = options
-
   try {
 
     // metadata
@@ -42,7 +36,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
       const rawMetadata = lines.shift()
 
-      if (utteranceMetadata === true) {
+      if (options.utteranceMetadata === true) {
         const metadata = parseMetadata(rawMetadata)
         if (metadata) utterance.metadata = metadata
       }
@@ -86,24 +80,24 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     // Transcript
     if (types.includes(`trs`)) {
-      utterance.transcript  = parseTranscript(codesHash.trs, lines, orthography)
+      utterance.transcript  = parseTranscript(codesHash.trs, lines, options)
     }
 
     // Transcription
-    utterance.transcription = parseTranscription(codesHash.txn, lines, orthography)
+    utterance.transcription = parseTranscription(codesHash.txn, lines, options)
 
     // Phonetic
     if (types.includes(`phon`) && schema.includes(`phon`)) {
-      utterance.phonetic = parsePhonetic(lines[codesHash.phon])
+      utterance.phonetic = parsePhonetic(lines[codesHash.phon], options)
     }
 
     // Literal Translation
     if (types.includes(`lit`)) {
-      utterance.literal = parseLiteral(codesHash.lit, lines)
+      utterance.literal = parseLiteral(codesHash.lit, lines, options)
     }
 
     // Free Translation
-    utterance.translation = parseTranslation(codesHash.tln, lines) || ``
+    utterance.translation = parseTranslation(codesHash.tln, lines, options) || ``
 
     // Source
     if (types.includes(`s`)) {
@@ -118,7 +112,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     }
 
     // Words
-    const words = parseWords(codesHash, lines, orthography)
+    const words = parseWords(codesHash, lines, options)
     if (words.length) utterance.words = words
 
     // Notes
@@ -137,23 +131,23 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     }
 
     if (typeof utterance.transcription === `string`) {
-      utterance.transcription = { [orthography]: utterance.transcription }
+      utterance.transcription = { [options.orthography]: utterance.transcription }
     }
 
     return utterance
 
   } catch (e) {
 
-    if (!errors) return
+    if (!options.errors) return
 
     e.text = rawLines.join(`\n`)
 
-    if (errors === `warn`) {
+    if (options.errors === `warn`) {
       console.warn(e)
       return
     }
 
-    if (errors === `object`) {
+    if (options.errors === `object`) {
       return e
     }
 

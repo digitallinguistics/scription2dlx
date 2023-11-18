@@ -85,18 +85,27 @@ describe(`literal translation (utterance: "\\lit")`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
-
-    const literal = `one day a man`
+  it(`retains emphasis`, function() {
 
     const text = `
-    \\txn waxdungu qasi
-    \\lit ${ literal }
-    `
+    \\txn *waxdungu* qasi
+    \\lit *one day* a man`
 
     const { utterances: [utterance] } = convert(text)
 
-    expect(utterance.literal).to.equal(literal)
+    expect(utterance.literal).to.equal(`*one day* a man`)
+
+  })
+
+  it(`strips emphasis`, function() {
+
+    const text = `
+    \\txn *waxdungu* qasi
+    \\lit *one day* a man`
+
+    const { utterances: [utterance] } = convert(text, { emphasis: false })
+
+    expect(utterance.literal).to.equal(`one day a man`)
 
   })
 

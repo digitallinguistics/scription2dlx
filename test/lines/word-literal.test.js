@@ -68,18 +68,29 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
-
-    const literal = `day.one`
+  it(`retains emphasis`, function() {
 
     const text = `
     \\w waxdungu qasi
-    \\wlt ${ literal } a.man
+    \\wlt day.*one* a.man
     `
 
     const { utterances: [{ words: [word] }] } = convert(text)
 
-    expect(word.literal).to.equal(literal)
+    expect(word.literal).to.equal(`day.*one*`)
+
+  })
+
+  it(`strips emphasis`, function() {
+
+    const text = `
+    \\w waxdungu qasi
+    \\wlt day.*one* a.man
+    `
+
+    const { utterances: [{ words: [word] }] } = convert(text, { emphasis: false })
+
+    expect(word.literal).to.equal(`day.one`)
 
   })
 

@@ -72,17 +72,29 @@ describe(`phomemic transcription (utterance)`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
-
-    const transcription = `*waxdungu* qasi`
+  it(`retains emphasis`, function() {
 
     const text = `
-    ${ transcription }
+    *waxdungu* qasi
     one day a man
     `
 
     const { utterances: [utterance] } = convert(text)
-    expect(utterance.transcription.default.includes(`*`)).to.equal(false)
+
+    expect(utterance.transcription.default).to.equal(`*waxdungu* qasi`)
+
+  })
+
+  it(`retains emphasis`, function() {
+
+    const text = `
+    *waxdungu* qasi
+    one day a man
+    `
+
+    const { utterances: [utterance] } = convert(text, { emphasis: false })
+
+    expect(utterance.transcription.default).to.not.include(`*`)
 
   })
 

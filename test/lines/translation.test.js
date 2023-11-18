@@ -71,7 +71,7 @@ describe(`free translation`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
+  it(`retains emphasis`, function() {
 
     const text = `
     waxdungu qasi
@@ -79,6 +79,19 @@ describe(`free translation`, () => {
     `
 
     const { utterances: [utterance] } = convert(text)
+
+    expect(utterance.translation).to.equal(`*one* day a man`)
+
+  })
+
+  it(`strips emphasis`, function() {
+
+    const text = `
+    waxdungu qasi
+    *one* day a man
+    `
+
+    const { utterances: [utterance] } = convert(text, { emphasis: false })
 
     expect(utterance.translation).to.equal(`one day a man`)
 

@@ -37,7 +37,7 @@ describe(`phonetic transcription`, () => {
 
   })
 
-  it(`is stripped of emphasis`, () => {
+  it(`retains emphasis`, function() {
 
     const phonetic = `waʃtʼunkʼu *ʔasi*`
 
@@ -47,7 +47,21 @@ describe(`phonetic transcription`, () => {
     `
 
     const { utterances: [utterance] } = convert(text)
-    expect(utterance.phonetic.includes(`*`)).to.equal(false)
+    expect(utterance.phonetic).to.include(`*ʔasi*`)
+
+  })
+
+  it(`strips emphasis`, function() {
+
+    const phonetic = `waʃtʼunkʼu *ʔasi*`
+
+    const text = `
+    \\phon ${ phonetic }
+    \\tln  one day a man
+    `
+
+    const { utterances: [utterance] } = convert(text, { emphasis: false })
+    expect(utterance.phonetic).not.to.include(`*`)
 
   })
 

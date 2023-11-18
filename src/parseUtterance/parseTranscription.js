@@ -4,12 +4,13 @@ import removeEmphasis from '../utilities/removeEmphasis.js'
 
 /**
  * Extracts, validates, and cleans the transcription lines from the lines hash
- * @param  {String}        lineCode    The code to use for transcription lines
- * @param  {Object}        lines       The lines hash
- * @param  {String}        orthography An abbreviation to use for the orthography if one is not specified
+ * @param  {String}        lineCode            The code to use for transcription lines
+ * @param  {Object}        lines               The lines hash
+ * @param  {Object}        options             The options hash
+ * @param  {String}        options.orthography An abbreviation to use for the orthography if one is not specified
  * @return {String|Object}
  */
-export default function parseTranscription(lineCode, lines, orthography) {
+export default function parseTranscription(lineCode, lines, options) {
 
   let data = groupLines(lineCode, lines)
 
@@ -17,10 +18,10 @@ export default function parseTranscription(lineCode, lines, orthography) {
 
   // NB: Do not use lineCode for removeBrackets here
   // removeBrackets takes an abstract type, not a line code, as its first argument
-  data = removeEmphasis(data)
+  if (options.emphasis === false) data = removeEmphasis(data)
   data = removeBrackets(`txn`, data)
 
-  if (typeof data === `string`) return { [orthography]: data }
+  if (typeof data === `string`) return { [options.orthography]: data }
 
   return data
 

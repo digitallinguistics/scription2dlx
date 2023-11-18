@@ -11,6 +11,7 @@ import parseUtterances               from './parseUtterances.js'
  */
 export default function scription2dlx(scription = ``, {
   codes = {},
+  emphasis = true,
   errors = `warn`,
   orthography = `default`,
   parser,
@@ -26,6 +27,7 @@ export default function scription2dlx(scription = ``, {
   }
 
   const options = {
+    emphasis,
     errors,
     orthography,
     utteranceMetadata,

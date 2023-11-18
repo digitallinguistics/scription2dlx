@@ -1,2 +1,4 @@
 extends:
   - '@digitallinguistics/eslint-config'
+env:
+  mocha: true
