@@ -1,4 +1,4 @@
-import getLineType from './getLineType.js';
+import getLineType from './getLineType.js'
 
 /**
  * Extracts all lines of the provided types from a lines hash, and returns them in a new object
@@ -8,10 +8,10 @@ import getLineType from './getLineType.js';
 export default function getLines(types, lines) {
 
   const entries = Object.entries(lines)
-  .filter(([code]) => types.includes(getLineType(code)));
+  .filter(([code]) => types.includes(getLineType(code)))
 
-  if (!entries.length) return null;
+  if (!entries.length) return null
 
-  return Object.fromEntries(entries);
+  return Object.fromEntries(entries)
 
 }

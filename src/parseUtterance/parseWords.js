@@ -1,13 +1,13 @@
-import parseMorphemes from './parseMorphemes/index.js';
-import { wordTypes }  from '../utilities/constants/index.js';
-import zip            from '../utilities/js/zip.js';
+import parseMorphemes from './parseMorphemes/index.js'
+import { wordTypes }  from '../utilities/constants/index.js'
+import zip            from '../utilities/js/zip.js'
 
 import {
   getLines,
   groupLines,
   removeEmphasis,
   validateNumItems,
-} from '../utilities/index.js';
+} from '../utilities/index.js'
 
 /**
  * Parses the word hash into a DLx Word object
@@ -18,16 +18,16 @@ import {
  */
 function parseWord(codes, data, orthography) {
 
-  data = removeEmphasis(data); // eslint-disable-line no-param-reassign
+  data = removeEmphasis(data) // eslint-disable-line no-param-reassign
 
-  let transcription = groupLines(codes.w, data) || ``;
-  let analysis      = groupLines(codes.m, data);
-  const gloss       = groupLines(codes.gl, data);
-  const literal     = groupLines(codes.wlt, data);
-  const morphemes   = parseMorphemes(codes, data, orthography);
+  let transcription = groupLines(codes.w, data) || ``
+  let analysis      = groupLines(codes.m, data)
+  const gloss       = groupLines(codes.gl, data)
+  const literal     = groupLines(codes.wlt, data)
+  const morphemes   = parseMorphemes(codes, data, orthography)
 
-  if (typeof transcription === `string`) transcription = { [orthography]: transcription };
-  if (typeof analysis === `string`) analysis = { [orthography]: analysis };
+  if (typeof transcription === `string`) transcription = { [orthography]: transcription }
+  if (typeof analysis === `string`) analysis = { [orthography]: analysis }
 
   return {
     transcription,
@@ -35,7 +35,7 @@ function parseWord(codes, data, orthography) {
     ...gloss ? { gloss } : {},
     ...literal ? { literal } : {},
     ...morphemes.length ? { morphemes } : {},
-  };
+  }
 
 }
 
@@ -46,10 +46,10 @@ function parseWord(codes, data, orthography) {
  */
 function tokenizeLine(string) {
 
-  const wordRegExp = /(?<bracketed>\S*\[.*?\]\S*)|(?<unbracketed>\S+)/gu;
+  const wordRegExp = /(?<bracketed>\S*\[.*?\]\S*)|(?<unbracketed>\S+)/gu
 
   return Array.from(string.matchAll(wordRegExp))
-  .map(([result]) => result);
+  .map(([result]) => result)
 
 }
 
@@ -62,21 +62,21 @@ function tokenizeLine(string) {
  */
 export default function parseWords(codesHash, lines, orthography) {
 
-  const wordLineCodes = wordTypes.map(type => codesHash[type]);
-  const wordLines     = getLines(wordLineCodes, lines);
+  const wordLineCodes = wordTypes.map(type => codesHash[type])
+  const wordLines     = getLines(wordLineCodes, lines)
 
-  if (!wordLines) return [];
+  if (!wordLines) return []
 
   // tokenizes the words in each line
   const wordsHash = Object.entries(wordLines)
   .reduce((hash, [code, data]) => {
-    hash[code] = tokenizeLine(data); // eslint-disable-line no-param-reassign
-    return hash;
-  }, {});
+    hash[code] = tokenizeLine(data)  
+    return hash
+  }, {})
 
-  validateNumItems(wordsHash);
+  validateNumItems(wordsHash)
 
   return zip(wordsHash)
-  .map(wordData => parseWord(codesHash, wordData, orthography));
+  .map(wordData => parseWord(codesHash, wordData, orthography))
 
 }

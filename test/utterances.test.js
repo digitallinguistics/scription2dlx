@@ -2,8 +2,8 @@
  * This file applies tests for the utterances section of the scription file
  */
 
-import convert from '../src/index.js';
-import { expect }  from 'chai';
+import convert from '../src/index.js'
+import { expect }  from 'chai'
 
 describe(`utterances`, () => {
 
@@ -13,13 +13,13 @@ describe(`utterances`, () => {
     ---
     title: How the world began
     ---
-    `;
+    `
 
-    const { utterances } = convert(text);
+    const { utterances } = convert(text)
 
-    expect(utterances.length).to.equal(0);
+    expect(utterances.length).to.equal(0)
 
-  });
+  })
 
   it(`are separated by one or more empty lines`, () => {
 
@@ -37,12 +37,12 @@ describe(`utterances`, () => {
 
     wetkš hus na·nča·kamankš wetk hi hokmiʔi
     He left his brothers.
-    `;
+    `
 
-    const { utterances } = convert(text);
+    const { utterances } = convert(text)
 
-    expect(utterances.length).to.equal(3);
+    expect(utterances.length).to.equal(3)
 
-  });
+  })
 
-});
+})

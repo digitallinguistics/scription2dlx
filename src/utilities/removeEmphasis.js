@@ -5,16 +5,16 @@
  */
 export default function removeEmphasis(data) {
 
-  const emphasisRegExp = /\*/gu;
+  const emphasisRegExp = /\*/gu
 
-  if (typeof data === `string`) return data.replace(emphasisRegExp, ``);
+  if (typeof data === `string`) return data.replace(emphasisRegExp, ``)
 
   return Object.entries(data).reduce((hash, [code, text]) => {
 
-    hash[code] = text.replace(emphasisRegExp, ``); // eslint-disable-line no-param-reassign
+    hash[code] = text.replace(emphasisRegExp, ``)  
 
-    return hash;
+    return hash
 
-  }, {});
+  }, {})
 
 }

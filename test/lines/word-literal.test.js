@@ -2,8 +2,8 @@
  * This file applies tests for the literal word gloss line (`\\wlt`)
  */
 
-import convert from '../../src/index.js';
-import { expect }  from 'chai';
+import convert from '../../src/index.js'
+import { expect }  from 'chai'
 
 describe(`literal word translation (word: \\wlt)`, () => {
 
@@ -13,32 +13,32 @@ describe(`literal word translation (word: \\wlt)`, () => {
     \\m   waxt-qungu qasi
     \\gl  one-day    man
     \\wlt one.day    a man
-    `;
+    `
 
-    const test = () => convert(text, { errors: true });
+    const test = () => convert(text, { errors: true })
 
-    expect(test).to.throw(/same number/u);
+    expect(test).to.throw(/same number/u)
 
-  });
+  })
 
   it(`may be in multiple languages`, () => {
 
-    const en = `one.day`;
-    const es = `un.día`;
+    const en = `one.day`
+    const es = `un.día`
 
     const text = `
     \\m      waxt-qungu qasi
     \\gl     one-day    man
-    \\wlt-en ${en}     [a man]
-    \\wlt-es ${es}     [un hombre]
-    `;
+    \\wlt-en ${ en }     [a man]
+    \\wlt-es ${ es }     [un hombre]
+    `
 
-    const { utterances: [{ words: [{ literal }] }] } = convert(text);
+    const { utterances: [{ words: [{ literal }] }] } = convert(text)
 
-    expect(literal.en).to.equal(en);
-    expect(literal.es).to.equal(es);
+    expect(literal.en).to.equal(en)
+    expect(literal.es).to.equal(es)
 
-  });
+  })
 
   it(`must have valid ISO language tags`, () => {
 
@@ -46,13 +46,13 @@ describe(`literal word translation (word: \\wlt)`, () => {
     \\m       waxt-qungu qasi
     \\gl      one-day    man
     \\wlt-en- one.day    [a man]
-    `;
+    `
 
-    const test = () => convert(text);
+    const test = () => convert(text)
 
-    expect(test).to.throw(/IETF/u);
+    expect(test).to.throw(/IETF/u)
 
-  });
+  })
 
   it(`does not remove brackets`, () => {
 
@@ -60,27 +60,27 @@ describe(`literal word translation (word: \\wlt)`, () => {
     \\m   waxt-qungu qasi
     \\gl  one-day    man
     \\wlt [one day]  [a man]
-    `;
+    `
 
-    const { utterances: [{ words: [{ literal }] }] } = convert(text);
+    const { utterances: [{ words: [{ literal }] }] } = convert(text)
 
-    expect(literal).to.equal(`[one day]`);
+    expect(literal).to.equal(`[one day]`)
 
-  });
+  })
 
   it(`is stripped of emphasis`, () => {
 
-    const literal = `day.one`;
+    const literal = `day.one`
 
     const text = `
     \\w waxdungu qasi
-    \\wlt ${literal} a.man
-    `;
+    \\wlt ${ literal } a.man
+    `
 
-    const { utterances: [{ words: [word] }] } = convert(text);
+    const { utterances: [{ words: [word] }] } = convert(text)
 
-    expect(word.literal).to.equal(literal);
+    expect(word.literal).to.equal(literal)
 
-  });
+  })
 
-});
+})

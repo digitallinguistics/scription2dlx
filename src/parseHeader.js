@@ -1,4 +1,4 @@
-import { isString } from './utilities/types/index.js';
+import { isString } from './utilities/types/index.js'
 
 /**
  * Extracts the text of the header metadata, if present
@@ -6,9 +6,9 @@ import { isString } from './utilities/types/index.js';
  * @return {String}
  */
 function getHeaderString(text) {
-  const headerRegExp = /---(?<header>.+?)---/su;
-  const result       = headerRegExp.exec(text);
-  return result ? result.groups.header.trim() : null;
+  const headerRegExp = /---(?<header>.+?)---/su
+  const result       = headerRegExp.exec(text)
+  return result ? result.groups.header.trim() : null
 }
 
 /**
@@ -18,29 +18,29 @@ function getHeaderString(text) {
 function validateHeader(header) {
 
   if (!header) {
-    const e = new Error(`The metadata header must not be empty`);
-    e.name = `EmptyHeaderError`;
-    throw e;
+    const e = new Error(`The metadata header must not be empty`)
+    e.name = `EmptyHeaderError`
+    throw e
   }
 
   if (isString(header)) {
-    const e = new Error(`The metadata header could not be parsed as a JavaScript Object.`);
-    e.name = `JSParsingError`;
-    throw e;
+    const e = new Error(`The metadata header could not be parsed as a JavaScript Object.`)
+    e.name = `JSParsingError`
+    throw e
   }
 
-  const { title, utterances } = header;
+  const { title, utterances } = header
 
   if (!title) {
-    const e = new Error(`The metadata header must have a "title" attribute.`);
-    e.name = `MissingTitleError`;
-    throw e;
+    const e = new Error(`The metadata header must have a "title" attribute.`)
+    e.name = `MissingTitleError`
+    throw e
   }
 
   if (utterances) {
-    const e = new Error(`The metadata header must not have an "utterances" attribute.`);
-    e.name = `HeaderUtterancesError`;
-    throw e;
+    const e = new Error(`The metadata header must not have an "utterances" attribute.`)
+    e.name = `HeaderUtterancesError`
+    throw e
   }
 
 }
@@ -53,27 +53,27 @@ function validateHeader(header) {
  */
 export default function parseHeader(text, parse) {
 
-  const headerString = getHeaderString(text);
+  const headerString = getHeaderString(text)
 
-  if (headerString === null) return {};
+  if (headerString === null) return {}
 
-  if (typeof parse !== `function`) return { header: headerString };
+  if (typeof parse !== `function`) return { header: headerString }
 
   if (parse) {
 
-    let header;
+    let header
 
     try {
-      header = parse(headerString);
+      header = parse(headerString)
     } catch (e) {
-      e.name    = `ParseHeaderError`;
-      e.message = `Error parsing metadata header. Make sure the header is in valid YAML format.\n${e.message}`;
-      throw e;
+      e.name    = `ParseHeaderError`
+      e.message = `Error parsing metadata header. Make sure the header is in valid YAML format.\n${ e.message }`
+      throw e
     }
 
-    validateHeader(header);
+    validateHeader(header)
 
-    return header;
+    return header
 
   }
 

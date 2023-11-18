@@ -2,7 +2,7 @@ import {
   groupLines,
   removeBrackets,
   removeEmphasis,
-} from '../utilities/index.js';
+} from '../utilities/index.js'
 
 /**
  * Extracts, validates, and cleans the transcription lines from the lines hash
@@ -13,17 +13,17 @@ import {
  */
 export default function parseTranscription(lineCode, lines, orthography) {
 
-  let data = groupLines(lineCode, lines);
+  let data = groupLines(lineCode, lines)
 
-  if (!data) return null;
+  if (!data) return null
 
   // NB: Do not use lineCode for removeBrackets here
   // removeBrackets takes an abstract type, not a line code, as its first argument
-  data = removeEmphasis(data);
-  data = removeBrackets(`txn`, data);
+  data = removeEmphasis(data)
+  data = removeBrackets(`txn`, data)
 
-  if (typeof data === `string`) return { [orthography]: data };
+  if (typeof data === `string`) return { [orthography]: data }
 
-  return data;
+  return data
 
 }

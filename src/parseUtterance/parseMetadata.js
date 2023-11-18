@@ -3,5 +3,5 @@
  * @return {String}
  */
 export default function parseMetadata(rawLine) {
-  return rawLine.replace(/^#\s+/u, ``);
+  return rawLine.replace(/^#\s+/u, ``)
 }

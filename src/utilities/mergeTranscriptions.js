@@ -1,8 +1,6 @@
-/* eslint-disable
-  no-param-reassign,
-*/
+ 
 
-import { isString } from './types/index.js';
+import { isString } from './types/index.js'
 
 /**
  * Accepts an array of transcriptions (objects or strings) and merges them into one
@@ -13,20 +11,20 @@ import { isString } from './types/index.js';
  */
 export default function mergeTranscriptions(transcriptions, separator = ``) {
 
-  if (!transcriptions.length) return ``;
+  if (!transcriptions.length) return ``
 
   return transcriptions.reduce((txn, part) => {
 
 
-    if (isString(part)) return `${txn}${separator}${part}`.trim();
+    if (isString(part)) return `${ txn }${ separator }${ part }`.trim()
 
     Object.entries(part).forEach(([ortho, data]) => {
-      txn[ortho] += `${separator}${data}`;
-      txn[ortho] = txn[ortho].trim();
-    });
+      txn[ortho] += `${ separator }${ data }`
+      txn[ortho] = txn[ortho].trim()
+    })
 
-    return txn;
+    return txn
 
-  });
+  })
 
 }

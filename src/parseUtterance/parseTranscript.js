@@ -1,4 +1,4 @@
-import { groupLines } from '../utilities/index.js';
+import { groupLines } from '../utilities/index.js'
 
 /**
  * Extracts, validates, and cleans the transcript lines from the lines hash
@@ -9,10 +9,10 @@ import { groupLines } from '../utilities/index.js';
  */
 export default function parseTranscript(lineCode, lines, orthography) {
 
-  const data = groupLines(lineCode, lines);
+  const data = groupLines(lineCode, lines)
 
-  if (typeof data === `string`) return { [orthography]: data };
+  if (typeof data === `string`) return { [orthography]: data }
 
-  return data || null;
+  return data || null
 
 }

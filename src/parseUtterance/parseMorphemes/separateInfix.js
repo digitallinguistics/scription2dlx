@@ -1,4 +1,4 @@
-import { getLineType } from '../../utilities/index.js';
+import { getLineType } from '../../utilities/index.js'
 
 /**
  * Checks a Morpheme object for infixes, and returns an array of two morphemes if one is present
@@ -8,34 +8,34 @@ import { getLineType } from '../../utilities/index.js';
  */
 export default function separateInfix(glossLineCode, morpheme) {
 
-  const infixRegExp = /(?<pre>.*)<(?<infix>.+)>(?<post>.*)/u;
-  const entries     = Object.entries(morpheme);
-  const glossLines  = entries.find(([code]) => getLineType(code) === glossLineCode);
+  const infixRegExp = /(?<pre>.*)<(?<infix>.+)>(?<post>.*)/u
+  const entries     = Object.entries(morpheme)
+  const glossLines  = entries.find(([code]) => getLineType(code) === glossLineCode)
 
-  if (!glossLines) return morpheme;
+  if (!glossLines) return morpheme
 
-  const [, firstGloss] = glossLines;
-  const match          = firstGloss.match(infixRegExp);
+  const [, firstGloss] = glossLines
+  const match          = firstGloss.match(infixRegExp)
 
-  if (!match) return morpheme;
+  if (!match) return morpheme
 
-  const infixPosition = match.groups.pre ? `right` : `left`;
+  const infixPosition = match.groups.pre ? `right` : `left`
 
   // i = new infix morpheme
   // m = new plain morpheme (with infix removed)
   const morphemes = entries.reduce(([i, m], [code, data]) => {
 
-    const { infix, pre, post } = data.match(infixRegExp).groups;
+    const { infix, pre, post } = data.match(infixRegExp).groups
 
-    /* eslint-disable no-param-reassign */
-    i[code] = infix;
-    m[code] = `${pre}${post}`;
-    /* eslint-enable no-param-reassign */
+     
+    i[code] = infix
+    m[code] = `${ pre }${ post }`
+     
 
-    return [i, m];
+    return [i, m]
 
-  }, [{}, {}]);
+  }, [{}, {}])
 
-  return infixPosition === `left` ? morphemes : morphemes.reverse();
+  return infixPosition === `left` ? morphemes : morphemes.reverse()
 
 }

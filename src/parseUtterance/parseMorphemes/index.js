@@ -1,6 +1,6 @@
-import getDuplicateMorphemes from './getDuplicateMorphemes.js';
-import separateInfix         from './separateInfix.js';
-import zip                   from '../../utilities/js/zip.js';
+import getDuplicateMorphemes from './getDuplicateMorphemes.js'
+import separateInfix         from './separateInfix.js'
+import zip                   from '../../utilities/js/zip.js'
 
 import {
   getLines,
@@ -8,7 +8,7 @@ import {
   mergeTranscriptions,
   removeBrackets,
   validateNumItems,
-} from '../../utilities/index.js';
+} from '../../utilities/index.js'
 
 /**
  * Creates a morphemes hash of line codes and an array of morphemes based on the word lines
@@ -18,9 +18,9 @@ import {
 function createMorphemesHash(wordLines) {
   return Object.entries(wordLines)
   .reduce((hash, [code, data]) => {
-    hash[code] = tokenizeWord(data); // eslint-disable-line no-param-reassign
-    return hash;
-  }, {});
+    hash[code] = tokenizeWord(data)  
+    return hash
+  }, {})
 }
 
 /**
@@ -30,8 +30,8 @@ function createMorphemesHash(wordLines) {
  * @return {Array}
  */
 function difference(a, b) {
-  const s = new Set(b);
-  return a.filter(x => !s.has(x));
+  const s = new Set(b)
+  return a.filter(x => !s.has(x))
 }
 
 /**
@@ -42,10 +42,10 @@ function difference(a, b) {
 function tokenizeWord(string) {
 
   // NOTE: Using the unicode escape \u005D is necessary here for Babel to transpile the regexp correctly
-  const morphemeRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^-=~\s]+)/gu;
+  const morphemeRegExp = /(?<bracketed>\[.*?\u005D)|(?<unbracketed>[^-=~\s]+)/gu
 
   return Array.from(string.matchAll(morphemeRegExp))
-  .map(([result]) => result);
+  .map(([result]) => result)
 
 }
 
@@ -58,43 +58,43 @@ function tokenizeWord(string) {
  */
 export default function parseMorphemes(codes, wordHash, orthography) {
 
-  const morphemeLines = getLines([codes.gl, codes.m], wordHash);
+  const morphemeLines = getLines([codes.gl, codes.m], wordHash)
 
-  if (!morphemeLines) return [];
+  if (!morphemeLines) return []
 
-  const morphemesHash = createMorphemesHash(morphemeLines);
+  const morphemesHash = createMorphemesHash(morphemeLines)
 
-  validateNumItems(morphemesHash);
+  validateNumItems(morphemesHash)
 
   let morphemes = zip(morphemesHash)
   .flatMap(morpheme => separateInfix(codes.gl, morpheme))
   .map(data => {
 
-    const gloss       = groupLines(codes.gl, data);
-    let transcription = groupLines(codes.m, data) || ``;
-    transcription     = removeBrackets(`infix`, transcription);
+    const gloss       = groupLines(codes.gl, data)
+    let transcription = groupLines(codes.m, data) || ``
+    transcription     = removeBrackets(`infix`, transcription)
 
-    if (typeof transcription === `string`) transcription = { [orthography]: transcription };
+    if (typeof transcription === `string`) transcription = { [orthography]: transcription }
 
     return {
       transcription,
       ...gloss ? { gloss } : {},
-    };
+    }
 
-  });
+  })
 
-  if (!morphemes.length) return [];
+  if (!morphemes.length) return []
 
-  const duplicateMorphemes = getDuplicateMorphemes(morphemes);
+  const duplicateMorphemes = getDuplicateMorphemes(morphemes)
 
-  morphemes = difference(morphemes, duplicateMorphemes.flat());
+  morphemes = difference(morphemes, duplicateMorphemes.flat())
 
   const discontinuousMorphemes = duplicateMorphemes.map(dups => ({
     transcription: mergeTranscriptions(dups.map(({ transcription }) => transcription), `…`),
     analysis:      dups[0].analysis, // eslint-disable-line sort-keys
     gloss:         dups[0].gloss,
-  }));
+  }))
 
-  return [...morphemes, ...discontinuousMorphemes];
+  return [...morphemes, ...discontinuousMorphemes]
 
 }

@@ -4,5 +4,5 @@
  * @return {Boolean}
  */
 export default function isValidCode(str) {
-  return /^[-A-Za-z0-9]+$/u.test(str);
+  return /^[-A-Za-z0-9]+$/u.test(str)
 }

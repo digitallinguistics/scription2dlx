@@ -1,4 +1,4 @@
-import { isString } from '../../utilities/types/index.js';
+import { isString } from '../../utilities/types/index.js'
 
 /**
  * Check for duplicate glosses on a specific line in a set of morphemes, and return an array of the duplicates
@@ -8,19 +8,19 @@ import { isString } from '../../utilities/types/index.js';
  */
 function getDuplicateGlosses(code, morphemes) {
 
-  if (!morphemes.length) return [];
+  if (!morphemes.length) return []
 
-  const glosses = morphemes.map(({ gloss }) => (code === `string` ? gloss : gloss[code]));
+  const glosses = morphemes.map(({ gloss }) => code === `string` ? gloss : gloss[code])
 
   const glossCounts = glosses.reduce((counts, gl) => {
-    const currentCount = counts.get(gl) || 0;
-    counts.set(gl, currentCount + 1);
-    return counts;
-  }, new Map);
+    const currentCount = counts.get(gl) || 0
+    counts.set(gl, currentCount + 1)
+    return counts
+  }, new Map)
 
   return Array.from(glossCounts.entries())
   .filter(([, count]) => count > 1)
-  .map(([gl]) => gl);
+  .map(([gl]) => gl)
 
 }
 
@@ -31,19 +31,19 @@ function getDuplicateGlosses(code, morphemes) {
  */
 export default function getDuplicateMorphemes(morphemes) {
 
-  const [{ gloss }] = morphemes;
+  const [{ gloss }] = morphemes
 
-  if (!gloss) return [];
+  if (!gloss) return []
 
-  const isBareString     = isString(gloss);
-  const glossToCheck     = isBareString ? `string` : Object.keys(gloss)[0];
-  const duplicateGlosses = getDuplicateGlosses(glossToCheck, morphemes);
+  const isBareString     = isString(gloss)
+  const glossToCheck     = isBareString ? `string` : Object.keys(gloss)[0]
+  const duplicateGlosses = getDuplicateGlosses(glossToCheck, morphemes)
 
-  if (!duplicateGlosses) return [];
+  if (!duplicateGlosses) return []
 
   return duplicateGlosses.map(gl => morphemes.filter(({ gloss: g }) => {
-    if (isString(g)) return g === gl;
-    return g[glossToCheck] === gl;
-  }));
+    if (isString(g)) return g === gl
+    return g[glossToCheck] === gl
+  }))
 
 }

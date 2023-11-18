@@ -1,5 +1,5 @@
-import { brackets as bracketTypes } from './constants/index.js';
-import { isString }                 from './types/index.js';
+import { brackets as bracketTypes } from './constants/index.js'
+import { isString }                 from './types/index.js'
 
 /**
  * Removes leading/trailing brackets/symbols from a string
@@ -11,10 +11,10 @@ import { isString }                 from './types/index.js';
 function trimBrackets(start, end, str) {
 
   if (str.startsWith(start) && str.endsWith(end)) {
-    return str.slice(1, str.length - 1).trim();
+    return str.slice(1, str.length - 1).trim()
   }
 
-  return str;
+  return str
 
 }
 
@@ -26,15 +26,15 @@ function trimBrackets(start, end, str) {
  */
 export default function removeBrackets(type, data) {
 
-  if (type === `tln`) return removeBrackets(`tlnCurly`, removeBrackets(`tlnStraight`, data));
+  if (type === `tln`) return removeBrackets(`tlnCurly`, removeBrackets(`tlnStraight`, data))
 
-  const brackets = bracketTypes[type];
+  const brackets = bracketTypes[type]
 
-  if (isString(data)) return trimBrackets(...brackets, data);
+  if (isString(data)) return trimBrackets(...brackets, data)
 
   const trimmedEntries = Object.entries(data)
-  .map(([lang, text]) => [lang, trimBrackets(...brackets, text)]);
+  .map(([lang, text]) => [lang, trimBrackets(...brackets, text)])
 
-  return Object.fromEntries(trimmedEntries);
+  return Object.fromEntries(trimmedEntries)
 
 }

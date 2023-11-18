@@ -20,4 +20,4 @@ export default {
   s:    `s`,
   t:    `t`,
   n:    `n`,
-};
+}

@@ -4,6 +4,6 @@
  * @return {String}      The line type
  */
 export default function getLineType(code) {
-  const [type] = code.split(`-`, 1);
-  return type;
+  const [type] = code.split(`-`, 1)
+  return type
 }

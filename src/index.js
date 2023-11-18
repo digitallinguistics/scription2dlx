@@ -1,7 +1,7 @@
-import { lineCodes as defaultCodes } from './utilities/constants/index.js';
-import { isString }                  from './utilities/types/index.js';
-import parseHeader                   from './parseHeader.js';
-import parseUtterances               from './parseUtterances.js';
+import { lineCodes as defaultCodes } from './utilities/constants/index.js'
+import { isString }                  from './utilities/types/index.js'
+import parseHeader                   from './parseHeader.js'
+import parseUtterances               from './parseUtterances.js'
 
 /**
  * Converts a scription-format text to DLx format
@@ -17,24 +17,24 @@ export default function scription2dlx(scription = ``, {
   utteranceMetadata = true,
 } = {}) {
 
-  if (scription.trim() === ``) return {};
+  if (scription.trim() === ``) return {}
 
   if (!(codes instanceof Object && Object.values(codes).every(isString))) {
-    const e = new TypeError(`The "codes" option must be an Object whose values are Strings.`);
-    e.name  = `InvalidCodesHashError`;
-    throw e;
+    const e = new TypeError(`The "codes" option must be an Object whose values are Strings.`)
+    e.name  = `InvalidCodesHashError`
+    throw e
   }
 
   const options = {
     errors,
     orthography,
     utteranceMetadata,
-  };
+  }
 
-  const lineCodes  = Object.assign({}, defaultCodes, codes);
-  const header     = parseHeader(scription, parser);
-  const utterances = parseUtterances(scription, lineCodes, options);
+  const lineCodes  = Object.assign({}, defaultCodes, codes)
+  const header     = parseHeader(scription, parser)
+  const utterances = parseUtterances(scription, lineCodes, options)
 
-  return { ...header, utterances };
+  return { ...header, utterances }
 
 }
