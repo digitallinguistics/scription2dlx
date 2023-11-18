@@ -1,4 +1,4 @@
-import { groupLines } from '../utilities/index.js'
+import groupLines from '../utilities/groupLines.js'
 
 /**
  * Extracts, validates, and cleans the transcript lines from the lines hash

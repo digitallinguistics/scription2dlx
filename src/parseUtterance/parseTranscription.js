@@ -1,8 +1,6 @@
-import {
-  groupLines,
-  removeBrackets,
-  removeEmphasis,
-} from '../utilities/index.js'
+import groupLines     from '../utilities/groupLines.js'
+import removeBrackets from '../utilities/removeBrackets.js'
+import removeEmphasis from '../utilities/removeEmphasis.js'
 
 /**
  * Extracts, validates, and cleans the transcription lines from the lines hash

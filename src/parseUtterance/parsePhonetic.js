@@ -1,7 +1,5 @@
-import {
-  removeBrackets,
-  removeEmphasis,
-} from '../utilities/index.js'
+import removeBrackets from '../utilities/removeBrackets.js'
+import removeEmphasis from '../utilities/removeEmphasis.js'
 
 /**
  * Cleans and validates the phonetic line

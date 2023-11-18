@@ -1,4 +1,4 @@
-import { getLines }      from '../utilities/index.js'
+import getLines          from '../utilities/getLines.js'
 import { isLanguageTag } from '../utilities/types/index.js'
 
 /**

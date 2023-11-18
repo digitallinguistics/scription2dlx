@@ -1,4 +1,4 @@
-import { getSchema }  from './utilities/index.js'
+import getSchema      from './utilities/getSchema.js'
 import parseUtterance from './parseUtterance/index.js'
 
 function splitUtterance(rawUtterance) {

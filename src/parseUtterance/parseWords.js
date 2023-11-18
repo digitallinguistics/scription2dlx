@@ -1,13 +1,10 @@
-import parseMorphemes from './parseMorphemes/index.js'
-import { wordTypes }  from '../utilities/constants/index.js'
-import zip            from '../utilities/js/zip.js'
-
-import {
-  getLines,
-  groupLines,
-  removeEmphasis,
-  validateNumItems,
-} from '../utilities/index.js'
+import getLines         from '../utilities/getLines.js'
+import groupLines       from '../utilities/groupLines.js'
+import parseMorphemes   from './parseMorphemes/index.js'
+import removeEmphasis   from '../utilities/removeEmphasis.js'
+import validateNumItems from '../utilities/validateNumItems.js'
+import { wordTypes }    from '../utilities/constants/index.js'
+import zip              from '../utilities/js/zip.js'
 
 /**
  * Parses the word hash into a DLx Word object
@@ -70,7 +67,7 @@ export default function parseWords(codesHash, lines, orthography) {
   // tokenizes the words in each line
   const wordsHash = Object.entries(wordLines)
   .reduce((hash, [code, data]) => {
-    hash[code] = tokenizeLine(data)  
+    hash[code] = tokenizeLine(data)
     return hash
   }, {})
 

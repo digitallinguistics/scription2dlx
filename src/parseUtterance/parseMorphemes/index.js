@@ -2,13 +2,11 @@ import getDuplicateMorphemes from './getDuplicateMorphemes.js'
 import separateInfix         from './separateInfix.js'
 import zip                   from '../../utilities/js/zip.js'
 
-import {
-  getLines,
-  groupLines,
-  mergeTranscriptions,
-  removeBrackets,
-  validateNumItems,
-} from '../../utilities/index.js'
+import getLines            from '../../utilities/getLines.js'
+import groupLines          from '../../utilities/groupLines.js'
+import mergeTranscriptions from '../../utilities/mergeTranscriptions.js'
+import removeBrackets      from '../../utilities/removeBrackets.js'
+import validateNumItems    from '../../utilities/validateNumItems.js'
 
 /**
  * Creates a morphemes hash of line codes and an array of morphemes based on the word lines
@@ -18,7 +16,7 @@ import {
 function createMorphemesHash(wordLines) {
   return Object.entries(wordLines)
   .reduce((hash, [code, data]) => {
-    hash[code] = tokenizeWord(data)  
+    hash[code] = tokenizeWord(data)
     return hash
   }, {})
 }

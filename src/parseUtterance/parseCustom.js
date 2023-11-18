@@ -1,4 +1,4 @@
-import { getLineType } from '../utilities/index.js'
+import getLineType from '../utilities/getLineType.js'
 
 /**
  * Extracts any unspecified lines from the lines hash and returns them in an object

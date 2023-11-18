@@ -1,5 +1,5 @@
- 
-
+import getLineType         from '../utilities/getLineType.js'
+import mergeTranscriptions from '../utilities/mergeTranscriptions.js'
 import parseCustom        from './parseCustom.js'
 import parseDuration      from './parseDuration.js'
 import parseLiteral       from './parseLiteral.js'
@@ -12,11 +12,6 @@ import parseTranscript    from './parseTranscript.js'
 import parseTranscription from './parseTranscription.js'
 import parseTranslation   from './parseTranslation.js'
 import parseWords         from './parseWords.js'
-
-import {
-  getLineType,
-  mergeTranscriptions,
-} from '../utilities/index.js'
 
 /**
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
@@ -67,7 +62,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
       const data  = (match ? match.groups.lineData : line).trim()
 
       // replace a sequence of white space with a single space
-       
+
       hash[code] = data.replace(whiteSpaceRegExp, ` `)
 
       return hash

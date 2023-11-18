@@ -1,4 +1,4 @@
-import { getLineType } from '../../utilities/index.js'
+import getLineType from '../../utilities/getLineType.js'
 
 /**
  * Checks a Morpheme object for infixes, and returns an array of two morphemes if one is present
@@ -27,10 +27,10 @@ export default function separateInfix(glossLineCode, morpheme) {
 
     const { infix, pre, post } = data.match(infixRegExp).groups
 
-     
+
     i[code] = infix
     m[code] = `${ pre }${ post }`
-     
+
 
     return [i, m]
 
