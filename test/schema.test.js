@@ -109,7 +109,7 @@ describe(`interlinear gloss schema`, () => {
 
     const { utterances: [, utterance] } = convert(text)
 
-    expect(utterance.transcription.default).to.equal(``)
+    expect(utterance.transcription).to.not.exist
     expect(utterance.transcript.default).to.equal(transcript)
 
   })

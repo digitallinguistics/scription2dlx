@@ -123,13 +123,6 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     const misc = parseCustom(codesHash, lines)
     Object.assign(utterance, misc)
 
-    // Construct transcription if not already present
-
-    if (!utterance.transcription) {
-      const wordTranscriptions = utterance.words?.map(({ transcription: t }) => t) || []
-      utterance.transcription = mergeTranscriptions(wordTranscriptions, ` `)
-    }
-
     if (typeof utterance.transcription === `string`) {
       utterance.transcription = { [options.orthography]: utterance.transcription }
     }

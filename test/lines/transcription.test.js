@@ -5,7 +5,7 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`phomemic transcription (utterance)`, () => {
+describe(`phonemic transcription (utterance)`, () => {
 
   it(`should remove phonemic slashes`, () => {
 
@@ -41,7 +41,7 @@ describe(`phomemic transcription (utterance)`, () => {
 
   })
 
-  it(`should populate from the word transcriptions line`, () => {
+  it(`should *not* populate from the word transcriptions line`, () => {
 
     const text = `
     \\w  waxdungu   qasi
@@ -51,11 +51,13 @@ describe(`phomemic transcription (utterance)`, () => {
 
     const { utterances: [utterance] } = convert(text)
 
-    expect(utterance.transcription.default).to.equal(`waxdungu qasi`)
+    expect(utterance.transcription).to.not.exist
 
   })
 
   it(`removes extraneous whitespace`, () => {
+
+    // It should *not* treat a double line break as extra space, but rather a new utterance.
 
     const text = `
     \\txn waxdungu     qasi
@@ -68,7 +70,7 @@ describe(`phomemic transcription (utterance)`, () => {
     const { utterances: [u1, u2] } = convert(text)
 
     expect(u1.transcription.default).to.equal(`waxdungu qasi`)
-    expect(u2.transcription.default).to.equal(``)
+    expect(u2.transcription).to.not.exist
 
   })
 
