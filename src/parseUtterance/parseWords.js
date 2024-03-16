@@ -81,8 +81,10 @@ export default function parseWords(codesHash, lines, options) {
   const words     = wordsData.map(data => parseWord(codesHash, data, options))
 
   for (const word of words) {
-    word.analysis &&= removeBrackets(`grouping`, word.analysis)
-    word.gloss    &&= removeBrackets(`grouping`, word.gloss)
+    word.analysis      &&= removeBrackets(`grouping`, word.analysis)
+    word.gloss         &&= removeBrackets(`grouping`, word.gloss)
+    word.literal       &&= removeBrackets(`grouping`, word.literal)
+    word.transcription &&= removeBrackets(`grouping`, word.transcription)
   }
 
   return words

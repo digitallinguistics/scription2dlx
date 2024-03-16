@@ -5,9 +5,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`literal word translation (word: \\wlt)`, () => {
+describe(`literal word translation (word: \\wlt)`, function() {
 
-  it(`does not allow literal glosses with whitespace (unless bracketed)`, () => {
+  it(`does not allow literal glosses with whitespace (unless bracketed)`, function() {
 
     const text = `
     \\m   waxt-qungu qasi
@@ -21,7 +21,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
   })
 
-  it(`may be in multiple languages`, () => {
+  it(`may be in multiple languages`, function() {
 
     const en = `one.day`
     const es = `un.día`
@@ -40,7 +40,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
   })
 
-  it(`must have valid ISO language tags`, () => {
+  it(`must have valid ISO language tags`, function() {
 
     const text = `
     \\m       waxt-qungu qasi
@@ -54,7 +54,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
   })
 
-  it(`does not remove brackets`, () => {
+  it(`removes grouping brackets`, function() {
 
     const text = `
     \\m   waxt-qungu qasi
@@ -64,7 +64,7 @@ describe(`literal word translation (word: \\wlt)`, () => {
 
     const { utterances: [{ words: [{ literal }] }] } = convert(text)
 
-    expect(literal).to.equal(`[one day]`)
+    expect(literal).to.equal(`one day`)
 
   })
 

@@ -1,9 +1,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`phonemic transcription (word)`, () => {
+describe(`phonemic transcription (word)`, function() {
 
-  it(`may be in multiple orthographies`, () => {
+  it(`may be in multiple orthographies`, function() {
 
     const mod  = `waxdungu`
     const swad = `wašdungu`
@@ -22,7 +22,7 @@ describe(`phonemic transcription (word)`, () => {
 
   })
 
-  it(`default orthography`, () => {
+  it(`default orthography`, function() {
 
     const text = `
     \\w  waxdungu
@@ -35,7 +35,20 @@ describe(`phonemic transcription (word)`, () => {
 
   })
 
-  it(`option: orthography`, () => {
+  it(`strips brackets from grouped words`, function() {
+
+    const text = `
+    \\txn waqank hi qucinaqa
+    \\w   waqank     [hi qucinaqa]
+    \\wlt other.side they.made.it.to
+    \\tln they made it to the other (side)`
+
+    const { utterances: [{ words: [, word] }] } = convert(text)
+    expect(word.transcription.default).to.equal(`hi qucinaqa`)
+
+  })
+
+  it(`option: orthography`, function() {
 
     const text = `
     \\w  waxdungu
