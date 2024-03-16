@@ -5,9 +5,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`glosses`, () => {
+describe(`glosses`, function() {
 
-  it(`may be in multiple languages`, () => {
+  it(`may be in multiple languages`, function() {
 
     const text = `
     \\m     waxt-qungu qasi
@@ -21,7 +21,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`must have valid ISO language tags`, () => {
+  it(`must have valid ISO language tags`, function() {
 
     const text = `
     \\m      waxt-qungu qasi
@@ -35,7 +35,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`may separate words with one or more white spaces or tabs`, () => {
+  it(`may separate words with one or more white spaces or tabs`, function() {
 
     const text = `
     \\m  waxt-qungu  qasi
@@ -48,7 +48,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`must be present when the morphemes line is present`, () => {
+  it(`must be present when the morphemes line is present`, function() {
 
     const text = `
     \\m   waxt-qungu qasi
@@ -61,7 +61,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`treats morphemes as grammatical when written in CAPS`, () => {
+  it(`treats morphemes as grammatical when written in CAPS`, function() {
 
     const text = `
     \\m  ni-na-ku-pend-a
@@ -76,7 +76,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`parses reduplication`, () => {
+  it(`parses reduplication`, function() {
 
     // Hebrew, Tagalog, Tagalog
 
@@ -100,7 +100,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`parses infixes`, () => {
+  it(`parses infixes`, function() {
 
     // Tagalog, Latin
 
@@ -145,7 +145,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`parses discontinuous morphology`, () => {
+  it(`parses discontinuous morphology`, function() {
 
     // Lakota, Darfur Arabic
 
@@ -182,7 +182,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`parses clitics`, () => {
+  it(`parses clitics`, function() {
 
     const text = `
     stem=A B=stem=C
@@ -201,7 +201,22 @@ describe(`glosses`, () => {
 
   })
 
-  it(`may group multiple words with [square brackets]`, () => {
+  it(`may group multiple words with [square brackets]`, function() {
+
+    const text = `
+    \\txn waqank hi qucinaqa
+    \\m   waqa=nk   [hi qucinaqa]
+    \\gl  other=LOC they.made.it.to
+    \\tln they made it to the other (side)`
+
+    const { utterances: [{ words: [, word] }] } = convert(text)
+
+    expect(word.analysis.default).to.equal(`hi qucinaqa`)
+    expect(word.gloss).to.equal(`they.made.it.to`)
+
+  })
+
+  it(`may group multiple glosses with [square brackets]`, function() {
 
     const text = `
     waxdungu  qasi
@@ -212,12 +227,11 @@ describe(`glosses`, () => {
     const { utterances: [{ words: [word] }] } = convert(text)
 
     expect(word.analysis.default).to.equal(`waxdungu`)
-    expect(word.gloss).to.equal(`[one day]`)
+    expect(word.gloss).to.equal(`one day`)
 
   })
 
-
-  it(`tokenizes words and morphemes correctly`, () => {
+  it(`tokenizes words and morphemes correctly`, function() {
 
     const text = `
     \\m  a~b     c           [d f]    []
@@ -242,7 +256,7 @@ describe(`glosses`, () => {
     // Word 2
 
     expect(w2.analysis.default).to.equal(`c`)
-    expect(w2.gloss).to.equal(`[NAME NAME]`)
+    expect(w2.gloss).to.equal(`NAME NAME`)
 
     const [w2m] = w2.morphemes
 
@@ -251,7 +265,7 @@ describe(`glosses`, () => {
 
     // Word 3
 
-    expect(w3.analysis.default).to.equal(`[d f]`)
+    expect(w3.analysis.default).to.equal(`d f`)
     expect(w3.gloss).to.equal(`compound`)
 
     const [w3m] = w3.morphemes
@@ -261,7 +275,7 @@ describe(`glosses`, () => {
 
     // Word 4
 
-    expect(w4.analysis.default).to.equal(`[]`)
+    expect(w4.analysis.default).to.equal(``)
     expect(w4.gloss).to.equal(`null`)
 
     const [w4m] = w4.morphemes
@@ -272,7 +286,7 @@ describe(`glosses`, () => {
   })
 
 
-  it(`populates both word and morpheme glosses`, () => {
+  it(`populates both word and morpheme glosses`, function() {
 
     const text = `
     \\m  waxt-qungu qasi
@@ -305,7 +319,7 @@ describe(`glosses`, () => {
 
   })
 
-  it(`strips emphasis`, () => {
+  it(`strips emphasis`, function() {
 
     const withEmphasis    = `*waxt*-qungu`
     const withoutEmphasis = `waxt-qungu`

@@ -1,6 +1,7 @@
 import getLines         from '../utilities/getLines.js'
 import groupLines       from '../utilities/groupLines.js'
 import parseMorphemes   from './parseMorphemes/index.js'
+import removeBrackets   from '../utilities/removeBrackets.js'
 import removeEmphasis   from '../utilities/removeEmphasis.js'
 import validateNumItems from '../utilities/validateNumItems.js'
 import { wordTypes }    from '../utilities/constants/index.js'
@@ -76,7 +77,14 @@ export default function parseWords(codesHash, lines, options) {
 
   validateNumItems(wordsHash)
 
-  return zip(wordsHash)
-  .map(wordData => parseWord(codesHash, wordData, options))
+  const wordsData = zip(wordsHash)
+  const words     = wordsData.map(data => parseWord(codesHash, data, options))
+
+  for (const word of words) {
+    word.analysis &&= removeBrackets(`grouping`, word.analysis)
+    word.gloss    &&= removeBrackets(`grouping`, word.gloss)
+  }
+
+  return words
 
 }

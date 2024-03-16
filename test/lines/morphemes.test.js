@@ -5,9 +5,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`morphemes`, () => {
+describe(`morphemes`, function() {
 
-  it(`may be in multiple orthographies`, () => {
+  it(`may be in multiple orthographies`, function() {
 
     const text = `
     \\m-swad wašt-ʔungu  ʔasi
@@ -22,7 +22,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`may separate words by one or more white spaces or tabs`, () => {
+  it(`may separate words by one or more white spaces or tabs`, function() {
 
     const text = `
     \\m-swad wašt-ʔungu\t\tʔasi
@@ -36,7 +36,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`must have the same number of morphemes in each word as the glosses line`, () => {
+  it(`must have the same number of morphemes in each word as the glosses line`, function() {
 
     const text = `
     \\m  waxdungu qasi
@@ -49,7 +49,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`treats non-breaking hyphens as word characters`, () => {
+  it(`treats non-breaking hyphens as word characters`, function() {
 
     const text = `
     \\m  waxt‑qungu qasi
@@ -62,7 +62,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`must be present if the glosses line is present`, () => {
+  it(`must be present if the glosses line is present`, function() {
 
     const text = `
     \\txn waxdungu qasi
@@ -75,7 +75,7 @@ describe(`morphemes`, () => {
 
   })
 
-  it(`may group multiple words with [square brackets]`, () => {
+  it(`may group multiple words with [square brackets]`, function() {
 
     const text = `
     waxt-qungu qasi [Benjamin Paul]
@@ -86,7 +86,7 @@ describe(`morphemes`, () => {
     const { utterances: [{ words }] } = convert(text)
     const lastWord = words.pop()
 
-    expect(lastWord.analysis.default).to.equal(`[Benjamin Paul]`)
+    expect(lastWord.analysis.default).to.equal(`Benjamin Paul`)
     expect(lastWord.gloss).to.equal(`NAME`)
 
   })

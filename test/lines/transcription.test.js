@@ -5,9 +5,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`phonemic transcription (utterance)`, () => {
+describe(`phonemic transcription (utterance)`, function() {
 
-  it(`should remove phonemic slashes`, () => {
+  it(`should remove phonemic slashes`, function() {
 
     const transcription = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`
 
@@ -22,7 +22,7 @@ describe(`phonemic transcription (utterance)`, () => {
 
   })
 
-  it(`may have multiple orthographies`, () => {
+  it(`may have multiple orthographies`, function() {
 
     const SwadeshTranscription = `wetkš hus na·nča·kamankš wetk hi hokmiʔi`
     const APATranscription     = `wetkš hus naːnčaːkamankš wetk hi hokmiʔi`
@@ -41,7 +41,7 @@ describe(`phonemic transcription (utterance)`, () => {
 
   })
 
-  it(`should *not* populate from the word transcriptions line`, () => {
+  it(`should *not* populate from the word transcriptions line`, function() {
 
     const text = `
     \\w  waxdungu   qasi
@@ -55,7 +55,7 @@ describe(`phonemic transcription (utterance)`, () => {
 
   })
 
-  it(`removes extraneous whitespace`, () => {
+  it(`removes extraneous whitespace`, function() {
 
     // It should *not* treat a double line break as extra space, but rather a new utterance.
 
@@ -100,7 +100,7 @@ describe(`phonemic transcription (utterance)`, () => {
 
   })
 
-  it(`default orthography`, () => {
+  it(`default orthography`, function() {
 
     const text = `
     waxdungu qasi
@@ -112,7 +112,7 @@ describe(`phonemic transcription (utterance)`, () => {
 
   })
 
-  it(`option: orthography`, () => {
+  it(`option: orthography`, function() {
 
     const text = `
     waxdungu qasi
