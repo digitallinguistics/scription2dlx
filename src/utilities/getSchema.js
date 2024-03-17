@@ -72,12 +72,26 @@ function validateSchema(schema) {
 
   // Check that morphemes and glosses lines are codependent
 
-  const hasMorphemes = types.some(type => type === `m`)
+  const hasWordTxn   = types.some(type => type === `w`)
   const hasGlosses   = types.some(type => type === `gl`)
+  const hasWordLit   = types.some(type => type === `wlt`)
+  const hasMorphemes = types.some(type => type === `m`)
 
-  if ((hasMorphemes || hasGlosses) && !(hasMorphemes && hasGlosses)) {
-    const e = new Error(`If either the morphemes or glosses line is present, the other must be present as well.`)
-    e.name = `MorphemeGlossDependencyError`
+  if (hasMorphemes && !(hasGlosses || hasWordLit)) {
+    const e = new Error(`If the morphemes line is present, either the gloses line or literal word translation line must be present as well.`)
+    e.name = `MorphemeDependencyError`
+    throw e
+  }
+
+  if (hasGlosses && !hasMorphemes) {
+    const e = new Error(`If the glosses line is present, the morphemes line must be present as well.`)
+    e.name = `MorphemeDependencyError`
+    throw e
+  }
+
+  if (hasWordLit && !(hasWordTxn || hasMorphemes)) {
+    const e = new Error(`If the literal word translation line is present, another word-level line must be present as well.`)
+    e.name = `MorphemeDependencyError`
     throw e
   }
 

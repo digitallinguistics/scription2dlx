@@ -75,6 +75,45 @@ describe(`morphemes`, function() {
 
   })
 
+  it(`must cooccur with either the glosses line or literal word translation line`, function() {
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\tln one day a man
+    `
+
+    const test = () => convert(text)
+
+    expect(test).to.throw(/glosses/u)
+
+  })
+
+  it(`may cooccur with the glosses line`, function() {
+
+    const text = `
+    \\m  waxt-qungu qasi
+    \\gl day-one    man
+    `
+
+    const test = () => convert(text)
+
+    expect(test).not.to.throw()
+
+  })
+
+  it(`may cooccur with the literal word translation line`, function() {
+
+    const text = `
+    \\m   waxt-qungu qasi
+    \\wlt day-one    man
+    `
+
+    const test = () => convert(text)
+
+    expect(test).not.to.throw()
+
+  })
+
   it(`may group multiple words with [square brackets]`, function() {
 
     const text = `

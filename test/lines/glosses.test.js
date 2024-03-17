@@ -48,19 +48,6 @@ describe(`glosses`, function() {
 
   })
 
-  it(`must be present when the morphemes line is present`, function() {
-
-    const text = `
-    \\m   waxt-qungu qasi
-    \\tln one day a man
-    `
-
-    const test = () => convert(text)
-
-    expect(test).to.throw(/glosses/u)
-
-  })
-
   it(`treats morphemes as grammatical when written in CAPS`, function() {
 
     const text = `
