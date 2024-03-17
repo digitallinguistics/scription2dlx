@@ -5,9 +5,9 @@
 import convert from '../../src/index.js'
 import { expect }  from 'chai'
 
-describe(`transcript`, () => {
+describe(`transcript`, function() {
 
-  it(`may be in multiple formats`, () => {
+  it(`may be in multiple formats`, function() {
 
     const SwadeshTranscript = `wetkšˊ husˊ na·nča·kamankšˊ wetkˊ hi hokmiʔiˊ`
     const DFTTranscript     = `wetkš↗ hus↗ na·nča·kamankš↗ wetkˊ hi hokmiʔiˊ↗`
@@ -26,7 +26,7 @@ describe(`transcript`, () => {
 
   })
 
-  it(`retains emphasis`, () => {
+  it(`retains emphasis`, function() {
 
     const transcript = `*waxdungu* qasi`
 
@@ -45,7 +45,7 @@ describe(`transcript`, () => {
 
     const text = `
     \\trs we  qasi
-    \\wlt DET a.man
+    \\tln the man
     `
 
     const { utterances: [utterance] } = convert(text)
@@ -54,11 +54,11 @@ describe(`transcript`, () => {
 
   })
 
-  it(`default orthography`, () => {
+  it(`default orthography`, function() {
 
     const text = `
     \\trs waxdungu qasi
-    \\wlt one.day  a.man
+    \\tln one day a man
     `
 
     const { utterances: [utterance] } = convert(text)
@@ -66,11 +66,11 @@ describe(`transcript`, () => {
 
   })
 
-  it(`option: orthography`, () => {
+  it(`option: orthography`, function() {
 
     const text = `
     \\trs waxdungu qasi
-    \\wlt one.day  a.man
+    \\tln one day a man
     `
 
     const { utterances: [utterance] } = convert(text, { orthography: `Mod` })

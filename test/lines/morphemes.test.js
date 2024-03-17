@@ -84,7 +84,7 @@ describe(`morphemes`, function() {
 
     const test = () => convert(text)
 
-    expect(test).to.throw(/glosses/u)
+    expect(test).to.throw(/morphemes line/u)
 
   })
 
