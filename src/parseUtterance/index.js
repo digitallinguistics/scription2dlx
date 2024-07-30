@@ -1,17 +1,18 @@
 import getLineType         from '../utilities/getLineType.js'
 import mergeTranscriptions from '../utilities/mergeTranscriptions.js'
-import parseCustom        from './parseCustom.js'
-import parseDuration      from './parseDuration.js'
-import parseLiteral       from './parseLiteral.js'
-import parseMetadata      from './parseMetadata.js'
-import parseNotes         from './parseNotes.js'
-import parsePhonetic      from './parsePhonetic.js'
-import parseSource        from './parseSource.js'
-import parseSpeaker       from './parseSpeaker.js'
-import parseTranscript    from './parseTranscript.js'
-import parseTranscription from './parseTranscription.js'
-import parseTranslation   from './parseTranslation.js'
-import parseWords         from './parseWords.js'
+import parseCustom         from './parseCustom.js'
+import parseDuration       from './parseDuration.js'
+import parseLanguage       from './parseLanguage.js'
+import parseLiteral        from './parseLiteral.js'
+import parseMetadata       from './parseMetadata.js'
+import parseNotes          from './parseNotes.js'
+import parsePhonetic       from './parsePhonetic.js'
+import parseSource         from './parseSource.js'
+import parseSpeaker        from './parseSpeaker.js'
+import parseTranscript     from './parseTranscript.js'
+import parseTranscription  from './parseTranscription.js'
+import parseTranslation    from './parseTranslation.js'
+import parseWords          from './parseWords.js'
 
 /**
  * Parses an individual utterance as a string and returns it as a DLx Utterance object
@@ -72,6 +73,11 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
     // process individual lines
 
     const types = schema.map(getLineType)
+
+    // Language
+    if (types.includes(`lg`)) {
+      utterance.language = parseLanguage(lines[codesHash.lg])
+    }
 
     // Speaker
     if (types.includes(`sp`)) {

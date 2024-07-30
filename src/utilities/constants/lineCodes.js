@@ -7,6 +7,7 @@
  */
 export default {
   '#':  `#`,
+  lg:   `lg`,
   sp:   `sp`,
   trs:  `trs`,
   txn:  `txn`,
