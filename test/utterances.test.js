@@ -45,4 +45,30 @@ describe(`utterances`, () => {
 
   })
 
+  it(`may have empty lines`, function() {
+
+    const text = `
+    \\txn wetkš hus na·nča·kamankš wetk hi hokmiʔi
+    \\tln
+    `
+
+    const { utterances: [utterance] } = convert(text)
+
+    expect(utterance.translation).to.equal(``)
+
+  })
+
+  it(`returns null if all lines are empty`, function() {
+
+    const text = `
+    \\txn
+    \\tln
+    `
+
+    const { utterances } = convert(text)
+
+    expect(utterances.length).to.equal(0)
+
+  })
+
 })

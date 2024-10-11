@@ -66,7 +66,7 @@ export default function parseUtterance(rawLines, schema, codesHash, options) {
 
     // check for no data
 
-    const noData = !Object.values(lines).every(Boolean)
+    const noData = Object.values(lines).every(val => Boolean(val) === false)
 
     if (noData) return null
 
